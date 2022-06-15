@@ -1,0 +1,107 @@
+<div class="p-dialog-header p-px-0">
+  <span class="p-dialog-title">{{ title }}</span>
+  <div class="p-dialog-header-icons">
+    <button type="button" class="p-dialog-header-icon p-dialog-header-maximize p-link" (click)="cancel()">
+      <span class="p-dialog-header-close-icon pi pi-times"></span>
+    </button>
+  </div>
+</div>
+
+<div class="p-mt-2 p-dialog-body p-grid p-fluid">
+  <div class="p-col-3 p-md-3" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <input type="text" class="p-inputtext-sm" pInputText formControlName="code" />
+        <label for="inputtext">Mã vị trí<span style="color: red">*</span></label>
+      </span>
+      <f-errors [errors]="form.get('code')"></f-errors>
+    </div>
+  </div>
+  <div class="p-col-3 p-md-3" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <input type="text" class="p-inputtext-sm" pInputText formControlName="abbreviations" />
+        <label for="inputtext">Tên viết tắt<span style="color: red">*</span></label>
+      </span>
+      <f-errors [errors]="form.get('abbreviations')"></f-errors>
+    </div>
+  </div>
+  <div class="p-col-3 p-md-3" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <input type="text" class="p-inputtext-sm" pInputText formControlName="englishName" />
+        <label for="inputtext">Tên tiếng Anh<span style="color: red">*</span></label>
+      </span>
+      <f-errors [errors]="form.get('englishName')"></f-errors>
+    </div>
+  </div>
+  <div class="p-col-3 p-md-3" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <input type="text" class="p-inputtext-sm" pInputText formControlName="vietnameseName" />
+        <label for="inputtext">Tên tiếng Việt<span style="color: red">*</span></label>
+      </span>
+      <f-errors [errors]="form.get('vietnameseName')"></f-errors>
+    </div>
+  </div>
+
+  <div class="p-col-3 p-md-3" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <input type="text" class="p-inputtext-sm" pInputText formControlName="unitCode" />
+        <label for="inputtext">Mã đơn vị</label>
+      </span>
+    </div>
+  </div>
+  <div class="p-col-3 p-md-3" [formGroup]="form">
+    <span class="p-float-label">
+      <p-dropdown
+        class="p-inputtext-sm"
+        [options]="state!.titles"
+        formControlName="titleCode"
+        optionLabel="name"
+        optionValue="code"
+        [autoDisplayFirst]="false"
+      >
+      </p-dropdown>
+      <label for="icon">Chức danh</label>
+    </span>
+  </div>
+
+  <div class="p-col-3 p-md-3" [formGroup]="form">
+    <span class="p-float-label">
+      <p-dropdown
+        class="p-inputtext-sm"
+        [options]="state!.divisions"
+        formControlName="divisionCode"
+        optionLabel="name"
+        optionValue="code"
+        [autoDisplayFirst]="false"
+      >
+      </p-dropdown>
+      <label for="icon">Khối trục dọc</label>
+    </span>
+  </div>
+  <div class="p-col-1fa-rotate-270 p-md-12" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <textarea id="float-input" rows="3" formControlName="note" pInputTextarea></textarea>
+        <label for="float-input">Ghi chú</label>
+      </span>
+    </div>
+  </div>
+  <div class="p-col-3 p-md-3" [formGroup]="form">
+    <div class="p-field-checkbox">
+      <p-checkbox name="group1" formControlName="hasUnit" [binary]="true" inputId="ny"> </p-checkbox>
+      <label for="ny">Là chi nhánh</label>
+    </div>
+    <div class="p-field-checkbox" *ngIf="screenType == 1">
+      <p-checkbox name="group1" formControlName="changeCategory" [binary]="true" inputId="ny"> </p-checkbox>
+      <label for="ny">Cho phép thay đổi khối trục dọc</label>
+    </div>
+  </div>
+</div>
+<div class="p-dialog-footer p-p-0 p-mt-3">
+  <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="p-mr-2"></button>
+  <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
+</div>

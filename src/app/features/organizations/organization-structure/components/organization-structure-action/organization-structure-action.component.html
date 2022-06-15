@@ -1,0 +1,129 @@
+<div class="p-dialog-header p-px-0">
+  <span class="p-dialog-title">{{ title }}</span>
+  <div class="p-dialog-header-icons">
+    <button type="button" class="p-dialog-header-icon p-dialog-header-maximize p-link" (click)="cancel()">
+      <span class="p-dialog-header-close-icon pi pi-times"></span>
+    </button>
+  </div>
+</div>
+<h3 class="title-Or">Thông tin mô hình tổ chức</h3>
+<div class="p-grid p-fluid p-dialog-body p-mt-2">
+  <div class="p-col-12 p-md-4" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <input type="text" pInputText formControlName="organizationCode" />
+        <label for="inputtext">Mã MHTC<span style="color: red">*</span></label>
+      </span>
+      <f-errors [errors]="form.get('organizationCode')"></f-errors>
+    </div>
+  </div>
+
+  <div class="p-col-12 p-md-4" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <input type="text" pInputText formControlName="organizationName" />
+        <label for="inputtext">Tên MHTC<span style="color: red">*</span></label>
+      </span>
+      <f-errors [errors]="form.get('organizationName')"></f-errors>
+    </div>
+  </div>
+
+  <div class="p-col-12 p-md-4" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <input type="text" pInputText formControlName="determineNum" />
+        <label for="inputtext">Quyết định số<span style="color: red">*</span></label>
+      </span>
+      <f-errors [errors]="form.get('determineNum')"></f-errors>
+    </div>
+  </div>
+
+  <div class="p-col-12 p-md-3" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <input type="text" pInputText formControlName="signedPerson" />
+        <label for="inputtext">Người ký</label>
+      </span>
+      <f-errors [errors]="form.get('signedPerson')"></f-errors>
+    </div>
+  </div>
+
+  <div class="p-col-12 p-md-3" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <p-calendar
+          [readonlyInput]="true"
+          dateFormat="dd/mm/yy"
+          formControlName="signedDate"
+          [showIcon]="true"
+          inputId="icon"
+          appendTo="body"
+        >
+        </p-calendar>
+        <label for="inputtext">Ngày ký<span style="color: red">*</span></label>
+      </span>
+      <f-errors [errors]="form.get('signedDate')"></f-errors>
+    </div>
+  </div>
+
+  <div class="p-col-12 p-md-3" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <p-calendar
+          [readonlyInput]="true"
+          dateFormat="dd/mm/yy"
+          formControlName="startDate"
+          [showIcon]="true"
+          inputId="icon"
+          appendTo="body"
+        >
+        </p-calendar>
+        <label for="inputtext">Ngày bắt đầu<span style="color: red">*</span></label>
+      </span>
+      <f-errors [errors]="form.get('startDate')"></f-errors>
+    </div>
+  </div>
+
+  <div class="p-col-12 p-md-3" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <p-calendar
+          [readonlyInput]="true"
+          dateFormat="dd/mm/yy"
+          formControlName="endDate"
+          [showIcon]="true"
+          inputId="icon"
+          appendTo="body"
+        >
+        </p-calendar>
+        <label for="inputtext">Ngày kết thúc</label>
+      </span>
+      <f-errors [errors]="form.get('endDate')"></f-errors>
+    </div>
+  </div>
+
+  <div class="p-col-12" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <textarea id="float-input" rows="1" formControlName="note" pInputTextarea></textarea>
+        <label for="inputtext">Ghi chú</label>
+      </span>
+      <f-errors [errors]="form.get('note')"></f-errors>
+    </div>
+  </div>
+
+  <div class="p-col-12 p-md-2 mt-1" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <p-checkbox formControlName="status" [binary]="true"></p-checkbox>
+        <label style="margin-left: 1rem" for="inputtext">Trạng thái</label>
+      </span>
+      <f-errors [errors]="form.get('status')"></f-errors>
+    </div>
+  </div>
+</div>
+
+<div class="p-dialog-footer p-p-0 p-mt-3">
+  <button *ngIf="screenType !== 2" pButton (click)="save()" label="Lưu" icon="pi pi-check" class="p-mr-2"></button>
+  <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
+</div>

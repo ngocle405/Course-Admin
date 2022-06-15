@@ -1,0 +1,91 @@
+<div class="p-dialog-header">
+    <span class="p-dialog-title">{{ title }}</span>
+    <div class="p-dialog-header-icons">
+        <button type="button" class="p-dialog-header-icon p-dialog-header-maximize p-link" (click)="cancel()">
+            <span class="p-dialog-header-close-icon pi pi-times"></span>
+        </button>
+    </div>
+</div>
+<div class="p-mt-2 p-dialog-body p-grid p-fluid">
+
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+        <div class="p-field">
+            <span class="p-float-label">
+                <input type="tex" class="p-inputtext-sm" pInputText formControlName="name" />
+                <label for="inputtext">Họ và tên *</label>
+            </span>
+            <f-errors [errors]="form.get('name')"></f-errors>
+        </div>
+    </div>
+
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+        <div class="p-field">
+            <span class="p-float-label">
+                <input type="tex" class="p-inputtext-sm" pInputText formControlName="phone" />
+                <label for="inputtext">Điện thoại *</label>
+            </span>
+            <f-errors [errors]="form.get('phone')"></f-errors>
+        </div>
+    </div>
+
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+        <div class="p-field">
+            <span class="p-float-label">
+                <input type="tex" class="p-inputtext-sm" pInputText formControlName="email" />
+                <label for="inputtext">Email *</label>
+            </span>
+            <f-errors [errors]="form.get('email')"></f-errors>
+        </div>
+    </div>
+
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+        <div class="p-field">
+
+            <span class="p-float-label">
+                <p-dropdown class="p-inputtext-sm" [options]="state!.listAddressCompany" placeholder="Chọn trụ sở"
+                    formControlName="companyAddress" optionLabel="name" optionValue="value" [autoDisplayFirst]="false">
+                </p-dropdown>
+                <label for="inputtext">Trụ sở *</label>
+            </span>
+            <f-errors [errors]="form.get('companyAddress')"></f-errors>
+        </div>
+    </div>
+    <div class="p-md-3 p-lg-4" [formGroup]="form">
+        <span class="p-float-label">
+            <p-dropdown class="p-inputtext-sm" [options]="state!.getCourseList" placeholder="Chọn khóa học"
+                formControlName="courseId" optionLabel="courseName" optionValue="courseId" [autoDisplayFirst]="false">
+            </p-dropdown>
+            <label for="icon">Khóa học</label>
+
+        </span>
+        <f-errors [errors]="form.get('courseId')"></f-errors>
+    </div>
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+        <div class="p-field">
+            <span class="p-float-label">
+                <p-dropdown class="p-inputtext-sm" [options]="state!.listLevel" placeholder="Chọn trình độ"
+                    formControlName="level" optionLabel="name" optionValue="value" [autoDisplayFirst]="false">
+                </p-dropdown>
+                <label for="inputtext">Trình độ *</label>
+            </span>
+            <f-errors [errors]="form.get('level')"></f-errors>
+        </div>
+    </div>
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+        <div class="p-field">
+            <span class="p-float-label">
+                <p-dropdown class="p-inputtext-sm" [options]="state!.listKnow" placeholder="Câu trả lời"
+                    formControlName="know" optionLabel="name" optionValue="value" [autoDisplayFirst]="false">
+                </p-dropdown>
+                <label for="inputtext">Bạn biết MB ageas qua </label>
+            </span>
+        </div>
+    </div>
+    
+
+
+</div>
+<div class="p-dialog-footer p-p-0 p-mt-3">
+    <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="p-mr-2"></button>
+    <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
+</div>

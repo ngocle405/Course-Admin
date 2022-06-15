@@ -1,0 +1,144 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="card">
+  <div class="p-grid">
+    <div class="p-md-2 p-lg-2">
+      <span class="p-float-label">
+        <input inputId="name" type="text" class="p-inputtext-sm" [(ngModel)]="params.code" pInputText />
+        <label for="name">Mã code</label>
+      </span>
+    </div>
+    <div class="p-md-2 p-lg-2">
+      <span class="p-float-label">
+        <input inputId="name" type="text" class="p-inputtext-sm" [(ngModel)]="params.name" pInputText />
+        <label for="name">Tên vị trí</label>
+      </span>
+    </div>
+    <div class="p-md-2 p-lg-2">
+      <span class="p-float-label">
+        <input inputId="name" type="text" class="p-inputtext-sm" [(ngModel)]="params.organizationCode" pInputText />
+        <label for="name">Mã tổ chức</label>
+      </span>
+    </div>
+    <div class="p-md-2 p-lg-2">
+      <span class="p-float-label">
+        <input inputId="name" type="text" class="p-inputtext-sm" [(ngModel)]="params.unitCode" pInputText />
+        <label for="name">Mã đơn vị</label>
+      </span>
+    </div>
+    <div class="p-md-2 p-lg-2">
+      <span class="p-float-label">
+        <p-dropdown
+          class="p-inputtext-sm"
+          [options]="stateData!.titles"
+          [(ngModel)]="params.titleCode"
+          optionLabel="name"
+          optionValue="code"
+          [autoDisplayFirst]="false"
+        >
+        </p-dropdown>
+        <label for="icon">Chức vụ</label>
+      </span>
+    </div>
+
+    <div class="p-md-2 p-lg-2">
+      <span class="p-float-label">
+        <p-dropdown
+          class="p-inputtext-sm"
+          [options]="stateData!.status"
+          [(ngModel)]="params.status"
+          optionLabel="name"
+          optionValue="value"
+          [autoDisplayFirst]="false"
+        >
+        </p-dropdown>
+        <label for="icon">Trạng thái</label>
+      </span>
+    </div>
+  </div>
+  <p-toolbar styleClass="p-px-0 p-pt-0">
+    <div class="p-toolbar-group-left">
+      <div class="p-field">
+        <button
+          pButton
+          (click)="search()"
+          icon="pi pi-search"
+          pRipple
+          type="button"
+          label="Tìm kiếm"
+          class="p-button-success"
+        ></button>
+        <button
+          (click)="exportExcel()"
+          pButton
+          pRipple
+          label="Export"
+          icon="pi pi-download"
+          class="p-button-help p-ml-2"
+        ></button>
+        <p-button (click)="onReset()" icon="pi pi-replay" class="p-ml-2" styleClass="p-button-danger"></p-button>
+      </div>
+    </div>
+    <div class="p-toolbar-group-right">
+      <button pButton (click)="viewCreate()" label="New" icon="pi pi-plus" class="p-mr-2"></button>
+    </div>
+  </p-toolbar>
+  <p-table [value]="dataTable.content" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>STT</th>
+        <th>Mã vị trí</th>
+        <th>Tên viết tắt</th>
+        <th>Mã MHTC</th>
+        <th>Phiên bản mô hình</th>
+        <th>Đơn vị cấp 1</th>
+        <th>Đơn vị cấp 2</th>
+        <th>Đơn vị cấp 3</th>
+        <th>Đơn vị cấp 4</th>
+        <th>Chi nhánh</th>
+        <th>Trạng thái</th>
+        <th alignFrozen="right" pFrozenColumn>Thao tác</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
+      <tr>
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.code }}</td>
+        <td>{{ item.abbreviations }}</td>
+        <td>{{ item.organizationCode }}</td>
+        <td>{{ item.organizationStructureVersionCode }}</td>
+        <!-- <td>{{ item.units[0]?.unitCode?item.units[0]?.unitCode:'' }}</td>
+        <td>{{ item.units[1]?.unitCode?item.units[1]?.unitCode:'' }}</td>
+        <td>{{ item.units[2]?.unitCode?item.units[2]?.unitCode:'' }}</td>
+        <td>{{ item.units[3]?.unitCode?item.units[3]?.unitCode:'' }}</td> -->
+        <td>
+          <p-checkbox [readonly]="true" [(ngModel)]="item.hasUnit" [binary]="true"></p-checkbox>
+        </td>
+        <td>
+          <p-inputSwitch [readonly]="true" [(ngModel)]="item.status"></p-inputSwitch>
+        </td>
+        <td alignFrozen="right" pFrozenColumn>
+          <span routerLink="/mb-hris/organizations/job/job-description/{{ item.id }}" class="pointer p-mr-2">
+            <em class="las la-arrow-circle-right"></em>
+          </span>
+          <span class="pointer p-mr-2" (click)="viewDetail(item.id)">
+            <em class="las la-eye"></em>
+          </span>
+          <span class="pointer p-mr-2" (click)="viewEdit(item.id)">
+            <em class="las la-pen"></em>
+          </span>
+          <span class="pointer" (click)="deleteItem(item.id)">
+            <em class="las la-trash-alt"></em>
+          </span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-paginator
+    [showCurrentPageReport]="true"
+    [rows]="dataTable!.size"
+    [totalRecords]="dataTable!.totalElements"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    (onPageChange)="pageChange($event)"
+  ></p-paginator>
+</div>

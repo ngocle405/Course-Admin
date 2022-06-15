@@ -1,0 +1,109 @@
+<div class="p-dialog-header">
+    <span class="p-dialog-title">{{ title }}</span>
+    <div class="p-dialog-header-icons">
+      <button type="button" class="p-dialog-header-icon p-dialog-header-maximize p-link" (click)="cancel()">
+        <span class="p-dialog-header-close-icon pi pi-times"></span>
+      </button>
+    </div>
+  </div>
+  <div class="p-mt-2 p-dialog-body p-grid p-fluid">
+    <div class="p-col-12">
+        <h3 class="title-Or">THÔNG TIN hệ thống</h3>
+      </div>
+      <div class="p-col-3 p-md-4" [formGroup]="form">
+        <div class="p-field">
+          <span class="p-float-label">
+            <input class="p-inputtext-sm" pInputText formControlName="titleDefault">
+            <label for="inputtext">Tiêu đề mặc định <span class="requirds">*</span></label>
+          </span>
+          <f-errors [errors]="form.get('titleDefault')"></f-errors>
+        </div>
+      </div>
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+      <div class="p-field">
+        <span class="p-float-label">
+          <input type="tex" class="p-inputtext-sm" pInputText formControlName="address" />
+          <label for="inputtext">Địa chỉ <span class="requirds">*</span></label>
+        </span>
+        <f-errors [errors]="form.get('address')"></f-errors>
+      </div>
+    </div>
+  
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+      <div class="p-field">
+        <span class="p-float-label">
+          <input p-dialog-body type="text" formControlName="phone" class="p-inputtext-sm" pInputText />
+          <label for="inputtext">Điện thoại <span class="requirds">*</span></label>
+        </span>
+        <f-errors [errors]="form.get('phone')"></f-errors>
+  
+      </div>
+    </div>
+
+  
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+      <div class="p-field">
+        <span class="p-float-label">
+        <input class="p-inputtext-sm" pInputText formControlName="hotline1">
+          
+          <label for="inputtext">Hotline 1 <span class="requirds">*</span></label>
+        </span>
+        <f-errors [errors]="form.get('hotline1')"></f-errors>
+  
+      </div>
+    </div>
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+      <div class="p-field">
+        <span class="p-float-label">
+          <input p-dialog-body type="text" formControlName="hotline2" class="p-inputtext-sm" pInputText />
+          <label for="inputtext">Hotline 2<span class="requirds">*</span></label>
+        </span>
+        <f-errors [errors]="form.get('hotline2')"></f-errors>
+      </div>
+    </div>
+   
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+        <div class="p-field">
+          <span class="p-float-label">
+            <input p-dialog-body type="text" formControlName="information" class="p-inputtext-sm" pInputText />
+            <label for="inputtext">Thông tin chung</label>
+          </span>
+          <f-errors [errors]="form.get('information')"></f-errors>
+        </div>
+      </div>
+
+
+    <div class="p-col-3 p-md-12" [formGroup]="form">
+        <h3 class="title-Or">Logo</h3>
+      <div class="p-field">
+        <span class="p-float-label">
+          <p-fileUpload chooseLabel="Chọn ảnh" mode="advanced" [showUploadButton]="false" [maxFileSize]="10000000"
+            [multiple]="false" accept="image/*">
+            <ng-template pTemplate="content" *ngIf="hiddenImage">
+              <p-image src="http://localhost:53421/Upload/Files/{{image}}" alt="Image" width="50px"></p-image>
+            </ng-template>
+          </p-fileUpload>
+  
+        </span>
+  
+      </div>
+    </div>
+    <div class="p-col-3 p-md-12" [formGroup]="form">
+        <h3 class="title-Or">mô tả</h3>
+      <div class="p-field">
+        <span class="p-float-label">
+          <p-editor formControlName="description" placeholder="Nhập mô tả" [style]="{'height':'300px'}"></p-editor>
+        </span>
+      </div>
+    </div>
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+      <div class="p-field-checkbox">
+        <p-checkbox inputId="ny" formControlName="status" [binary]="true"> </p-checkbox>
+        <label for="ny">Trạng thái</label>
+      </div>
+    </div>
+  </div>
+  <div class="p-dialog-footer p-p-0 p-mt-3">
+    <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="p-mr-2"></button>
+    <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
+  </div>

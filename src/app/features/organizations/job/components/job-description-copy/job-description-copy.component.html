@@ -1,0 +1,38 @@
+<div class="p-dialog-header p-px-0">
+  <span class="p-dialog-title">{{ title }}</span>
+  <div class="p-dialog-header-icons">
+    <button type="button" class="p-dialog-header-icon p-dialog-header-maximize p-link" (click)="cancel()">
+      <span class="p-dialog-header-close-icon pi pi-times"></span>
+    </button>
+  </div>
+</div>
+<div class="p-mt-2 p-dialog-body p-grid p-fluid">
+  <div class="p-col-12 p-md-12" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <input type="text" class="p-inputtext-sm" pInputText formControlName="jobId" />
+        <label for="inputtext">Mã vị trí</label>
+      </span>
+      <f-errors [errors]="form.get('jobId')"></f-errors>
+    </div>
+  </div>
+  <div class="p-col-12 p-md-12" [formGroup]="form">
+    <div class="p-field">
+      <p-calendar
+        appendTo="body"
+        [readonlyInput]="true"
+        placeholder="Ngày bắt đầu"
+        dateFormat="dd/mm/yy"
+        formControlName="startDate"
+        [showIcon]="true"
+        inputId="icon"
+      >
+      </p-calendar>
+      <f-errors [errors]="form.get('startDate')"></f-errors>
+    </div>
+  </div>
+</div>
+<div class="p-dialog-footer p-p-0 p-mt-3">
+  <button pButton (click)="save()" label="Lưu" icon="pi pi-check" class="p-mr-2"></button>
+  <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
+</div>

@@ -1,0 +1,37 @@
+<div class="card">
+    <div class="title-1 mt-3">Đăng nhập để truy cập vào hệ thống <p-image src="../../../../assets/images/logo-mb.png" width="40" alt="Image"></p-image></div>
+
+
+    <div class="p-grid mt-5" style="height: 630px;">
+        <div class="p-col-4"></div>
+        <div class="p-col-4">
+            <div class="align-items-center">
+                <div class="" [formGroup]="form">
+                    <div class="p-field">
+                        <span class="p-float-label">
+                            <input type="tex" class="p-inputtext-sm" pInputText formControlName="userName" />
+                            <label for="inputtext">Tài khoản*</label>
+                        </span>
+                        <f-errors [errors]="form.get('userName')"></f-errors>
+                    </div>
+                </div>
+                <div class="" [formGroup]="form">
+                    <div class="p-field">
+                        <span class="p-float-label">
+                            <input p-dialog-body type="text" formControlName="password" class="p-inputtext-sm"
+                                pInputText />
+                            <label for="inputtext">Mật khẩu <span style="color: red;">*</span></label>
+                        </span>
+                        <f-errors [errors]="form.get('password')"></f-errors>
+
+                    </div>
+                </div>
+                <div class="p-dialog-footer p-p-0 p-mt-3">
+                    <button pButton (click)="onLogin()" label="Đăng nhập" icon="pi pi-check" class="p-mr-2"></button>
+                </div>
+                <p-toast></p-toast>
+            </div>
+        </div>
+    </div>
+
+</div>
