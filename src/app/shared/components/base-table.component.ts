@@ -105,7 +105,7 @@ export class BaseTableComponent<M> implements OnDestroy {
     this.service.search(<M>(<unknown>params)).subscribe({
       next: (data) => {
         this.dataTable = data;
-       
+       console.log(data)
         this.loading = false;
         this.prevParams = params;
       },

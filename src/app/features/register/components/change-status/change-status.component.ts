@@ -14,8 +14,8 @@ export class ChangeStatusComponent extends BaseActionComponent implements OnInit
     super(inject,service);
   }
   override form = this.fb!.group({
-    name :['',[Validators.required]],
-    status:['',Validators.required]
+    studentName :['',[Validators.required]],
+    status:[true,Validators.required]
   })
   ngOnInit(): void {
     this.form.patchValue(this.data);
@@ -28,7 +28,7 @@ export class ChangeStatusComponent extends BaseActionComponent implements OnInit
       },
       error: (err) => {
 
-        this.messageService!.error(err.error.message);
+        this.messageService!.error("có lỗi xảy ra");
       },
     });
   }

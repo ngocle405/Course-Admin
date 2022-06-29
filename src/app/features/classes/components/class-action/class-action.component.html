@@ -1,0 +1,77 @@
+<div class="p-dialog-header">
+    <span class="p-dialog-title">{{ title }}</span>
+    <div class="p-dialog-header-icons">
+      <button type="button" class="p-dialog-header-icon p-dialog-header-maximize p-link" (click)="cancel()">
+        <span class="p-dialog-header-close-icon pi pi-times"></span>
+      </button>
+    </div>
+  </div>
+  <div class="p-mt-2 p-dialog-body p-grid p-fluid">
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+        <div class="p-field">
+          <span class="p-float-label">
+            <input p-dialog-body type="text" formControlName="classCode" class="p-inputtext-sm"  pInputText />
+            <label for="inputtext">Mã lớp *</label>
+          </span>
+          <f-errors [errors]="form.get('classCode')"></f-errors>
+    
+        </div>
+      </div>
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+      <div class="p-field">
+        <span class="p-float-label">
+          <input type="tex" class="p-inputtext-sm" pInputText formControlName="className" />
+          <label for="inputtext">Tên lớp *</label>
+        </span>
+        <f-errors [errors]="form.get('className')"></f-errors>
+      </div>
+    </div>
+   
+ 
+      <div class="p-md-3 p-lg-4" [formGroup]="form">
+        <span class="p-float-label">
+            <p-dropdown class="p-inputtext-sm" placeholder="Chọn giáo viên" [options]="state!.listTeacher" formControlName="teacherId"
+            optionLabel="teacherName" optionValue="teacherId" [autoDisplayFirst]="false" appendTo="body">
+          </p-dropdown>
+          <label for="icon">Giáo viên chủ nhiệm</label>
+        </span>
+      </div>
+      <div class="p-col-3 p-md-4" [formGroup]="form">
+        <div class="p-field">
+          <span class="p-float-label">
+            <p-calendar class="p-inputtext-sm" [showIcon]="true" appendTo="body" (ngModelChange)="changStartDate($event)"
+            [readonlyInput]="true" dateFormat="dd/mm/yy" formControlName="startDate">
+  
+          </p-calendar>
+            <label for="inputtext">Ngày bắt đầu *</label>
+          </span>
+          <f-errors [errors]="form.get('startDate')"></f-errors>
+        </div>
+      </div>
+      <div class="p-col-3 p-md-4" [formGroup]="form">
+        <div class="p-field">
+          <span class="p-float-label">
+            <p-calendar class="p-inputtext-sm" [showIcon]="true" appendTo="body" [minDate]="maxDate" [disabled]="checkEndDate" 
+            [readonlyInput]="true" dateFormat="dd/mm/yy" formControlName="endDate">
+  
+          </p-calendar>
+            <label for="inputtext">Ngày kết thúc </label>
+          </span>
+         
+        </div>
+      </div>
+  
+
+   
+    
+    <div class="p-col-3 p-md-4" [formGroup]="form">
+      <div class="p-field-checkbox">
+        <p-checkbox name="group1" formControlName="status" [binary]="true" > </p-checkbox>
+        <label for="ny">Trạng thái</label>
+      </div>
+    </div>
+  </div>
+  <div class="p-dialog-footer p-p-0 p-mt-3">
+    <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="p-mr-2"></button>
+    <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
+  </div>

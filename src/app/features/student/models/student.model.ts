@@ -5,8 +5,11 @@ export interface StudentModel {
     studentCode: string;
     status?: string | boolean;
     gender?: number|string;
-    courseId?:string;
+    courseId?:string|null;
     courseName?:string;
+    searchName?:string;
+    searchCode:string;
+    classId:string;
 }
 export interface StateStudent {
     listStatus?: StateModel[];
@@ -15,4 +18,8 @@ export interface StateStudent {
 export interface StateModel {
     name: string;
     value?: string | boolean;
+}
+export interface ClasstModel {
+    classId: string;
+    className: string;
 }

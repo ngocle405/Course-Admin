@@ -20,7 +20,8 @@ export class NewListComponent extends BaseTableComponent<NewModel> {
   override params: NewModel = {
     searchName:'',
     newCategoryId:'',
-    title:''
+    title:'',
+    newCategoryName:''
   };
   onReset(){
     setTimeout(() => {
@@ -36,6 +37,9 @@ export class NewListComponent extends BaseTableComponent<NewModel> {
       component:NewActionComponent
     }
   };
+  override mapState():void{
+    this.stateData?.newCategories.unshift({ newCategoryName: 'Tất cả', newCategoryId: '' });
+  }
   ngOnInit(): void {//khởi tạo rỗng ở oninit để tránh underfil trong thời gian đợi gọi api (tránh lỗi)
    
     if (!this.stateData) {

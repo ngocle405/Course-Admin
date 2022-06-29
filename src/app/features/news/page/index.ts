@@ -1,4 +1,4 @@
-import { from } from "rxjs";
+
 import { NewListComponent } from "./new-list/new-list.component";
 
 export const pages=[NewListComponent]

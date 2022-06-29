@@ -1,51 +1,31 @@
 <app-loading *ngIf="loading"></app-loading>
 <div class="card">
   <div class="p-grid">
-    <div class="p-md-3 p-lg-3">
+    <div class="p-md-3 p-lg-4">
       <span class="p-float-label">
-        <input inputId="name" type="text" class="p-inputtext-sm" [(ngModel)]="params.searchCode" pInputText />
-        <label for="name">Mã học viên</label>
+        <input inputId="name" type="text" class="p-inputtext-sm" [(ngModel)]="params.searchName" pInputText />
+        <label for="name">Tiêu đề</label>
       </span>
     </div>
-    <div class="p-md-3 p-lg-3">
-        <span class="p-float-label">
-          <input inputId="name" type="text" class="p-inputtext-sm" [(ngModel)]="params.searchName"pInputText />
-          <label for="name">Tên học viên</label>
-        </span>
-      </div>
-    <div class="p-md-3 p-lg-3">
+    <!-- <div class="p-md-3 p-lg-4">
       <span class="p-float-label">
         <p-dropdown
-        [options]="stateData!.listCourse"
-        [(ngModel)]="params.courseId"
+        [options]="stateData!.teacherId"
+  
           class="p-inputtext-sm"
-          optionLabel="courseName"
-          optionValue="courseId"
+          optionLabel="teacherName"
+          optionValue="teacherId"
           [autoDisplayFirst]="false"
         >
         </p-dropdown>
-        <label for="icon">Khóa học </label>
+        <label for="icon">Tên giáo viên</label>
       </span>
-    </div>
-    <div class="p-md-3 p-lg-3">
-      <span class="p-float-label">
-        <p-dropdown
-        [options]="stateData!.listClass"
-        [(ngModel)]="params.classId"
-          class="p-inputtext-sm"
-          optionLabel="className"
-          optionValue="classId"
-          [autoDisplayFirst]="false"
-        >
-        </p-dropdown>
-        <label for="icon">Lớp học </label>
-      </span>
-    </div>
+    </div> -->
  
-    <div class="p-md-3 p-lg-3">
+    <div class="p-md-3 p-lg-4">
       <span class="p-float-label">
         <p-dropdown
-          [options]="stateData!.listStatus"
+          [options]="stateData.listStatus"
           class="p-inputtext-sm"
           [(ngModel)]="params.status"
           optionLabel="name"
@@ -56,9 +36,8 @@
         <label for="icon">Trạng thái</label>
       </span>
     </div>
-   
   </div>
-  <p-toolbar styleClass="p-px-0 p-pt-0 mt-4">
+  <p-toolbar styleClass="p-px-0 p-pt-0">
     <div class="p-toolbar-group-left">
       <div class="p-field">
         <button
@@ -89,16 +68,11 @@
     <ng-template pTemplate="header">
       <tr>
         <th>STT</th>
-        <th>Mã học viên</th>
+        <th>Mã lớp</th>
+        <th>Tên lớp</th>
      
-        <th>Tên học viên</th>
-        <th>email</th>
-        <th>Địa chỉ</th>
-      
-        <th>Điện thoại</th>
-        <th>Ngày sinh</th>
-        <th>Ảnh đại diện</th>
-        <th>Lớp học</th>
+        <th>Giáo viên chủ nhiệm</th>
+       
         <th>Trạng thái</th>
         <th style="width: 100px" alignFrozen="right" pFrozenColumn>Action</th>
       </tr>
@@ -106,28 +80,20 @@
     <ng-template pTemplate="body" let-item let-i="rowIndex">
       <tr>
         <td>{{ i + 1 }}</td>
-        <td>{{item.studentCode}}</td>
-        <td>{{item.studentName}}</td>
-        <td>{{ item.email }}</td>
-        <td>{{ item.address  }}</td>
-       
-        <td>{{item.phone}}</td>
-        <td>{{item.dateOfBirth | date:"dd/MM/yyyy"}}</td>
-        <td>
-          <p-image src="http://localhost:53421/Upload/Files/{{item.image || 'avatar5.png'}}" alt="Image" width="50px"></p-image>
-        </td>
-        <td style="color: red;">{{item.className || 'Chưa phân lớp'}}</td>
+        <td>{{ item.classCode }}</td>
+        <td>{{item.className}}</td>
+        <td>{{item.teacherName }}</td>
         <td>
           <p-inputSwitch [readonly]="true" [(ngModel)]="item.status"></p-inputSwitch>
         </td>
         <td style="width: 100px" alignFrozen="right" pFrozenColumn>
-          <span class="pointer p-mr-2" (click)="viewDetail(item.studentId)">
+          <span class="pointer p-mr-2" (click)="viewDetail(item.classId)">
             <em class="las la-eye"></em>
           </span>
-          <span class="pointer p-mr-2" (click)="viewEdit(item.studentId)">
+          <span class="pointer p-mr-2" (click)="viewEdit(item.classId)">
             <em class="las la-pen"></em>
           </span>
-          <span class="pointer" (click)="deleteItem(item.studentId)">
+          <span class="pointer" (click)="deleteItem(item.classId)">
             <em class="las la-trash-alt"></em>
           </span>
         </td>

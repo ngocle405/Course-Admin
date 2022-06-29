@@ -32,6 +32,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import {ImageModule} from 'primeng/image';
 import {EditorModule} from 'primeng/editor';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
+import { TagModule } from 'primeng/tag';
 const COMPONENTS = [...components, ...layouts];
 const PIPES: never[] = [];
 const DIRECTIVES: never[] = [];
@@ -69,6 +70,7 @@ const MODULES = [
   ImageModule,
 EditorModule,
 OverlayPanelModule,
+TagModule
 ];
 
 @NgModule({

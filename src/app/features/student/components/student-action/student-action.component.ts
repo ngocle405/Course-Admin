@@ -18,7 +18,7 @@ export class StudentActionComponent extends BaseActionComponent implements OnIni
   }
   override form =this.fb!.group({
     courseId:['',Validators.required],
-    studentCode:['',Validators.required],
+    studentCode:['HV-',Validators.required],
     studentName:['',Validators.required],
     phone:[''],
     email:['',Validators.required],
@@ -27,6 +27,7 @@ export class StudentActionComponent extends BaseActionComponent implements OnIni
     address:[''],
     description:[''],
     status:true,
+    classId:['']
    
   });
   ngOnInit(): void {
@@ -35,12 +36,13 @@ export class StudentActionComponent extends BaseActionComponent implements OnIni
       this.hiddenImage=true;
     }
     else if (this.screenType === ScreenType.Update) {
-      this.form?.get('studentCode')!.disable();
+      this.data.studentCode !==null ? this.form?.get('studentCode')!.disable(): null
       this.hiddenImage=true;
     }
     if (this.data && this.screenType !== ScreenType.Create) {
       this.data.createDate = isEmpty(this.data.createDate) ? null : new Date(this.data.createDate);
       this.data.startDate = isEmpty(this.data.startDate) ? null : new Date(this.data.startDate);
+      this.data.dateOfBirth=isEmpty(this.data.dateOfBirth) ? null : new Date(this.data.dateOfBirth);
       this.data.endDate = isEmpty(this.data.endDate) ? null : new Date(this.data.endDate);
       this.form.patchValue(this.data);//dùng cho sửa,detail
       

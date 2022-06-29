@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { DataTable } from '@cores/models/data-table.model';
 import { BaseService } from '@cores/services/base.service';
+import { mapDataTable } from '@cores/utils/common-functions';
 import { environment } from '@env';
 import { catchError, forkJoin, map, Observable, of } from 'rxjs';
 
@@ -11,14 +13,14 @@ import { catchError, forkJoin, map, Observable, of } from 'rxjs';
 export class RegisterService  extends BaseService {
 
   constructor(http:HttpClient) {
-    super(http,`${environment.endpoint_url}/registers`);
+    super(http,`${environment.endpoint_url}/students`);
   }
   override getState(): Observable<any> {
     this.state={
       listStatus: [
-        { value: 'In Process', name: 'In Process' },
-        { value: 'Active', name: 'Active' },
-        { value: 'Close', name: 'Close' },
+        { value: true, name: 'Hoạt động' },
+        { value: false, name: 'Đóng' },
+        
       ],
       listAddressCompany: [
         { 
@@ -56,6 +58,14 @@ export class RegisterService  extends BaseService {
         return this.state;
       })
     );
+  }
+  override search(params?: any): Observable<DataTable<any>> {
+ 
+    return this.http
+      .get<DataTable<any>>(`${this.baseUrl}/Register`, {
+        params: { ...params },
+      })
+      .pipe(map((data) => mapDataTable(data, params)));
   }
   getCourseList() {
     return this.http.get<any>(`${environment.endpoint_url}/Courses`);

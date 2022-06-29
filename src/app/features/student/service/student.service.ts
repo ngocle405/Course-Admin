@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from '@cores/services/base.service';
 import { environment } from '@env';
 import { catchError, forkJoin, map, Observable, of } from 'rxjs';
+import { ClassModel } from '../../classes/models/class.model';
 import { StateStudent, StudentModel } from '../models/student.model';
 
 @Injectable({
@@ -25,12 +26,15 @@ export class StudentService extends BaseService {
     
     };
     return forkJoin({
-     
+        listClass:this.getClass().pipe(catchError(() => of([]))),
         listCourse: this.getCourse()
-        .pipe(catchError(() => of<StudentModel[]>([]))),
+        .pipe(catchError(() => of([]))),
     }).pipe(map((data: any) => (this.state = {
       ...this.state, ...data
     })));
+  }
+  getClass(){
+    return this.http.get<ClassModel[]>(`${environment.endpoint_url}/Classes`);
   }
   getCourse(){
     return this.http.get<StudentModel[]>(`${environment.endpoint_url}/Courses`);

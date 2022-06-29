@@ -6,7 +6,7 @@ export interface NewModel {
   status?: boolean | string;
   CreateDate?: string | null;
   CreateBy?: string;
-
+  newCategoryName?: string;
   searchName?: string;
 }
 export interface StateNew {

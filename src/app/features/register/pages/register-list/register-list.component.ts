@@ -30,12 +30,16 @@ export class RegisterListComponent extends BaseTableComponent<RegisterModel> imp
     know :'',
     status:''
   }
+  override mapState():void{
+    this.stateData?.listAddressCompany.unshift({ name: 'Tất cả', value: '' });
+    this.stateData?.listStatus.unshift({ name: 'Tất cả', value: '' });
+  }
   viewStatus(id:string){
   
       if (this.loading || !this.configAction?.component) {
         return;
       }
-     
+      
       this.loading = true;
       this.service.findById(id).subscribe({
         next: (data) => {

@@ -16,11 +16,6 @@ const routes: Routes = [
         loadChildren: () => import('./employees/employees.module').then((m) => m.EmployeesModule),
       },
       {
-        path: 'organizations',
-        loadChildren: () => import('./organizations/organizations.module').then((m) => m.OrganizationsModule),
-      },
-     
-      {
         path: 'newcategory-list',
         loadChildren: () => import('./newcategories/newcategories.module').then((m) => m.NewcategoryModule),
       },
@@ -51,6 +46,14 @@ const routes: Routes = [
       {
         path:"register",
         loadChildren:()=>import ('./register/register.module').then((m)=>m.RegisterModule),
+      },
+      {
+        path:"class",
+        loadChildren:()=>import ('./classes/classes.module').then((m)=>m.ClassesModule),
+      },
+      {
+        path:"payment",
+        loadChildren:()=>import ('./payments/payments.module').then((m)=>m.PaymentsModule),
       },
       {
         path: '',

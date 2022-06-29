@@ -136,6 +136,22 @@ export class AppMenuComponent implements OnInit {
           },
         ],
       },
+      {
+        id: uuIdv4(),
+        label: 'Lớp học',
+        icon: 'pi-box',
+        routerLink: '/mb-ageas/class/list',
+        active: false,
+        path: null,
+      },
+      {
+        id: uuIdv4(),
+        label: 'Thanh toán học phí',
+        icon: 'pi-apple',
+        routerLink: '/mb-ageas/payment/list',
+        active: false,
+        path: null,
+      },
     ];
     this.streamData.passData('menu', this.items);
   }
