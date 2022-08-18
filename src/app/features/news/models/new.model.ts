@@ -18,7 +18,7 @@ export interface CommonStateModel {
   name?: string;
   value?: string | boolean;
   code?: string;
-
-
 }
-
+export interface PipeTransform {
+  transform(value: any, ...args: any[]): any;
+}

@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ClassListComponent } from './pages/index1';
-
+import { CourseCategoryListComponent } from './pages';
 
 const routes: Routes = [
   {
-    path: 'list',
-    component: ClassListComponent,
+    path: '',
+    component: CourseCategoryListComponent,
   },
   {
     path: '',
-    redirectTo: 'list',
+    redirectTo: '',
   },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
@@ -19,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ClassesRoutingModule {}
+export class CourseCategoryRoutingModule {}

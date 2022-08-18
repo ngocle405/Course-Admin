@@ -4,7 +4,7 @@ import { Inject, Injectable } from '@angular/core';
 import { fromEvent, map, Observable, of } from 'rxjs';
 import { BaseData } from '../abstract/base-data';
 import { DataTable } from '../models/data-table.model';
-import { mapDataTable } from '../utils/common-functions';
+import { cleanDataTable, dataURItoBlob, mapDataTable } from '../utils/common-functions';
 import { FileUpload } from 'primeng/fileupload';
 
 @Injectable()
@@ -18,7 +18,6 @@ export class BaseService implements BaseData {
 
   getState(): Observable<any> {
     return of(this.state);
-    
   }
   get(href: string = '', params: any = {}) {
     return this.http.get(this.baseURL + `${href}`, {
@@ -26,12 +25,17 @@ export class BaseService implements BaseData {
     });
   }
   search(params?: any, isPost?: boolean): Observable<DataTable<any>> {
+    const newParam: any = cleanDataTable(params);
     if (isPost) {
-      return this.http.post<DataTable<any>>(`${this.baseUrl}`, params).pipe(map((data) => mapDataTable(data, params)));
+      return this.http
+        .post<DataTable<any>>(`${this.baseUrl}`, {
+          params: { ...newParam },
+        })
+        .pipe(map((data) => mapDataTable(data, params)));
     }
     return this.http
       .get<DataTable<any>>(`${this.baseUrl}/Paging`, {
-        params: { ...params },
+        params: { ...newParam },
       })
       .pipe(map((data) => mapDataTable(data, params)));
   }
@@ -39,18 +43,18 @@ export class BaseService implements BaseData {
   findByCode(code: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${code}`);
   }
-  findById(id: string|number): Observable<any> {
+  findById(id: string | number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${id}`);
   }
 
   create(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}`, data);
   }
-  updateStatus(href:string='',id:string,data:any): Observable<string> {
-    return this.http.put<string>(`${this.baseUrl}/${href}/${id}`,  data)
+  updateStatus(href: string = '', id: string, data: any): Observable<string> {
+    return this.http.put<string>(`${this.baseUrl}/${href}/${id}`, data);
   }
 
-  updateAction(id:string,data: any): Observable<string> {
+  updateAction(id: string, data: any): Observable<string> {
     return this.http.put<string>(`${this.baseUrl}/${id}`, data);
   }
   update(data: any): Observable<string> {
@@ -59,7 +63,7 @@ export class BaseService implements BaseData {
   delete(id: string | number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
-  getEncodeFromImage(fileUpload: FileUpload): Observable<any>{
+  getEncodeFromImage(fileUpload: FileUpload): Observable<any> {
     if (fileUpload) {
       if (fileUpload.files == null || fileUpload.files.length == 0) {
         return of('');
@@ -80,9 +84,15 @@ export class BaseService implements BaseData {
       return of(null);
     }
   }
-  exportExcel(fileName: string, params?: any): Observable<boolean> {
-    return this.http.get(`${this.baseUrl}/export`, { params: { ...params }, responseType: 'arraybuffer' }).pipe(
-      map((res) => {
+  exportExcel(fileName: string, params: any, isBase64?: boolean): Observable<boolean> {
+    const responseType = isBase64 ? 'json' : 'arraybuffer';
+    const option: any = { params, responseType };
+
+    return this.http.get(`${this.baseUrl}/export`, option).pipe(
+      map((res: any) => {
+        if (isBase64) {
+          res = dataURItoBlob(res?.data);
+        }
         saveAs(
           new Blob([res], {
             type: 'application/octet-stream',

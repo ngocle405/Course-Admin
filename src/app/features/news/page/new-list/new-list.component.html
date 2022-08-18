@@ -10,8 +10,8 @@
     <div class="p-md-3 p-lg-4">
       <span class="p-float-label">
         <p-dropdown
-        [options]="stateData!.newCategories"
-        [(ngModel)]="params.newCategoryId"
+          [options]="stateData!.newCategories"
+          [(ngModel)]="params.newCategoryId"
           class="p-inputtext-sm"
           optionLabel="newCategoryName"
           optionValue="newCategoryId"
@@ -21,7 +21,7 @@
         <label for="icon">Loại danh mục</label>
       </span>
     </div>
- 
+
     <div class="p-md-3 p-lg-4">
       <span class="p-float-label">
         <p-dropdown
@@ -49,7 +49,7 @@
           label="Tìm kiếm"
           class="p-button-success"
         ></button>
-        <button 
+        <button
           (click)="exportExcel()"
           pButton
           pRipple
@@ -72,7 +72,7 @@
         <th>Tiêu đề</th>
         <th>Ảnh minh họa</th>
         <th>Ngày tạo</th>
-       
+
         <th>Trạng thái</th>
         <th style="width: 100px" alignFrozen="right" pFrozenColumn>Action</th>
       </tr>
@@ -80,13 +80,13 @@
     <ng-template pTemplate="body" let-item let-i="rowIndex">
       <tr>
         <td>{{ i + 1 }}</td>
-        <td>{{item.newCategoryName}}</td>
+        <td>{{ item.newCategoryName }}</td>
         <td>{{ item.title }}</td>
         <td>
-          <p-image src="http://localhost:53421/Upload/Files/{{item.image}}" alt="Image" width="50px"></p-image>
+          <p-image src="http://localhost:53421/Upload/Files/{{ item.image }}" alt="Image" width="50px"></p-image>
         </td>
-        <td>{{item.createDate | date:"dd/MM/yyyy"}}</td>
-     
+        <td>{{ item.createDate | datePipe }}</td>
+
         <td>
           <p-inputSwitch [readonly]="true" [(ngModel)]="item.status"></p-inputSwitch>
         </td>

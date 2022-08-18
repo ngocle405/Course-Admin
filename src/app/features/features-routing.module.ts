@@ -8,13 +8,14 @@ const routes: Routes = [
     component: FeaturesComponent,
     children: [
       {
+        path: 'administration',
+        loadChildren: () => import('./administration/administration.module').then((m) => m.AdministrationModule),
+      },
+      {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
-      {
-        path: 'employees',
-        loadChildren: () => import('./employees/employees.module').then((m) => m.EmployeesModule),
-      },
+
       {
         path: 'newcategory-list',
         loadChildren: () => import('./newcategories/newcategories.module').then((m) => m.NewcategoryModule),
@@ -23,44 +24,34 @@ const routes: Routes = [
         path: 'new-list',
         loadChildren: () => import('./news/news.module').then((m) => m.NewsModule),
       },
+
       {
-        path:"course-category",
-        loadChildren:()=>import ('./coursecategory/course-category.module').then((m)=>m.CoursecategoryModule),
+        path: 'teacher',
+        loadChildren: () => import('./teacher/teacher.module').then((m) => m.TeacherModule),
       },
       {
-        path:"course",
-        loadChildren:()=>import ('./course/course.module').then((m)=>m.CourseModule),
+        path: 'student',
+        loadChildren: () => import('./student/student.module').then((m) => m.StudentModule),
       },
       {
-        path:"teacher",
-        loadChildren:()=>import ('./teacher/teacher.module').then((m)=>m.TeacherModule),
+        path: 'config-system',
+        loadChildren: () => import('./configsystem/configsystem.module').then((m) => m.ConfigSystemModule),
       },
       {
-        path:"student",
-        loadChildren:()=>import ('./student/student.module').then((m)=>m.StudentModule),
+        path: 'register',
+        loadChildren: () => import('./register/register.module').then((m) => m.RegisterModule),
       },
+
       {
-        path:"config-system",
-        loadChildren:()=>import ('./configsystem/configsystem.module').then((m)=>m.ConfigSystemModule),
-      },
-      {
-        path:"register",
-        loadChildren:()=>import ('./register/register.module').then((m)=>m.RegisterModule),
-      },
-      {
-        path:"class",
-        loadChildren:()=>import ('./classes/classes.module').then((m)=>m.ClassesModule),
-      },
-      {
-        path:"payment",
-        loadChildren:()=>import ('./payments/payments.module').then((m)=>m.PaymentsModule),
+        path: 'payment',
+        loadChildren: () => import('./payments/payments.module').then((m) => m.PaymentsModule),
       },
       {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',
       },
-     // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+      // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
 ];

@@ -1,23 +1,20 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { CourseCategoryListComponent } from './pages';
-
-
+import { RouterModule, Routes } from '@angular/router';
+import { CourseListComponent } from './pages';
 
 const routes: Routes = [
   {
-    path: 'list',
-    component: CourseCategoryListComponent,
+    path: '',
+    component: CourseListComponent,
   },
   {
     path: '',
-    redirectTo: 'list',
+    redirectTo: '',
   },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
-
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CourseCategoryRoutingModule {}
+export class CourseRoutingModule {}

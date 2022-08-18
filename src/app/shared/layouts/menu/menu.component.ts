@@ -23,7 +23,7 @@ export class AppMenuComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof ActivationEnd) {
         const item = getNodeMenuByUrl({ children: this.items }, this.router.url);
-      //  this.activeMenuItem(item);//tạm thời coment
+        //  this.activeMenuItem(item);//tạm thời coment
       }
     });
   }
@@ -84,8 +84,7 @@ export class AppMenuComponent implements OnInit {
           },
         ],
       },
-     
-     
+
       {
         id: uuIdv4(),
         label: 'Tin tức',
@@ -111,19 +110,28 @@ export class AppMenuComponent implements OnInit {
           },
         ],
       },
+
       {
         id: uuIdv4(),
-        label: 'Khóa học',
-        icon: 'pi-prime',
+        label: 'Administration',
+        icon: 'pi-box',
         active: false,
         path: null,
         children: [
           {
             id: uuIdv4(),
             path: '[5]',
+            label: 'Quản lý lớp học',
+            icon: 'pi-sign-in',
+            routerLink: '/mb-ageas/administration/class',
+            active: false,
+          },
+          {
+            id: uuIdv4(),
+            path: '[5]',
             label: 'Quản lý loại khóa học',
             icon: 'pi-sign-in',
-            routerLink: '/mb-ageas/course-category/list',
+            routerLink: '/mb-ageas/administration/course-category/',
             active: false,
           },
           {
@@ -131,18 +139,10 @@ export class AppMenuComponent implements OnInit {
             path: '[5]',
             label: 'Quản lý khóa học',
             icon: 'pi-sign-in',
-            routerLink: '/mb-ageas/course/list',
+            routerLink: '/mb-ageas/administration/course',
             active: false,
           },
         ],
-      },
-      {
-        id: uuIdv4(),
-        label: 'Lớp học',
-        icon: 'pi-box',
-        routerLink: '/mb-ageas/class/list',
-        active: false,
-        path: null,
       },
       {
         id: uuIdv4(),
