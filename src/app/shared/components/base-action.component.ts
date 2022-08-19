@@ -1,7 +1,5 @@
 import { fromEvent, Subscription, of as observableOf } from 'rxjs';
-import { first, map } from 'rxjs/operators';
 import { Injector, OnDestroy, ChangeDetectorRef, Component, ViewChildren, QueryList } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileModel } from 'src/app/core/models/user-profile.model';
@@ -16,6 +14,7 @@ import { cleanDataForm, validateAllFormFields } from 'src/app/core/utils/common-
 import * as _ from 'lodash';
 import { BaseService } from 'src/app/core/services/base.service';
 import { FileUpload } from 'primeng/fileupload';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   template: `<ng-content></ng-content>`,
@@ -23,14 +22,12 @@ import { FileUpload } from 'primeng/fileupload';
 export class BaseActionComponent implements OnDestroy {
   public objFunction: FunctionModel | undefined;
   public loading = true;
-  public currUser: UserProfileModel;
   @ViewChildren(FileUpload) files: QueryList<FileUpload> | any;
   protected messageService: NotificationMessageService | undefined;
   protected router: Router | undefined;
   protected route: ActivatedRoute | undefined;
   protected location: Location | undefined;
   protected streamDataService: StreamDataService | undefined;
-  protected sessionService: SessionService | undefined;
   protected ref: ChangeDetectorRef | undefined;
   protected commonService: CommonCategoryService | undefined;
   protected fb: FormBuilder | undefined;
@@ -59,8 +56,19 @@ export class BaseActionComponent implements OnDestroy {
 
   constructor(private injector: Injector, protected service: BaseService) {
     this.init();
-
-    this.currUser = this.sessionService?.getSessionData(SessionKey.UserProfile);
+    this.form = this.fb!.group({
+      courseId:['',Validators.required],
+      studentCode:['HV-',Validators.required],
+      studentName:['',Validators.required],
+      phone:[''],
+      email:['',Validators.required],
+      gender:[1,Validators.required],
+      dateOfBirth:['',Validators.required],
+      address:[''],
+      description:[''],
+      status:true,
+      classId:['']
+    })
     if (this.configDialog) {
       this.title = this.configDialog.header;
       this.data = this.configDialog.data?.model;
@@ -78,9 +86,7 @@ export class BaseActionComponent implements OnDestroy {
     this.route = this.injector.get(ActivatedRoute);
     this.location = this.injector.get(Location);
     this.streamDataService = this.injector.get(StreamDataService);
-    this.sessionService = this.injector.get(SessionService);
     this.ref = this.injector.get(ChangeDetectorRef);
-    this.commonService = this.injector.get(CommonCategoryService);
     this.refDialog = this.injector.get(DynamicDialogRef);
     this.configDialog = this.injector.get(DynamicDialogConfig);
   }
