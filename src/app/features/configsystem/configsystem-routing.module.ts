@@ -5,13 +5,10 @@ import { ConfigSystemListComponent } from "./pages";
 
 const routes: Routes = [
     {
-        path: 'list',
+        path: '',
         component: ConfigSystemListComponent,
     },
-    {
-        path: '',
-        redirectTo: 'list',
-    },
+   
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 @NgModule({

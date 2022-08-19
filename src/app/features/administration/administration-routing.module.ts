@@ -14,6 +14,14 @@ const routes: Routes = [
     path: 'course',
     loadChildren: () => import('./course/course.module').then((m) => m.CourseModule),
   },
+  {
+    path: 'newcategory',
+    loadChildren: () => import('./newcategories/newcategories.module').then((m) => m.NewcategoryModule),
+  },
+  {
+    path: 'new',
+    loadChildren: () => import('./news/news.module').then((m) => m.NewsModule),
+  },
 ];
 
 @NgModule({

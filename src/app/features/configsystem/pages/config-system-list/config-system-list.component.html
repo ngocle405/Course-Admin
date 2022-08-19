@@ -1,13 +1,13 @@
 <app-loading *ngIf="loading"></app-loading>
 <div class="card">
-  <div class="p-grid">
-    <div class="p-md-3 p-lg-3">
+  <div class="grid">
+    <div class="col-3">
       <span class="p-float-label">
         <input inputId="name" type="text" class="p-inputtext-sm" [(ngModel)]="params.searchAddress" pInputText />
         <label for="name">Mã học viên</label>
       </span>
     </div> 
-    <div class="p-md-3 p-lg-3">
+    <div class="col-3">
       <span class="p-float-label">
         <p-dropdown
           [options]="stateData!.listStatus"
@@ -23,7 +23,7 @@
     </div>
    
   </div>
-  <p-toolbar styleClass="p-px-0 p-pt-0">
+  <p-toolbar styleClass="px-0 pt-0">
     <div class="p-toolbar-group-left">
       <div class="p-field">
         <button
@@ -33,7 +33,6 @@
           pRipple
           type="button"
           label="Tìm kiếm"
-          class="p-button-success"
         ></button>
         <button 
           (click)="exportExcel()"
@@ -41,13 +40,13 @@
           pRipple
           label="Export"
           icon="pi pi-download"
-          class="p-button-help p-ml-2"
+          class="ml-2"
         ></button>
-        <p-button (click)="onReset()" icon="pi pi-replay" class="p-ml-2" styleClass="p-button-danger"></p-button>
+        <p-button (click)="onReset()" icon="pi pi-replay" class="ml-2" ></p-button>
       </div>
     </div>
     <div class="p-toolbar-group-right">
-      <button pButton (click)="viewCreate()" label="New" icon="pi pi-plus" class="p-mr-2"></button>
+      <button pButton (click)="viewCreate()" label="New" icon="pi pi-plus" class="mr-2"></button>
     </div>
   </p-toolbar>
   <p-table [value]="dataTable.content" responsiveLayout="scroll">

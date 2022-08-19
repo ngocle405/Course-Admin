@@ -6,8 +6,8 @@
         </button>
     </div>
 </div>
-<div class="p-mt-2 p-dialog-body p-grid p-fluid">
-    <div class="p-col-3 p-md-6" [formGroup]="form">
+<div class="mt-2 p-dialog-body grid p-fluid">
+    <div class="col-6" [formGroup]="form">
         <div class="p-field">
             <span class="p-float-label">
                 <p-dropdown class="p-inputtext-sm" placeholder="Chọn học viên" [options]="state!.listStudent"
@@ -23,7 +23,7 @@
         </div>
     </div>
   
-    <div class="p-col-3 p-md-6" [formGroup]="form">
+    <div class="col-6" [formGroup]="form">
         <div class="p-field">
             <span class="p-float-label">
                 <input type="number" class="p-inputtext-sm" pInputText formControlName="money" />
@@ -32,7 +32,7 @@
             <f-errors [errors]="form.get('money')"></f-errors>
         </div>
     </div>
-    <div class="p-col-3 p-md-6" [formGroup]="form">
+    <div class="col-6" [formGroup]="form">
         <div class="p-field">
             <span class="p-float-label">
                 <input type="text" class="p-inputtext-sm" pInputText formControlName="contentPayment" />
@@ -44,7 +44,7 @@
 
 
 
-    <div class="p-md-3 p-lg-6" [formGroup]="form">
+    <div class="col-6" [formGroup]="form">
         <span class="p-float-label">
             <p-dropdown [options]="state?.listStatus" class="p-inputtext-sm" formControlName="statusPayment"
                 optionLabel="name" optionValue="value" appendTo="body" [autoDisplayFirst]="false">
@@ -53,7 +53,7 @@
         </span>
     </div>
 </div>
-<div class="p-dialog-footer p-p-0 p-mt-3">
-    <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="p-mr-2"></button>
+<div class="p-dialog-footer p-0 mt-3">
+    <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="mr-2"></button>
     <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
 </div>

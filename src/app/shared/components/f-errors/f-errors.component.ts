@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormControl } from '@angular/forms';
+import { AbstractControl, UntypedFormControl } from '@angular/forms';
 import { isObject, map, replace } from 'lodash';
 import { VALIDATORS_MESSAGE } from 'src/app/core/utils/constants';
 
@@ -9,7 +9,7 @@ import { VALIDATORS_MESSAGE } from 'src/app/core/utils/constants';
   styleUrls: ['./f-errors.component.scss'],
 })
 export class ErrorComponent implements OnInit {
-  @Input() errors?: FormControl | AbstractControl | null;
+  @Input() errors?: UntypedFormControl | AbstractControl | null;
 
   ngOnInit() {}
 

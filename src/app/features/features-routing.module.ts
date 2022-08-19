@@ -16,22 +16,11 @@ const routes: Routes = [
         loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
 
-      {
-        path: 'newcategory-list',
-        loadChildren: () => import('./newcategories/newcategories.module').then((m) => m.NewcategoryModule),
-      },
-      {
-        path: 'new-list',
-        loadChildren: () => import('./news/news.module').then((m) => m.NewsModule),
-      },
+  
 
       {
-        path: 'teacher',
-        loadChildren: () => import('./teacher/teacher.module').then((m) => m.TeacherModule),
-      },
-      {
-        path: 'student',
-        loadChildren: () => import('./student/student.module').then((m) => m.StudentModule),
+        path: 'employee',
+        loadChildren: () => import('./employees/employees.module').then((m) => m.EmployeesModule),
       },
       {
         path: 'config-system',
@@ -51,7 +40,7 @@ const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full',
       },
-      // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+       { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
 ];

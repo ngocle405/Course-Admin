@@ -6,11 +6,11 @@
       </button>
     </div>
   </div>
-  <div class="p-mt-2 p-dialog-body p-grid p-fluid">
-    <div class="p-col-12">
+  <div class="mt-2 p-dialog-body grid p-fluid">
+    <div class="col-12">
         <h3 class="title-Or">THÔNG TIN hệ thống</h3>
       </div>
-      <div class="p-col-3 p-md-4" [formGroup]="form">
+      <div class="col-4" [formGroup]="form">
         <div class="p-field">
           <span class="p-float-label">
             <input class="p-inputtext-sm" pInputText formControlName="titleDefault">
@@ -19,7 +19,7 @@
           <f-errors [errors]="form.get('titleDefault')"></f-errors>
         </div>
       </div>
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
       <div class="p-field">
         <span class="p-float-label">
           <input type="tex" class="p-inputtext-sm" pInputText formControlName="address" />
@@ -29,7 +29,7 @@
       </div>
     </div>
   
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
       <div class="p-field">
         <span class="p-float-label">
           <input p-dialog-body type="text" formControlName="phone" class="p-inputtext-sm" pInputText />
@@ -41,7 +41,7 @@
     </div>
 
   
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
       <div class="p-field">
         <span class="p-float-label">
         <input class="p-inputtext-sm" pInputText formControlName="hotline1">
@@ -52,7 +52,7 @@
   
       </div>
     </div>
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
       <div class="p-field">
         <span class="p-float-label">
           <input p-dialog-body type="text" formControlName="hotline2" class="p-inputtext-sm" pInputText />
@@ -62,7 +62,7 @@
       </div>
     </div>
    
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
         <div class="p-field">
           <span class="p-float-label">
             <input p-dialog-body type="text" formControlName="information" class="p-inputtext-sm" pInputText />
@@ -73,7 +73,7 @@
       </div>
 
 
-    <div class="p-col-3 p-md-12" [formGroup]="form">
+    <div class="col-12" [formGroup]="form">
         <h3 class="title-Or">Logo</h3>
       <div class="p-field">
         <span class="p-float-label">
@@ -88,7 +88,7 @@
   
       </div>
     </div>
-    <div class="p-col-3 p-md-12" [formGroup]="form">
+    <div class="col-12" [formGroup]="form">
         <h3 class="title-Or">mô tả</h3>
       <div class="p-field">
         <span class="p-float-label">
@@ -96,14 +96,14 @@
         </span>
       </div>
     </div>
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
       <div class="p-field-checkbox">
         <p-checkbox inputId="ny" formControlName="status" [binary]="true"> </p-checkbox>
         <label for="ny">Trạng thái</label>
       </div>
     </div>
   </div>
-  <div class="p-dialog-footer p-p-0 p-mt-3">
-    <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="p-mr-2"></button>
+  <div class="p-dialog-footer p-0 mt-3">
+    <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="mr-2"></button>
     <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
   </div>

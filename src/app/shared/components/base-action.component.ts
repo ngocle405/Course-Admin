@@ -14,7 +14,7 @@ import { cleanDataForm, validateAllFormFields } from 'src/app/core/utils/common-
 import * as _ from 'lodash';
 import { BaseService } from 'src/app/core/services/base.service';
 import { FileUpload } from 'primeng/fileupload';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   template: `<ng-content></ng-content>`,
@@ -30,13 +30,13 @@ export class BaseActionComponent implements OnDestroy {
   protected streamDataService: StreamDataService | undefined;
   protected ref: ChangeDetectorRef | undefined;
   protected commonService: CommonCategoryService | undefined;
-  protected fb: FormBuilder | undefined;
+  protected fb: UntypedFormBuilder | undefined;
   protected refDialog!: DynamicDialogRef;
   protected configDialog!: DynamicDialogConfig;
 
   subscription: Subscription | undefined;
   subscriptions: Subscription[] = [];
-  form = new FormGroup({});
+  form = new UntypedFormGroup({});
   title: string | undefined;
   message = {
     create: {
@@ -56,19 +56,7 @@ export class BaseActionComponent implements OnDestroy {
 
   constructor(private injector: Injector, protected service: BaseService) {
     this.init();
-    this.form = this.fb!.group({
-      courseId:['',Validators.required],
-      studentCode:['HV-',Validators.required],
-      studentName:['',Validators.required],
-      phone:[''],
-      email:['',Validators.required],
-      gender:[1,Validators.required],
-      dateOfBirth:['',Validators.required],
-      address:[''],
-      description:[''],
-      status:true,
-      classId:['']
-    })
+
     if (this.configDialog) {
       this.title = this.configDialog.header;
       this.data = this.configDialog.data?.model;
@@ -81,7 +69,7 @@ export class BaseActionComponent implements OnDestroy {
 
   init() {
     this.messageService = this.injector.get(NotificationMessageService);
-    this.fb = this.injector.get(FormBuilder);
+    this.fb = this.injector.get(UntypedFormBuilder);
     this.router = this.injector.get(Router);
     this.route = this.injector.get(ActivatedRoute);
     this.location = this.injector.get(Location);

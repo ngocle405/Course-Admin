@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationMessageService } from '@cores/services/message.service';
 import { BaseActionComponent, BaseComponent } from '@shared/components';
@@ -15,10 +15,10 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
   
  
-  constructor(private inject:Injector,private router: Router,private services: AuthService, private fb: FormBuilder,  private readonly messageService: MessageService,) {
+  constructor(private inject:Injector,private router: Router,private services: AuthService, private fb: UntypedFormBuilder,  private readonly messageService: MessageService,) {
    
   }
-  form !: FormGroup ;
+  form !: UntypedFormGroup ;
  
   ngOnInit(): void {
     this.form = this.fb.group({

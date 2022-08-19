@@ -6,11 +6,11 @@
     </button>
   </div>
 </div>
-<div class="p-mt-2 p-dialog-body p-grid p-fluid">
-  <div class="p-col-12 p-md-12">
+<div class="mt-2 p-dialog-body grid p-fluid">
+  <div class="col-12">
     <h5 class="title">Thông tin chung</h5>
   </div>
-  <div class="p-col-3 p-md-4" [formGroup]="form">
+  <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
         <input type="tex" class="p-inputtext-sm" pInputText formControlName="code" />
@@ -20,7 +20,7 @@
     </div>
   </div>
 
-  <div class="p-col-3 p-md-4" [formGroup]="form">
+  <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
         <input p-dialog-body type="text" formControlName="courseName" class="p-inputtext-sm" pInputText />
@@ -30,7 +30,7 @@
 
     </div>
   </div>
-  <div class="p-col-3 p-md-4" [formGroup]="form">
+  <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
         <input p-dialog-body type="text" formControlName="englishName" class="p-inputtext-sm" pInputText />
@@ -40,7 +40,7 @@
 
     </div>
   </div>
-  <div class="p-md-3 p-lg-4" [formGroup]="form">
+  <div class="col-3" [formGroup]="form">
     <span class="p-float-label">
       <p-dropdown class="p-inputtext-sm" [options]="state!.listCourseCategory" formControlName="courseCategoryId"
         optionLabel="courseCategoryName" optionValue="courseCategoryId" [autoDisplayFirst]="false">
@@ -51,7 +51,7 @@
     <f-errors [errors]="form.get('courseCategoryId')"></f-errors>
   </div>
 
-  <div class="p-col-3 p-md-4" [formGroup]="form">
+  <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
         <p-dropdown class="p-inputtext-sm" [options]="state!.listTeacher" formControlName="teacherId"
@@ -63,7 +63,7 @@
 
     </div>
   </div>
-  <div class="p-col-3 p-md-4" [formGroup]="form">
+  <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
         <input p-dialog-body type="text" formControlName="price" class="p-inputtext-sm" pInputText />
@@ -72,7 +72,7 @@
       <f-errors [errors]="form.get('price')"></f-errors>
     </div>
   </div>
-  <div class="p-col-3 p-md-4" [formGroup]="form">
+  <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
         <input class="p-inputtext-sm" pInputText formControlName="countLesson">
@@ -81,7 +81,7 @@
       <f-errors [errors]="form.get('countLesson')"></f-errors>
     </div>
   </div>
-  <div class="p-col-3 p-md-4" [formGroup]="form">
+  <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
         <p-calendar class="p-inputtext-sm" [showIcon]="true" appendTo="body" (ngModelChange)="changStartDate($event)"
@@ -93,7 +93,7 @@
       <f-errors [errors]="form.get('startDate')"></f-errors>
     </div>
   </div>
-  <div class="p-col-3 p-md-4" [formGroup]="form">
+  <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
         <p-calendar class="p-inputtext-sm" appendTo="body" [minDate]="maxDate" [disabled]="check" [showIcon]="true"
@@ -106,7 +106,7 @@
       <f-errors [errors]="form.get('endDate')"></f-errors>
     </div>
   </div>
-  <div class="p-col-3 p-md-12" [formGroup]="form">
+  <div class="col-12" [formGroup]="form">
     <h5 class="title">Tiêu đề</h5>
     <div class="p-field">
       <span class="p-float-label">
@@ -118,7 +118,7 @@
     </div>
   </div>
 
-  <div class="p-col-3 p-md-12" [formGroup]="form">
+  <div class="col-12" [formGroup]="form">
     <h5 class="title">Hình ảnh</h5>
     <div class="p-field">
       <span class="p-float-label">
@@ -133,7 +133,7 @@
 
     </div>
   </div>
-  <div class="p-col-3 p-md-12" [formGroup]="form">
+  <div class="col-12" [formGroup]="form">
     <h5 class="title">Mô tả </h5>
     <div class="p-field">
       <span class="p-float-label">
@@ -142,7 +142,7 @@
     </div>
   </div>
 
-  <div class="p-col-3 p-md-12" [formGroup]="form">
+  <div class="col-12" [formGroup]="form">
     <h5 class="title">Mục tiêu khóa học </h5>
     <div class="p-field">
       <span class="p-float-label">
@@ -150,7 +150,7 @@
       </span>
     </div>
   </div>
-  <div class="p-col-3 p-md-4" [formGroup]="form">
+  <div class="col-3" [formGroup]="form">
     <div class="p-field-checkbox">
       <p-checkbox name="group1" formControlName="status" [binary]="true"> </p-checkbox>
       <label for="ny">Trạng thái</label>
@@ -158,7 +158,7 @@
   </div>
 </div>
 <div class="p-dialog-footer p-p-0 p-mt-3">
-  <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="p-mr-2"></button>
+  <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="mr-2"></button>
   <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
 </div>
 

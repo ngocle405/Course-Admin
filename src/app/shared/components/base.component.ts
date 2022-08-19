@@ -1,6 +1,6 @@
 import { Observable, Subscription, of } from 'rxjs';
 import { Injector, OnDestroy, ChangeDetectorRef, Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileModel } from 'src/app/core/models/user-profile.model';
@@ -30,7 +30,7 @@ export class BaseComponent implements OnDestroy {
   protected sessionService: SessionService | undefined;
   protected ref: ChangeDetectorRef | undefined;
   protected commonService: CommonCategoryService | undefined;
-  protected fb: FormBuilder | undefined;
+  protected fb: UntypedFormBuilder | undefined;
 
   subscription: Subscription | undefined;
   subscriptions: Subscription[] = [];
@@ -43,7 +43,7 @@ export class BaseComponent implements OnDestroy {
   init() {
     this.messageService = this.injector.get(NotificationMessageService);
     this.dialogService = this.injector.get(DialogService);
-    this.fb = this.injector.get(FormBuilder);
+    this.fb = this.injector.get(UntypedFormBuilder);
     this.router = this.injector.get(Router);
     this.route = this.injector.get(ActivatedRoute);
     this.location = this.injector.get(Location);
@@ -57,7 +57,7 @@ export class BaseComponent implements OnDestroy {
     this.location!.back();
   }
 
-  getErrorControl(form: FormGroup, key: string, validator: string): boolean {
+  getErrorControl(form: UntypedFormGroup, key: string, validator: string): boolean {
     return form.get(key)!.errors && form.get(key)!.errors![validator] && form.get(key)?.touched;
   }
 

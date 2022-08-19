@@ -7,10 +7,7 @@ const routes: Routes = [
     path: '',
     component: CourseCategoryListComponent,
   },
-  {
-    path: '',
-    redirectTo: '',
-  },
+
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 

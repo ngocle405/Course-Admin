@@ -6,9 +6,9 @@
         </button>
     </div>
 </div>
-<div class="p-mt-2 p-dialog-body p-grid p-fluid">
+<div class="mt-2 p-dialog-body grid p-fluid">
 
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
         <div class="p-field">
             <span class="p-float-label">
                 <input type="tex" class="p-inputtext-sm" pInputText formControlName="name" />
@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
         <div class="p-field">
             <span class="p-float-label">
                 <input type="tex" class="p-inputtext-sm" pInputText formControlName="phone" />
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
         <div class="p-field">
             <span class="p-float-label">
                 <input type="tex" class="p-inputtext-sm" pInputText formControlName="email" />
@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
         <div class="p-field">
 
             <span class="p-float-label">
@@ -50,7 +50,7 @@
             <f-errors [errors]="form.get('companyAddress')"></f-errors>
         </div>
     </div>
-    <div class="p-md-3 p-lg-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
         <span class="p-float-label">
             <p-dropdown class="p-inputtext-sm" [options]="state!.getCourseList" placeholder="Chọn khóa học"
                 formControlName="courseId" optionLabel="courseName" optionValue="courseId" [autoDisplayFirst]="false">
@@ -60,7 +60,7 @@
         </span>
         <f-errors [errors]="form.get('courseId')"></f-errors>
     </div>
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
         <div class="p-field">
             <span class="p-float-label">
                 <p-dropdown class="p-inputtext-sm" [options]="state!.listLevel" placeholder="Chọn trình độ"
@@ -71,7 +71,7 @@
             <f-errors [errors]="form.get('level')"></f-errors>
         </div>
     </div>
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
         <div class="p-field">
             <span class="p-float-label">
                 <p-dropdown class="p-inputtext-sm" [options]="state!.listKnow" placeholder="Câu trả lời"
@@ -85,7 +85,7 @@
 
 
 </div>
-<div class="p-dialog-footer p-p-0 p-mt-3">
-    <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="p-mr-2"></button>
+<div class="p-dialog-footer p-0 mt-3">
+    <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="mr-2"></button>
     <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
 </div>

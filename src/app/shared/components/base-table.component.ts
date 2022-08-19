@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { Injector, OnDestroy, ChangeDetectorRef, Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileModel } from 'src/app/core/models/user-profile.model';
@@ -36,7 +36,7 @@ export class BaseTableComponent<M> implements OnDestroy {
   protected sessionService: SessionService | undefined;
   protected ref: ChangeDetectorRef | undefined;
   protected commonService: CommonCategoryService | undefined;
-  protected fb: FormBuilder | undefined;
+  protected fb: UntypedFormBuilder | undefined;
 
   stateData: any;
   propData: any;
@@ -52,7 +52,7 @@ export class BaseTableComponent<M> implements OnDestroy {
   };
   configAction: ActionConfig | undefined;
   prevParams: any;
-  params: M | FormGroup | undefined;
+  params: M | UntypedFormGroup | undefined;
   fileNameExcel = 'list-data.xlsx';
   subscription: Subscription | undefined;
   subscriptions: Subscription[] = [];
@@ -68,7 +68,7 @@ export class BaseTableComponent<M> implements OnDestroy {
   init() {
     this.messageService = this.injector.get(NotificationMessageService);
     this.dialogService = this.injector.get(DialogService);
-    this.fb = this.injector.get(FormBuilder);
+    this.fb = this.injector.get(UntypedFormBuilder);
     this.router = this.injector.get(Router);
     this.route = this.injector.get(ActivatedRoute);
     this.location = this.injector.get(Location);
@@ -144,7 +144,7 @@ export class BaseTableComponent<M> implements OnDestroy {
     const dialog = this.dialogService?.open(this.configAction!.component, {
       header: `Thêm mới ${this.configAction.title.toLowerCase()}`,
       showHeader: false,
-      width: this.configAction.dialog?.width || '85%',
+      width: this.configAction.dialog?.width || '70%',
       data: {
         screenType: ScreenType.Create,
         state: this.propData,
@@ -171,7 +171,7 @@ export class BaseTableComponent<M> implements OnDestroy {
         const dialog = this.dialogService?.open(this.configAction!.component, {
           header: `Cập nhật ${this.configAction!.title.toLowerCase()}`,
           showHeader: false,
-          width: this.configAction!.dialog?.width || '85%',
+          width: this.configAction!.dialog?.width || '70%',
           data: {
             image:_.get(data,'image'),
             model: data,
@@ -206,7 +206,7 @@ export class BaseTableComponent<M> implements OnDestroy {
         this.dialogService?.open(this.configAction!.component, {
           header: `Chi tiết ${this.configAction!.title.toLowerCase()}`,
           showHeader: false,
-          width: this.configAction!.dialog?.width || '85%',
+          width: this.configAction!.dialog?.width || '70%',
           data: {
             model: data,
             state: this.stateData,

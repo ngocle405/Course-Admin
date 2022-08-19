@@ -6,9 +6,9 @@
       </button>
     </div>
   </div>
-  <div class="p-mt-2 p-dialog-body p-grid p-fluid">
+  <div class="mt-2 p-dialog-body grid p-fluid">
   
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
       <div class="p-field">
         <span class="p-float-label">
           <input type="tex" class="p-inputtext-sm" pInputText formControlName="courseCategoryCode" />
@@ -17,7 +17,7 @@
         <f-errors [errors]="form.get('courseCategoryCode')"></f-errors>
       </div>
     </div>
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
       <div class="p-field">
         <span class="p-float-label">
           <input p-dialog-body type="text" formControlName="courseCategoryName" class="p-inputtext-sm"  pInputText />
@@ -28,14 +28,14 @@
       </div>
     </div>
   
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
       <div class="p-field-checkbox" >
         <p-checkbox name="group1" formControlName="status" [binary]="true" inputId="ny"> </p-checkbox>
         <label for="ny">Trạng thái</label>
       </div>
     </div>
   </div>
-  <div class="p-dialog-footer p-p-0 p-mt-3">
+  <div class="p-dialog-footer p-0 mt-3">
     <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="p-mr-2"></button>
     <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
   </div>

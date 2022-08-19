@@ -1,5 +1,4 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { BaseTableComponent } from '@shared/components';
 import { CourseActionComponent } from '../../components';
 import { CourseModel, StateCourse } from '../../models/course.model';

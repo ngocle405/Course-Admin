@@ -5,13 +5,10 @@ import { PaymentListComponent } from "./pages";
 
 const routes: Routes = [
     {
-      path: 'list',
+      path: '',
       component: PaymentListComponent,
     },
-    {
-      path: '',
-      redirectTo: 'list',
-    },
+  
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
   ];
   

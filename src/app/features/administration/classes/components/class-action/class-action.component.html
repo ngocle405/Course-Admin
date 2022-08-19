@@ -6,8 +6,8 @@
       </button>
     </div>
   </div>
-  <div class="p-mt-2 p-dialog-body p-grid p-fluid">
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+  <div class="p-mt-2 p-dialog-body grid p-fluid">
+    <div class="col-4" [formGroup]="form">
         <div class="p-field">
           <span class="p-float-label">
             <input p-dialog-body type="text" formControlName="classCode" class="p-inputtext-sm"  pInputText />
@@ -17,7 +17,7 @@
     
         </div>
       </div>
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
       <div class="p-field">
         <span class="p-float-label">
           <input type="tex" class="p-inputtext-sm" pInputText formControlName="className" />
@@ -28,7 +28,7 @@
     </div>
    
  
-      <div class="p-md-3 p-lg-4" [formGroup]="form">
+      <div class="col-4" [formGroup]="form">
         <span class="p-float-label">
             <p-dropdown class="p-inputtext-sm" placeholder="Chọn giáo viên" [options]="state!.listTeacher" formControlName="teacherId"
             optionLabel="teacherName" optionValue="teacherId" [autoDisplayFirst]="false" appendTo="body">
@@ -36,7 +36,7 @@
           <label for="icon">Giáo viên chủ nhiệm</label>
         </span>
       </div>
-      <div class="p-col-3 p-md-4" [formGroup]="form">
+      <div class="col-4" [formGroup]="form">
         <div class="p-field">
           <span class="p-float-label">
             <p-calendar class="p-inputtext-sm" [showIcon]="true" appendTo="body" (ngModelChange)="changStartDate($event)"
@@ -48,7 +48,7 @@
           <f-errors [errors]="form.get('startDate')"></f-errors>
         </div>
       </div>
-      <div class="p-col-3 p-md-4" [formGroup]="form">
+      <div class="col-4" [formGroup]="form">
         <div class="p-field">
           <span class="p-float-label">
             <p-calendar class="p-inputtext-sm" [showIcon]="true" appendTo="body" [minDate]="maxDate" [disabled]="checkEndDate" 
@@ -64,7 +64,7 @@
 
    
     
-    <div class="p-col-3 p-md-4" [formGroup]="form">
+    <div class="col-4" [formGroup]="form">
       <div class="p-field-checkbox">
         <p-checkbox name="group1" formControlName="status" [binary]="true" > </p-checkbox>
         <label for="ny">Trạng thái</label>

@@ -5,13 +5,10 @@ import { RegisterListComponent } from "./pages/register-list/register-list.compo
 
 const routes: Routes = [
     {
-      path: 'list',
+      path: '',
       component: RegisterListComponent,
     },
-    {
-      path: '',
-      redirectTo: 'list',
-    },
+   
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
   ];
   
