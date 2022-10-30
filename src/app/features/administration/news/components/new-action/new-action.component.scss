@@ -1,0 +1,51 @@
+:host {
+  ::ng-deep {
+    .p-button.p-fileupload-choose {
+      position: relative;
+      overflow: hidden;
+    }
+    .file-name {
+      padding: 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      .pi-times {
+        border: 1px solid;
+        border-radius: 50%;
+        padding: 2px;
+        font-size: 8px;
+      }
+    }
+
+    .p-upload {
+      .p-button-icon-only {
+        width: 20px;
+        margin-top: 2px;
+        height: 20px;
+        border-radius: 100%;
+        min-width: auto;
+      }
+    }
+    .p-fileupload {
+      &-filename {
+        font-size: 12px;
+        width: 100%;
+      }
+      &-buttonbar {
+        padding: 0.5rem;
+      }
+      // &-content {
+      //   padding: 1rem 1rem;
+      // }
+    }
+
+    .p-toolbar {
+      padding: 0;
+    }
+    .card {
+      border-radius: 4px;
+      background: #ffffff;
+      padding: 18px;
+      margin-bottom: 0rem;
+    }
+  }
+}

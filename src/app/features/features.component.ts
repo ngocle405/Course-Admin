@@ -1,4 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { LoadingService } from '@cores/services/loading.service';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
@@ -9,12 +10,13 @@ import { ConfirmDialogComponent } from '../shared/components';
   selector: 'app-main',
   template: `<div [class]="classNameLayout">
       <app-menu (staticMenu)="onStaticMenu($event)"></app-menu>
-      <div class="layout-main">
+      <div [ngClass]="{ 'layout-main': true, 'layout-overflow-hidden': loading }">
         <app-topbar></app-topbar>
         <!-- <app-rightpanel></app-rightpanel> -->
         <app-breadcrumb></app-breadcrumb>
         <!-- <div class="layout-mask" [ngClass]="{'layout-mask-active': menuActive}" (click)="onMaskClick()"></div> -->
         <div class="layout-content">
+          <app-loading *ngIf="loading"></app-loading>
           <router-outlet></router-outlet>
         </div>
         <!-- <app-footer></app-footer> -->
@@ -28,7 +30,9 @@ export class FeaturesComponent implements OnDestroy {
   constructor(
     private service: NotificationMessageService,
     private messageService: MessageService,
-    public dialogService: DialogService
+    public dialogService: DialogService,
+    private loadingService: LoadingService,
+    private ref: ChangeDetectorRef
   ) {
     this.subscription.push(
       this.service.subjectMessage.subscribe((notify) => {
@@ -41,7 +45,7 @@ export class FeaturesComponent implements OnDestroy {
       })
     );
   }
-
+  loading = false;
   subscription: Subscription[] = [];
   classNameLayout = 'layout-wrapper layout-menu-light';
 
@@ -69,5 +73,12 @@ export class FeaturesComponent implements OnDestroy {
     this.subscription.forEach((sub) => {
       sub.unsubscribe();
     });
+  }
+  //mới
+  ngAfterContentChecked() {
+    this.loadingService.showLoading.subscribe((res: boolean) => {
+      this.loading = res;
+    });
+    this.ref.detectChanges();
   }
 }

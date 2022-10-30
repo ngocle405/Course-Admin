@@ -1,15 +1,12 @@
-<app-loading *ngIf="loading"></app-loading>
 <div class="card">
   <div class="grid">
-
     <div class="col-3">
       <span class="p-float-label">
         <input inputId="name" type="text" class="p-inputtext-sm" [(ngModel)]="params.searchName" pInputText />
         <label for="name">Tên học viên</label>
       </span>
     </div>
-   
- 
+
     <div class="col-3">
       <span class="p-float-label">
         <p-dropdown
@@ -25,41 +22,27 @@
       </span>
     </div>
     <div class="col-3">
-        <span class="p-float-label">
-          <p-dropdown
-            [options]="stateData?.listCourse"
-            class="p-inputtext-sm"
-            [(ngModel)]="params.courseId"
-            optionLabel="courseName"
-            optionValue="courseId"
-            [autoDisplayFirst]="false"
-            appendTo="body"
-          >
-          </p-dropdown>
-          <label for="icon">Tên khóa học</label>
-        </span>
-      </div>
+      <span class="p-float-label">
+        <p-dropdown
+          [options]="stateData?.listCourse"
+          class="p-inputtext-sm"
+          [(ngModel)]="params.courseId"
+          optionLabel="courseName"
+          optionValue="courseId"
+          [autoDisplayFirst]="false"
+          appendTo="body"
+        >
+        </p-dropdown>
+        <label for="icon">Tên khóa học</label>
+      </span>
+    </div>
   </div>
   <p-toolbar styleClass="px-0 pt-0">
     <div class="p-toolbar-group-left">
       <div class="p-field">
-        <button
-          pButton
-          (click)="search()"
-          icon="pi pi-search"
-          pRipple
-          type="button"
-          label="Tìm kiếm"
-        ></button>
-        <button 
-          (click)="exportExcel()"
-          pButton
-          pRipple
-          label="Export"
-          icon="pi pi-download"
-          class="ml-2"
-        ></button>
-        <p-button (click)="onReset()" icon="pi pi-replay" class="ml-2" ></p-button>
+        <button pButton (click)="search()" icon="pi pi-search" pRipple type="button" label="Tìm kiếm"></button>
+        <button (click)="exportExcel()" pButton pRipple label="Export" icon="pi pi-download" class="ml-2"></button>
+        <p-button (click)="onReset()" icon="pi pi-replay" class="ml-2"></p-button>
       </div>
     </div>
     <div class="p-toolbar-group-right">
@@ -85,13 +68,11 @@
         <td>{{ i + 1 }}</td>
         <td>{{ item.courseName }}</td>
         <td>{{ item.studentName }}</td>
-        <td>{{ item.price| currency:'VND' }}</td>
-        <td>{{item.createDate | date:"dd/MM/yyyy"}}</td>
-        <td>{{ item.money | currency:'VND' }}</td>
-        <td *ngIf="item.statusPayment === true;else close">
-          
+        <td>{{ item.price | currency: 'VND' }}</td>
+        <td>{{ item.createDate | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ item.money | currency: 'VND' }}</td>
+        <td *ngIf="item.statusPayment === true; else close">
           <p-tag value="Đã đóng tiền" icon="pi pi-info-circle" severity="info"></p-tag>
-          
         </td>
         <td>{{ item.contentPayment }}</td>
         <ng-template #close>

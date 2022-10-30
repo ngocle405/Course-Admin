@@ -25,12 +25,10 @@ export class NewListComponent extends BaseTableComponent<NewModel> {
     newCategoryName: '',
   };
   onReset() {
-    setTimeout(() => {
-      this.params.searchName = '';
-      this.params.status = '';
-      this.params.newCategoryId = '';
-      this.search();
-    }, 0);
+    this.params.searchName = '';
+    this.params.status = '';
+    this.params.newCategoryId = '';
+    this.search();
   }
   override initConfigAction(): void {
     this.configAction = {

@@ -14,14 +14,15 @@ import { cleanDataForm, validateAllFormFields } from 'src/app/core/utils/common-
 import * as _ from 'lodash';
 import { BaseService } from 'src/app/core/services/base.service';
 import { FileUpload } from 'primeng/fileupload';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoadingService } from '@cores/services/loading.service';
 
 @Component({
   template: `<ng-content></ng-content>`,
 })
 export class BaseActionComponent implements OnDestroy {
   public objFunction: FunctionModel | undefined;
-  public loading = true;
+  public loadingService!: LoadingService;
   @ViewChildren(FileUpload) files: QueryList<FileUpload> | any;
   protected messageService: NotificationMessageService | undefined;
   protected router: Router | undefined;
@@ -30,13 +31,13 @@ export class BaseActionComponent implements OnDestroy {
   protected streamDataService: StreamDataService | undefined;
   protected ref: ChangeDetectorRef | undefined;
   protected commonService: CommonCategoryService | undefined;
-  protected fb: UntypedFormBuilder | undefined;
+  protected fb: FormBuilder | undefined;
   protected refDialog!: DynamicDialogRef;
   protected configDialog!: DynamicDialogConfig;
 
   subscription: Subscription | undefined;
   subscriptions: Subscription[] = [];
-  form = new UntypedFormGroup({});
+  form = new FormGroup({});
   title: string | undefined;
   message = {
     create: {
@@ -51,8 +52,8 @@ export class BaseActionComponent implements OnDestroy {
   data: any;
   state: any;
   screenType: ScreenType | undefined;
-  baseId: any;//id chung
-  image:any;
+  baseId: any; //id chung
+  image: any;
 
   constructor(private injector: Injector, protected service: BaseService) {
     this.init();
@@ -62,14 +63,14 @@ export class BaseActionComponent implements OnDestroy {
       this.data = this.configDialog.data?.model;
       this.screenType = this.configDialog?.data?.screenType;
       this.state = this.configDialog?.data?.state;
-      this.baseId = this.configDialog?.data?.baseId;//gán vào baseid
-      this. image=this.configDialog?.data.image;
+      this.baseId = this.configDialog?.data?.baseId; //gán vào baseid
+      this.image = this.configDialog?.data?.image;
     }
   }
 
   init() {
     this.messageService = this.injector.get(NotificationMessageService);
-    this.fb = this.injector.get(UntypedFormBuilder);
+    this.fb = this.injector.get(FormBuilder);
     this.router = this.injector.get(Router);
     this.route = this.injector.get(ActivatedRoute);
     this.location = this.injector.get(Location);
@@ -77,9 +78,16 @@ export class BaseActionComponent implements OnDestroy {
     this.ref = this.injector.get(ChangeDetectorRef);
     this.refDialog = this.injector.get(DynamicDialogRef);
     this.configDialog = this.injector.get(DynamicDialogConfig);
+    this.loadingService = this.injector.get(LoadingService);
+  }
+  getValue(obj: any, path: string) {
+    return _.get(obj, path);
   }
 
   save() {
+    if (this.loadingService.loading) {
+      return;
+    }
     const data = this.getDataForm();
     if (this.form?.status === 'VALID') {
       this.messageService?.confirm().subscribe((isConfirm) => {
@@ -101,45 +109,34 @@ export class BaseActionComponent implements OnDestroy {
   }
 
   create(data: any) {
-   // this.form.get('image')?.value;
-    this.service.getEncodeFromImage(this.files.first).subscribe({
-      next: (res) => {
-        let data_image = res == ''; 
-        if(data_image){
-          this.messageService!.warn('Bạn chưa chọn ảnh');
-          return ;
-        }
-        data.image =res;
-        this.service.create(data).subscribe({
-          next: () => {
-            this.messageService!.success(this.message.create.success);
-            this.refDialog.close(true);
-          },
-          error: (err) => {
-            this.messageService!.error(err.error.message);
-          },
-        });
-      }
+    this.loadingService.start();
+    this.service.create(data).subscribe({
+      next: () => {
+        this.messageService!.success(this.message.create.success);
+        this.refDialog.close(true);
+        this.loadingService.complete();
+      },
+      error: (err) => {
+        this.messageService!.error(err.error.message);
+        this.loadingService.complete();
+      },
     });
   }
 
   update(data: any) {
-    this.service.getEncodeFromImage(this.files.first).subscribe({
-      next: (res) => {
-        let data_image = res == '' ? null : res;
-        data.image = data_image;
-        this.service.updateAction(this.baseId, data).subscribe({
-          next: () => {
-            this.messageService!.success(this.message.update.success);
-            this.refDialog.close(true);
-          },
-          error: (err) => {
-            this.messageService!.error(err.error.message);
-          },
-        });
-      }
+    this.loadingService.start();
+
+    this.service.updateAction(this.baseId, data).subscribe({
+      next: () => {
+        this.messageService!.success(this.message.update.success);
+        this.refDialog.close(true);
+        this.loadingService.complete();
+      },
+      error: (err) => {
+        this.messageService!.error(err.error.message);
+        this.loadingService.complete();
+      },
     });
-    
   }
 
   cancel() {
@@ -150,7 +147,7 @@ export class BaseActionComponent implements OnDestroy {
     }
   }
 
-  onDestroy() { }
+  onDestroy() {}
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();

@@ -7,7 +7,6 @@
   </div>
 </div>
 <div class="mt-2 p-dialog-body grid p-fluid">
-
   <div class="col-4" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
@@ -17,66 +16,73 @@
       <f-errors [errors]="form.get('title')"></f-errors>
     </div>
   </div>
- 
-  <div class="col-4" [formGroup]="form">
-      <div class="p-field">
-        <span class="p-float-label">
-          <input p-dialog-body type="text" formControlName="type" class="p-inputtext-sm"  pInputText />
-          <label for="inputtext">Kiểu*</label>
-        </span>
-        <f-errors [errors]="form.get('type')"></f-errors>
-  
-      </div>
-    </div>
-    <div class="col-4" [formGroup]="form">
-      <span class="p-float-label">
-        <p-dropdown
-          class="p-inputtext-sm"
-          [options]="state!.newCategories"
-          formControlName="newCategoryId"
-          optionLabel="newCategoryName"
-          optionValue="newCategoryId"
-          [autoDisplayFirst]="false"
-        >
-        </p-dropdown>
-        <label for="icon">Loại danh mục</label>
-      </span>
-    </div>
-  
+
   <div class="col-4" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
-        <p-fileUpload chooseLabel="Chọn file" name="demo[]" mode="advanced"  [showUploadButton]="false"
-          [maxFileSize]="10000000" [multiple]="false" accept="image/*">
-          <ng-template pTemplate="content" *ngIf="hiddenImage" >
-              <p-image  src="http://localhost:53421/Upload/Files/{{image}}" alt="Image" width="50px"></p-image>
-          </ng-template>
-        </p-fileUpload>
-    
+        <input p-dialog-body type="text" formControlName="type" class="p-inputtext-sm" pInputText />
+        <label for="inputtext">Kiểu </label>
       </span>
-
+      <f-errors [errors]="form.get('type')"></f-errors>
     </div>
   </div>
   <div class="col-4" [formGroup]="form">
+    <span class="p-float-label">
+      <p-dropdown
+        class="p-inputtext-sm"
+        [options]="state?.newCategories"
+        formControlName="newCategoryId"
+        optionLabel="newCategoryName"
+        optionValue="newCategoryId"
+        [autoDisplayFirst]="false"
+      >
+      </p-dropdown>
+      <label for="icon">Loại danh mục *</label>
+    </span>
+    <f-errors [errors]="form.get('newCategoryId')"></f-errors>
+  </div>
+
+  <div class="col-12" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
-        <textarea [rows]="6"  pInputTextarea  formControlName="detail"></textarea>
+        <p-fileUpload
+          chooseLabel="Chọn file"
+          (onSelect)="uploadHandler($event)"
+          [showUploadButton]="false"
+          [maxFileSize]="10000000"
+          [multiple]="false"
+          accept="image/*"
+          [previewWidth]="40"
+          [auto]="true"
+          chooseIcon="pi pi-upload"
+        >
+          <ng-template pTemplate="content" *ngIf="hiddenImage">
+            <p-image src="http://localhost:53421/Upload/Files/{{ image }}" alt="Image" width="50px"></p-image>
+          </ng-template>
+        </p-fileUpload>
+      </span>
+    </div>
+  </div>
+  <div class="col-12" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <textarea [rows]="6" pInputTextarea formControlName="detail"></textarea>
         <label for="inputtext">Nội dung chi tiết*</label>
       </span>
       <f-errors [errors]="form.get('detail')"></f-errors>
     </div>
   </div>
- 
+
   <div class="col-12" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
-        <p-editor formControlName="description" placeholder="Nhập mô tả" [style]="{'height':'300px'}"></p-editor>
+        <p-editor formControlName="description" placeholder="Nhập mô tả" [style]="{ height: '300px' }"></p-editor>
       </span>
     </div>
   </div>
   <div class="col-4" [formGroup]="form">
     <div class="p-field-checkbox">
-      <p-checkbox name="group1" formControlName="status" [binary]="true" > </p-checkbox>
+      <p-checkbox name="group1" formControlName="status" [binary]="true"> </p-checkbox>
       <label for="ny">Trạng thái</label>
     </div>
   </div>

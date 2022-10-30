@@ -27,16 +27,20 @@
         <label for="inputtext">Tên học viên <span class="requirds">*</span></label>
       </span>
       <f-errors [errors]="form.get('studentName')"></f-errors>
-
     </div>
   </div>
   <div class="col-3" [formGroup]="form">
     <span class="p-float-label">
-      <p-calendar class="p-inputtext-sm" [showIcon]="true" appendTo="body" [readonlyInput]="true" dateFormat="dd/mm/yy"
-        formControlName="dateOfBirth">
+      <p-calendar
+        class="p-inputtext-sm"
+        [showIcon]="true"
+        appendTo="body"
+        [readonlyInput]="false"
+        dateFormat="dd/mm/yy"
+        formControlName="dateOfBirth"
+      >
       </p-calendar>
       <label for="icon">Ngày sinh <span class="requirds">*</span></label>
-
     </span>
     <f-errors [errors]="form.get('dateOfBirth')"></f-errors>
   </div>
@@ -44,12 +48,11 @@
   <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
-        <input class="p-inputtext-sm" pInputText formControlName="email">
+        <input class="p-inputtext-sm" pInputText formControlName="email" />
 
         <label for="inputtext">Email <span class="requirds">*</span></label>
       </span>
       <f-errors [errors]="form.get('email')"></f-errors>
-
     </div>
   </div>
   <div class="col-3" [formGroup]="form">
@@ -64,7 +67,7 @@
   <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
-        <input class="p-inputtext-sm" pInputText formControlName="phone">
+        <input class="p-inputtext-sm" pInputText formControlName="phone" />
         <label for="inputtext">Điện thoại <span class="requirds">*</span></label>
       </span>
       <f-errors [errors]="form.get('phone')"></f-errors>
@@ -73,20 +76,31 @@
   <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
-        <p-dropdown class="p-inputtext-sm" [options]="state!.listCourse" formControlName="courseId"
-          optionLabel="courseName" optionValue="courseId" [autoDisplayFirst]="false">
+        <p-dropdown
+          class="p-inputtext-sm"
+          [options]="state?.listCourse"
+          formControlName="courseId"
+          optionLabel="courseName"
+          optionValue="courseId"
+          [autoDisplayFirst]="false"
+        >
         </p-dropdown>
         <label for="inputtext">Chọn khóa học <span class="requirds">*</span> </label>
       </span>
       <f-errors [errors]="form.get('courseId')"></f-errors>
-
     </div>
   </div>
   <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
-        <p-dropdown class="p-inputtext-sm" [options]="state!.listClass" formControlName="classId"
-          optionLabel="className" optionValue="classId" [autoDisplayFirst]="false">
+        <p-dropdown
+          class="p-inputtext-sm"
+          [options]="state?.listClass"
+          formControlName="classId"
+          optionLabel="className"
+          optionValue="classId"
+          [autoDisplayFirst]="false"
+        >
         </p-dropdown>
         <label for="inputtext">Chọn lớp học <span class="requirds"></span> </label>
       </span>
@@ -107,9 +121,7 @@
             <label class="titleRadio" for="type1">Nữ</label>
           </span>
         </div>
-
       </span>
-
     </div>
   </div>
 
@@ -117,22 +129,29 @@
     <h3 class="title-Or">Ảnh đại diện</h3>
     <div class="p-field">
       <span class="p-float-label">
-        <p-fileUpload chooseLabel="Chọn ảnh" mode="advanced" [showUploadButton]="false" [maxFileSize]="10000000"
-          [multiple]="false" accept="image/*">
+        <p-fileUpload
+          chooseLabel="Chọn ảnh"
+          mode="advanced"
+          (onSelect)="uploadHandler($event)"
+          [showUploadButton]="false"
+          [maxFileSize]="10000000"
+          [multiple]="false"
+          accept="image/*"
+          [previewWidth]="40"
+          [auto]="true"
+        >
           <ng-template pTemplate="content" *ngIf="hiddenImage">
-            <p-image src="http://localhost:53421/Upload/Files/{{image}}" alt="Image" width="50px"></p-image>
+            <p-image src="http://localhost:53421/Upload/Files/{{ image }}" alt="Image" width="50px"></p-image>
           </ng-template>
         </p-fileUpload>
-
       </span>
-
     </div>
   </div>
   <div class="col-12" [formGroup]="form">
     <h3 class="title-Or">mô tả</h3>
     <div class="p-field">
       <span class="p-float-label">
-        <p-editor formControlName="description" placeholder="Nhập mô tả" [style]="{'height':'300px'}"></p-editor>
+        <p-editor formControlName="description" placeholder="Nhập mô tả" [style]="{ height: '300px' }"></p-editor>
       </span>
     </div>
   </div>

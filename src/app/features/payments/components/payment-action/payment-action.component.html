@@ -1,59 +1,67 @@
 <div class="p-dialog-header">
-    <span class="p-dialog-title">Thêm thông tin đóng học phí</span>
-    <div class="p-dialog-header-icons">
-        <button type="button" class="p-dialog-header-icon p-dialog-header-maximize p-link" (click)="cancel()">
-            <span class="p-dialog-header-close-icon pi pi-times"></span>
-        </button>
-    </div>
+  <span class="p-dialog-title">Thêm thông tin đóng học phí</span>
+  <div class="p-dialog-header-icons">
+    <button type="button" class="p-dialog-header-icon p-dialog-header-maximize p-link" (click)="cancel()">
+      <span class="p-dialog-header-close-icon pi pi-times"></span>
+    </button>
+  </div>
 </div>
 <div class="mt-2 p-dialog-body grid p-fluid">
-    <div class="col-6" [formGroup]="form">
-        <div class="p-field">
-            <span class="p-float-label">
-                <p-dropdown class="p-inputtext-sm" placeholder="Chọn học viên" [options]="state!.listStudent"
-                    formControlName="studentId" optionLabel="studentName" optionValue="studentId"
-                  
-                    appendTo="body"
-                    [autoDisplayFirst]="false">
-                </p-dropdown>
-                <label for="inputtext">Tên học viên *</label>
-            </span>
-            <f-errors [errors]="form.get('studentId')"></f-errors>
-
-        </div>
+  <div class="col-6" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <p-dropdown
+          class="p-inputtext-sm"
+          placeholder="Chọn học viên"
+          [options]="state?.listStudent"
+          formControlName="studentId"
+          optionLabel="studentName"
+          optionValue="studentId"
+          appendTo="body"
+          [autoDisplayFirst]="false"
+        >
+        </p-dropdown>
+        <label for="inputtext">Tên học viên *</label>
+      </span>
+      <f-errors [errors]="form.get('studentId')"></f-errors>
     </div>
-  
-    <div class="col-6" [formGroup]="form">
-        <div class="p-field">
-            <span class="p-float-label">
-                <input type="number" class="p-inputtext-sm" pInputText formControlName="money" />
-                <label for="inputtext">Đơn giá *</label>
-            </span>
-            <f-errors [errors]="form.get('money')"></f-errors>
-        </div>
+  </div>
+
+  <div class="col-6" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <input type="number" class="p-inputtext-sm" pInputText formControlName="money" />
+        <label for="inputtext">Đơn giá *</label>
+      </span>
+      <f-errors [errors]="form.get('money')"></f-errors>
     </div>
-    <div class="col-6" [formGroup]="form">
-        <div class="p-field">
-            <span class="p-float-label">
-                <input type="text" class="p-inputtext-sm" pInputText formControlName="contentPayment" />
-                <label for="inputtext">Ghi chú </label>
-            </span>
-
-        </div>
+  </div>
+  <div class="col-6" [formGroup]="form">
+    <div class="p-field">
+      <span class="p-float-label">
+        <input type="text" class="p-inputtext-sm" pInputText formControlName="contentPayment" />
+        <label for="inputtext">Ghi chú </label>
+      </span>
     </div>
+  </div>
 
-
-
-    <div class="col-6" [formGroup]="form">
-        <span class="p-float-label">
-            <p-dropdown [options]="state?.listStatus" class="p-inputtext-sm" formControlName="statusPayment"
-                optionLabel="name" optionValue="value" appendTo="body" [autoDisplayFirst]="false">
-            </p-dropdown>
-            <label for="icon">Trạng thái *</label>
-        </span>
-    </div>
+  <div class="col-6" [formGroup]="form">
+    <span class="p-float-label">
+      <p-dropdown
+        [options]="state?.listStatus"
+        class="p-inputtext-sm"
+        formControlName="statusPayment"
+        optionLabel="name"
+        optionValue="value"
+        appendTo="body"
+        [autoDisplayFirst]="false"
+      >
+      </p-dropdown>
+      <label for="icon">Trạng thái *</label>
+    </span>
+  </div>
 </div>
 <div class="p-dialog-footer p-0 mt-3">
-    <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="mr-2"></button>
-    <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
+  <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="mr-2"></button>
+  <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
 </div>

@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { Injector, OnDestroy, ChangeDetectorRef, Component } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileModel } from 'src/app/core/models/user-profile.model';
@@ -17,6 +17,7 @@ import { PaginatorModel } from 'src/app/core/models/paginator.model';
 import { ActionConfig } from 'src/app/core/models/action-config.model';
 import { cloneDeep } from 'lodash';
 import * as _ from 'lodash';
+import { LoadingService } from '@cores/services/loading.service';
 
 @Component({
   template: `<ng-content></ng-content>`,
@@ -24,9 +25,8 @@ import * as _ from 'lodash';
 })
 export class BaseTableComponent<M> implements OnDestroy {
   public objFunction: FunctionModel | undefined;
-  public loading = true;
   public currUser: UserProfileModel;
-
+  public loadingService!: LoadingService;
   protected messageService: NotificationMessageService | undefined;
   protected dialogService: DialogService | undefined;
   protected router: Router | undefined;
@@ -36,7 +36,7 @@ export class BaseTableComponent<M> implements OnDestroy {
   protected sessionService: SessionService | undefined;
   protected ref: ChangeDetectorRef | undefined;
   protected commonService: CommonCategoryService | undefined;
-  protected fb: UntypedFormBuilder | undefined;
+  protected fb: FormBuilder | undefined;
 
   stateData: any;
   propData: any;
@@ -47,12 +47,10 @@ export class BaseTableComponent<M> implements OnDestroy {
     totalElements: 1,
     totalPages: 0,
     totalRecords: 0,
-   
-
   };
   configAction: ActionConfig | undefined;
   prevParams: any;
-  params: M | UntypedFormGroup | undefined;
+  params: M | FormGroup | undefined;
   fileNameExcel = 'list-data.xlsx';
   subscription: Subscription | undefined;
   subscriptions: Subscription[] = [];
@@ -62,13 +60,12 @@ export class BaseTableComponent<M> implements OnDestroy {
     this.initConfigAction();
     this.getState();
     this.currUser = this.sessionService?.getSessionData(SessionKey.UserProfile);
-    
   }
 
   init() {
     this.messageService = this.injector.get(NotificationMessageService);
     this.dialogService = this.injector.get(DialogService);
-    this.fb = this.injector.get(UntypedFormBuilder);
+    this.fb = this.injector.get(FormBuilder);
     this.router = this.injector.get(Router);
     this.route = this.injector.get(ActivatedRoute);
     this.location = this.injector.get(Location);
@@ -76,9 +73,10 @@ export class BaseTableComponent<M> implements OnDestroy {
     this.sessionService = this.injector.get(SessionService);
     this.ref = this.injector.get(ChangeDetectorRef);
     this.commonService = this.injector.get(CommonCategoryService);
+    this.loadingService = this.injector.get(LoadingService);
   }
 
-  initConfigAction() { }
+  initConfigAction() {}
 
   getState() {
     this.service.getState().subscribe({
@@ -87,30 +85,28 @@ export class BaseTableComponent<M> implements OnDestroy {
         this.stateData = cloneDeep(state);
         this.mapState();
         this.search();
-     
       },
     });
   }
 
-  mapState() { }
+  mapState() {}
 
-  search(firstPage?:boolean) {
+  search(firstPage?: boolean) {
     if (firstPage) {
       this.dataTable.currentPage = 0;
     }
 
-    this.loading = true;
+    this.loadingService.start();
     const params = this.mapDataSearch();
-  
+
     this.service.search(<M>(<unknown>params)).subscribe({
       next: (data) => {
         this.dataTable = data;
-       console.log(data)
-        this.loading = false;
+        this.loadingService.complete();
         this.prevParams = params;
       },
       error: () => {
-        this.loading = false;
+        this.loadingService.complete();
       },
     });
   }
@@ -118,15 +114,13 @@ export class BaseTableComponent<M> implements OnDestroy {
     const params = {
       pageIndex: this.dataTable.currentPage,
       pageSize: this.dataTable.size,
-    
+
       ...this.params,
-     
     };
     return <M>(<unknown>params);
   }
 
   pageChange(paginator: PaginatorModel) {
-
     if (this.dataTable.currentPage === 0) {
       this.dataTable.currentPage = paginator.page;
     } else {
@@ -134,7 +128,6 @@ export class BaseTableComponent<M> implements OnDestroy {
     }
     this.dataTable.size = paginator.rows;
     this.search();
-
   }
 
   viewCreate() {
@@ -160,20 +153,20 @@ export class BaseTableComponent<M> implements OnDestroy {
   }
 
   viewEdit(id: string) {
-    if (this.loading || !this.configAction?.component) {
+    if (this.loadingService.loading || !this.configAction?.component) {
       return;
     }
-   
-    this.loading = true;
+
+    //this.loading = true;
+    this.loadingService.start();
     this.service.findById(id).subscribe({
       next: (data: M) => {
-     
         const dialog = this.dialogService?.open(this.configAction!.component, {
           header: `Cập nhật ${this.configAction!.title.toLowerCase()}`,
           showHeader: false,
           width: this.configAction!.dialog?.width || '70%',
           data: {
-            image:_.get(data,'image'),
+            image: _.get(data, 'image'),
             model: data,
             baseId: id,
             state: this.propData,
@@ -187,20 +180,20 @@ export class BaseTableComponent<M> implements OnDestroy {
             }
           },
         });
-        this.loading = false;
+        this.loadingService.complete();
       },
       error: (e) => {
-        this.loading = false;
+        this.loadingService.complete();
         this.messageService?.error('Có lỗi xảy ra, vui lòng thử lại sau');
       },
     });
   }
 
   viewDetail(code: string) {
-    if (this.loading || !this.configAction?.component) {
+    if (this.loadingService.loading || !this.configAction?.component) {
       return;
     }
-    this.loading = true;
+    this.loadingService.start();
     this.service.findById(code).subscribe({
       next: (data: any) => {
         this.dialogService?.open(this.configAction!.component, {
@@ -211,32 +204,32 @@ export class BaseTableComponent<M> implements OnDestroy {
             model: data,
             state: this.stateData,
             screenType: ScreenType.Detail,
-            image:_.get(data,'image'),
+            image: _.get(data, 'image'),
           },
         });
-        this.loading = false;
+        this.loadingService.complete();
       },
       error: (e) => {
-        this.loading = false;
+        this.loadingService.complete();
         this.messageService?.error('Có lỗi xảy ra, vui lòng thử lại sau');
       },
     });
   }
 
   deleteItem(id: string | number) {
-    if (this.loading) {
+    if (this.loadingService.loading) {
       return;
     }
     this.messageService?.confirm().subscribe((isConfirm) => {
       if (isConfirm) {
-        this.loading = true;
+        this.loadingService.start();
         this.service.delete(id).subscribe({
           next: () => {
             this.messageService?.success('Thực hiện xoá bản ghi thành công');
             this.search();
           },
           error: (e) => {
-            this.loading = false;
+            this.loadingService.complete();
             this.messageService?.error('Có lỗi xảy ra, vui lòng thử lại sau');
           },
         });
@@ -245,19 +238,20 @@ export class BaseTableComponent<M> implements OnDestroy {
   }
 
   exportExcel() {
-    this.loading = true;
+    this.loadingService.start();
     this.service.exportExcel(this.fileNameExcel, this.prevParams).subscribe({
       next: () => {
-        this.loading = false;
+        this.loadingService.complete();
       },
       error: () => {
-        this.loading = false;
+        this.loadingService.complete();
+
         this.messageService?.error('Có lỗi xảy ra, vui lòng thử lại sau');
       },
     });
   }
 
-  onDestroy() { }
+  onDestroy() {}
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();

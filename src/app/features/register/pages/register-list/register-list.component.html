@@ -1,9 +1,8 @@
-<app-loading *ngIf="loading"></app-loading>
 <div class="card">
   <div class="grid">
     <div class="col-4">
       <span class="p-float-label">
-        <input inputId="name" type="text" class="p-inputtext-sm" [(ngModel)]="params.searchName"  pInputText />
+        <input inputId="name" type="text" class="p-inputtext-sm" [(ngModel)]="params.searchName" pInputText />
         <label for="name">Tên khách hàng</label>
       </span>
     </div>
@@ -22,7 +21,7 @@
         <label for="icon">Trụ sở </label>
       </span>
     </div>
- 
+
     <div class="col-4">
       <span class="p-float-label">
         <p-dropdown
@@ -38,33 +37,16 @@
         <label for="icon">Trạng thái</label>
       </span>
     </div>
- 
   </div>
   <p-toolbar styleClass="px-0 pt-0">
     <div class="p-toolbar-group-left">
       <div class="p-field">
-        <button
-          pButton
-          (click)="search()"
-          icon="pi pi-search"
-          pRipple
-          type="button"
-          label="Tìm kiếm"
-    
-        ></button>
-        <button 
-          (click)="exportExcel()"
-          pButton
-          pRipple
-          label="Export"
-          icon="pi pi-download"
-          class="ml-2"
-        ></button>
+        <button pButton (click)="search()" icon="pi pi-search" pRipple type="button" label="Tìm kiếm"></button>
+        <button (click)="exportExcel()" pButton pRipple label="Export" icon="pi pi-download" class="ml-2"></button>
         <p-button (click)="onReset()" icon="pi pi-replay" class="ml-2"></p-button>
       </div>
     </div>
-    <div class="p-toolbar-group-right">
-    </div>
+    <div class="p-toolbar-group-right"></div>
   </p-toolbar>
   <p-table [value]="dataTable.content" responsiveLayout="scroll">
     <ng-template pTemplate="header">
@@ -83,21 +65,19 @@
     <ng-template pTemplate="body" let-item let-i="rowIndex">
       <tr>
         <td>{{ i + 1 }}</td>
-        <td>{{item.studentName}}</td>
+        <td>{{ item.studentName }}</td>
         <td>{{ item.phone }}</td>
         <td>
-          {{item.email}}
+          {{ item.email }}
         </td>
-        <td>{{item.workLocation}}</td>
-        <td>{{item.level}}</td>
-        <td>{{item.createDate| date:"dd/MM/yyyy"}}</td>
+        <td>{{ item.workLocation }}</td>
+        <td>{{ item.level }}</td>
+        <td>{{ item.createDate | date: 'dd/MM/yyyy' }}</td>
         <ng-template #close>
           <p-tag class="text-center" icon="pi pi-times" severity="danger" value="Close"></p-tag>
         </ng-template>
-        <td *ngIf="item.status === null;else close">
-          
+        <td *ngIf="item.status === null; else close">
           <p-tag value="Chờ xác nhận" icon="pi pi-info-circle" severity="info"></p-tag>
-          
         </td>
         <td style="width: 100px" alignFrozen="right" pFrozenColumn>
           <!-- <span class="pointer p-mr-2" (click)="viewDetail(item.studentId)">

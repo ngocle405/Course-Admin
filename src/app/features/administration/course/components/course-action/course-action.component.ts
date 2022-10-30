@@ -1,20 +1,22 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { convertToJson } from '@cores/utils/common-functions';
 import { ScreenType } from '@cores/utils/enums';
 import { BaseActionComponent } from '@shared/components';
 import { isEmpty } from 'lodash';
 import * as moment from 'moment';
+import { FileUpload } from 'primeng/fileupload';
 import { CourseService } from '../../service/course.service';
 
 @Component({
   selector: 'app-course-action',
   templateUrl: './course-action.component.html',
-  styleUrls: ['./course-action.component.scss']
+  styleUrls: ['./course-action.component.scss'],
 })
 export class CourseActionComponent extends BaseActionComponent implements OnInit {
   hiddenImage: boolean = false;
-  maxDate= new Date();
-  check=true;
+  maxDate = new Date();
+  check = true;
   constructor(inject: Injector, service: CourseService) {
     super(inject, service);
   }
@@ -32,33 +34,21 @@ export class CourseActionComponent extends BaseActionComponent implements OnInit
     status: true,
     note: [''],
     title: ['', Validators.required],
+    image: '',
   });
 
- 
-  changStartDate($event:any){
+  changStartDate($event: any) {
     this.maxDate.setDate(new Date($event).getDate());
-    if(this.maxDate !== null){
-     this.check=false;
+    if (this.maxDate !== null) {
+      this.check = false;
     }
   }
 
-  // changEndDate($event:any){
-  //   var maxDate=new Date(this.maxDate);
-
-  //   var endDate=new Date($event);
-  //   console.log(endDate)
-  //   if(endDate>maxDate){
-  //     this.messageService!.warn('không thể quá 21 ngày');
-  //     return;
-  //   }    
-  // }
   ngOnInit(): void {
-
     if (this.screenType === ScreenType.Detail) {
       this.form.disable();
       this.hiddenImage = true;
-    }
-    else if (this.screenType === ScreenType.Update) {
+    } else if (this.screenType === ScreenType.Update) {
       this.form?.get('code')!.disable();
       this.hiddenImage = true;
     }
@@ -66,9 +56,22 @@ export class CourseActionComponent extends BaseActionComponent implements OnInit
       this.data.createDate = isEmpty(this.data.createDate) ? null : new Date(this.data.createDate);
       this.data.startDate = isEmpty(this.data.startDate) ? null : new Date(this.data.startDate);
       this.data.endDate = isEmpty(this.data.endDate) ? null : new Date(this.data.endDate);
-      this.form.patchValue(this.data);//dùng cho sửa,detail
-
+      this.form.patchValue(this.data); //dùng cho sửa,detail
     }
   }
+  uploadHandler(event: FileUpload) {
+    //let obj = JSON.parse(event.files[0]);
+    const formData: FormData = new FormData();
+    formData.append('uploadFiles', event.files[0]);
+    this.service.UploadFileFormData(JSON.stringify(formData)).subscribe({
+      next: (file) => {
+        this.form.get('image')?.setValue(file);
+      },
+      error: (err) => {
+        console.log(err);
 
+        this.messageService?.error('Có lỗi xảy ra');
+      },
+    });
+  }
 }

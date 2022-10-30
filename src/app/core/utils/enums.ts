@@ -24,3 +24,11 @@ export enum ScreenType {
   Update,
   Detail,
 }
+export enum FieldType {
+  Text,
+  TextArea,
+  Date,
+  // Dropdown,
+  // Checkbox,
+  // RadioButton,
+}

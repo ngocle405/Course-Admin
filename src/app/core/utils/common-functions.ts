@@ -1,40 +1,41 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { DataTable } from '../models/data-table.model';
+import { FieldType } from './enums';
 
-export function cleanDataForm(formGroup: UntypedFormGroup) {
+export function cleanDataForm(formGroup: FormGroup) {
   const form = formGroup;
   Object.keys(form.controls).forEach((field) => {
     const control = form.get(field);
-    if (control instanceof UntypedFormControl && typeof control.value === 'string') {
+    if (control instanceof FormControl && typeof control.value === 'string') {
       control.setValue(control?.value?.trim(), { emitEvent: false });
-    } else if (control instanceof UntypedFormGroup) {
+    } else if (control instanceof FormGroup) {
       cleanDataForm(control);
-    } else if (control instanceof UntypedFormArray) {
+    } else if (control instanceof FormArray) {
       for (const form of control.controls) {
-        cleanDataForm(form as UntypedFormGroup);
+        cleanDataForm(form as FormGroup);
       }
     }
   });
   return form.getRawValue();
 }
 
-export function validateAllFormFields(formGroup?: UntypedFormGroup) {
+export function validateAllFormFields(formGroup?: FormGroup) {
   if (!formGroup) {
     return;
   }
   Object.keys(formGroup.controls).forEach((field) => {
     const control = formGroup.get(field);
-    if (control instanceof UntypedFormControl) {
+    if (control instanceof FormControl) {
       control.markAsTouched({ onlySelf: true });
       control.markAsDirty({ onlySelf: true });
-    } else if (control instanceof UntypedFormGroup) {
+    } else if (control instanceof FormGroup) {
       validateAllFormFields(control);
-    } else if (control instanceof UntypedFormArray) {
+    } else if (control instanceof FormArray) {
       for (const form of control.controls) {
-        validateAllFormFields(form as UntypedFormGroup);
+        validateAllFormFields(form as FormGroup);
       }
     }
   });
@@ -82,7 +83,16 @@ export function getValueDateTimeLocal(value: any): string | null {
   }
   return null;
 }
-
+//loại bỏ param đang null hoặc underfined
+export function removeParamSearch(params: any) {
+  const newParams: any = {};
+  _.forEach(params, (value, key) => {
+    if (_.isNumber(value) || (!_.isNull(value) && !_.isUndefined(value) && !_.isEmpty(value))) {
+      newParams[key] = value;
+    }
+  });
+  return newParams;
+}
 export function mapDataTable(data: any, params: any) {
   return <DataTable<any>>{
     content: data?.data || [],
@@ -94,10 +104,11 @@ export function mapDataTable(data: any, params: any) {
 }
 //convert dữ liệu về dạng json
 export function convertToJson(value: string) {
-  if (_.isString(value) && _.isEmpty(value)) {
+  try {
     return JSON.parse(value);
+  } catch (e) {
+    return {};
   }
-  return null;
 }
 export function getNodeMenuByUrl(tree: any, value: string): any {
   let result = null;
@@ -113,12 +124,18 @@ export function getNodeMenuByUrl(tree: any, value: string): any {
   }
   return result;
 }
-//set defaut date
-@Pipe({
-  name: 'datePipe',
-})
-export class getDateDefault {
-  transform(value: any) {
-    return moment(value).format('YYYY-MM-DD');
+export function convertDataField(value: any, type: FieldType) {
+  if (!_.isNull(value) && !_.isUndefined(value)) {
+    if (type === FieldType.Date) {
+      return new Date(value);
+    } else {
+      return value;
+    }
   }
+  return null;
+}
+//update dữ liệu form,chỉ áp dụng với formcontrol
+export function updateValidity(control: AbstractControl | null, validators: ValidatorFn | ValidatorFn[] | null) {
+  control?.setValidators(validators);
+  control?.updateValueAndValidity();
 }

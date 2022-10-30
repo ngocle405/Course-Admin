@@ -24,15 +24,9 @@ export class BaseService implements BaseData {
       params: params,
     });
   }
-  search(params?: any, isPost?: boolean): Observable<DataTable<any>> {
+  search(params?: any): Observable<DataTable<any>> {
     const newParam: any = cleanDataTable(params);
-    if (isPost) {
-      return this.http
-        .post<DataTable<any>>(`${this.baseUrl}`, {
-          params: { ...newParam },
-        })
-        .pipe(map((data) => mapDataTable(data, params)));
-    }
+
     return this.http
       .get<DataTable<any>>(`${this.baseUrl}/Paging`, {
         params: { ...newParam },
@@ -102,5 +96,8 @@ export class BaseService implements BaseData {
         return true;
       })
     );
+  }
+  UploadFileFormData(data: any): Observable<any> {
+    return this.http.post(this.baseUrl + '/UploadPhotos', data);
   }
 }

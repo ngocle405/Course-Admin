@@ -1,6 +1,5 @@
 import { Observable, Subscription, of } from 'rxjs';
 import { Injector, OnDestroy, ChangeDetectorRef, Component } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileModel } from 'src/app/core/models/user-profile.model';
@@ -11,6 +10,9 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { NotificationMessageService } from 'src/app/core/services/message.service';
 import { SessionKey } from 'src/app/core/utils/enums';
 import { FunctionModel } from 'src/app/core/models/function.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { LoadingService } from '@cores/services/loading.service';
+import * as _ from 'lodash';
 
 @Component({
   template: `<ng-content></ng-content>`,
@@ -30,8 +32,8 @@ export class BaseComponent implements OnDestroy {
   protected sessionService: SessionService | undefined;
   protected ref: ChangeDetectorRef | undefined;
   protected commonService: CommonCategoryService | undefined;
-  protected fb: UntypedFormBuilder | undefined;
-
+  protected fb: FormBuilder | undefined;
+  protected loadingService!: LoadingService;
   subscription: Subscription | undefined;
   subscriptions: Subscription[] = [];
 
@@ -43,7 +45,7 @@ export class BaseComponent implements OnDestroy {
   init() {
     this.messageService = this.injector.get(NotificationMessageService);
     this.dialogService = this.injector.get(DialogService);
-    this.fb = this.injector.get(UntypedFormBuilder);
+    this.fb = this.injector.get(FormBuilder);
     this.router = this.injector.get(Router);
     this.route = this.injector.get(ActivatedRoute);
     this.location = this.injector.get(Location);
@@ -51,13 +53,16 @@ export class BaseComponent implements OnDestroy {
     this.sessionService = this.injector.get(SessionService);
     this.ref = this.injector.get(ChangeDetectorRef);
     this.commonService = this.injector.get(CommonCategoryService);
+    this.loadingService = this.injector.get(LoadingService);
   }
 
   back() {
     this.location!.back();
   }
-
-  getErrorControl(form: UntypedFormGroup, key: string, validator: string): boolean {
+  getValue(obj: any, path: string) {
+    return _.get(obj, path);
+  }
+  getErrorControl(form: FormGroup, key: string, validator: string): boolean {
     return form.get(key)!.errors && form.get(key)!.errors![validator] && form.get(key)?.touched;
   }
 

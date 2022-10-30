@@ -6,14 +6,13 @@ import { catchError, forkJoin, map, Observable, of } from 'rxjs';
 import { CourseModel, StateCourse } from '../models/course.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class CourseService extends BaseService{
-
-  constructor(http:HttpClient) {
-    super(http,`${environment.endpoint_url}/courses`);
+export class CourseService extends BaseService {
+  constructor(http: HttpClient) {
+    super(http, `${environment.endpoint_url}/courses`);
   }
-  override state!: StateCourse |undefined;
+  override state!: StateCourse | undefined;
   override getState(): Observable<StateCourse> {
     this.state = {
       listStatus: [
@@ -21,18 +20,21 @@ export class CourseService extends BaseService{
         { name: 'Hoạt động', value: true },
         { name: 'Dừng hoạt động', value: false },
       ],
-      listCourseCategory:[],
-      listTeacher:[]
+      listCourseCategory: [],
+      listTeacher: [],
     };
     return forkJoin({
-      listCourseCategory: this.
-        getCourseCategories()
-        .pipe(catchError(() => of<CourseModel[]>([]))),
-        listTeacher: this.getTeacher()
-        .pipe(catchError(() => of<CourseModel[]>([]))),
-    }).pipe(map((data: any) => (this.state = {
-      ...this.state, ...data
-    })));
+      listCourseCategory: this.getCourseCategories().pipe(catchError(() => of<CourseModel[]>([]))),
+      listTeacher: this.getTeacher().pipe(catchError(() => of<CourseModel[]>([]))),
+    }).pipe(
+      map(
+        (data: any) =>
+          (this.state = {
+            ...this.state,
+            ...data,
+          })
+      )
+    );
   }
   getCourseCategories() {
     return this.http.get<CourseModel[]>(`${environment.endpoint_url}/CourseCategories`);

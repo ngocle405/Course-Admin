@@ -27,7 +27,6 @@
         <label for="inputtext">Tên khóa học *</label>
       </span>
       <f-errors [errors]="form.get('courseName')"></f-errors>
-
     </div>
   </div>
   <div class="col-3" [formGroup]="form">
@@ -37,16 +36,20 @@
         <label for="inputtext">Tên tiếng anh *</label>
       </span>
       <f-errors [errors]="form.get('englishName')"></f-errors>
-
     </div>
   </div>
   <div class="col-3" [formGroup]="form">
     <span class="p-float-label">
-      <p-dropdown class="p-inputtext-sm" [options]="state!.listCourseCategory" formControlName="courseCategoryId"
-        optionLabel="courseCategoryName" optionValue="courseCategoryId" [autoDisplayFirst]="false">
+      <p-dropdown
+        class="p-inputtext-sm"
+        [options]="state?.listCourseCategory"
+        formControlName="courseCategoryId"
+        optionLabel="courseCategoryName"
+        optionValue="courseCategoryId"
+        [autoDisplayFirst]="false"
+      >
       </p-dropdown>
       <label for="icon">Loại danh mục</label>
-
     </span>
     <f-errors [errors]="form.get('courseCategoryId')"></f-errors>
   </div>
@@ -54,13 +57,18 @@
   <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
-        <p-dropdown class="p-inputtext-sm" [options]="state!.listTeacher" formControlName="teacherId"
-          optionLabel="teacherName" optionValue="teacherId" [autoDisplayFirst]="false">
+        <p-dropdown
+          class="p-inputtext-sm"
+          [options]="state?.listTeacher"
+          formControlName="teacherId"
+          optionLabel="teacherName"
+          optionValue="teacherId"
+          [autoDisplayFirst]="false"
+        >
         </p-dropdown>
         <label for="inputtext">Tên giáo viên *</label>
       </span>
       <f-errors></f-errors>
-
     </div>
   </div>
   <div class="col-3" [formGroup]="form">
@@ -75,7 +83,7 @@
   <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
-        <input class="p-inputtext-sm" pInputText formControlName="countLesson">
+        <input class="p-inputtext-sm" pInputText formControlName="countLesson" />
         <label for="inputtext">Số lượng bài học *</label>
       </span>
       <f-errors [errors]="form.get('countLesson')"></f-errors>
@@ -84,9 +92,15 @@
   <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
-        <p-calendar class="p-inputtext-sm" [showIcon]="true" appendTo="body" (ngModelChange)="changStartDate($event)"
-          [readonlyInput]="true" dateFormat="dd/mm/yy" formControlName="startDate">
-
+        <p-calendar
+          class="p-inputtext-sm"
+          [showIcon]="true"
+          appendTo="body"
+          (ngModelChange)="changStartDate($event)"
+          [readonlyInput]="true"
+          dateFormat="dd/mm/yy"
+          formControlName="startDate"
+        >
         </p-calendar>
         <label for="inputtext">Ngày bắt đầu *</label>
       </span>
@@ -96,9 +110,16 @@
   <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
-        <p-calendar class="p-inputtext-sm" appendTo="body" [minDate]="maxDate" [disabled]="check" [showIcon]="true"
-          [readonlyInput]="true" dateFormat="dd/mm/yy" formControlName="endDate">
-
+        <p-calendar
+          class="p-inputtext-sm"
+          appendTo="body"
+          [minDate]="maxDate"
+          [disabled]="check"
+          [showIcon]="true"
+          [readonlyInput]="true"
+          dateFormat="dd/mm/yy"
+          formControlName="endDate"
+        >
         </p-calendar>
 
         <label for="inputtext">Ngày kết thúc *</label>
@@ -110,9 +131,14 @@
     <h5 class="title">Tiêu đề</h5>
     <div class="p-field">
       <span class="p-float-label">
-        <textarea [rows]="3" [cols]="30" formControlName="title" placeholder="Nhập tiêu đề" pInputTextarea
-          [autoResize]="true"></textarea>
-
+        <textarea
+          [rows]="3"
+          [cols]="30"
+          formControlName="title"
+          placeholder="Nhập tiêu đề"
+          pInputTextarea
+          [autoResize]="true"
+        ></textarea>
       </span>
       <f-errors [errors]="form.get('title')"></f-errors>
     </div>
@@ -122,31 +148,38 @@
     <h5 class="title">Hình ảnh</h5>
     <div class="p-field">
       <span class="p-float-label">
-        <p-fileUpload chooseLabel="Chọn file" mode="advanced" [showUploadButton]="false" [maxFileSize]="1000000"
-          [multiple]="false" accept="image/*">
+        <p-fileUpload
+          chooseLabel="Chọn file"
+          (onSelect)="uploadHandler($event)"
+          mode="advanced"
+          [showUploadButton]="false"
+          [maxFileSize]="1000000"
+          [multiple]="false"
+          accept="image/*"
+          [previewWidth]="40"
+          [auto]="true"
+        >
           <ng-template pTemplate="content" *ngIf="hiddenImage">
-            <p-image src="http://localhost:53421/Upload/Files/{{image}}" alt="Image" width="50px"></p-image>
+            <p-image src="http://localhost:53421/Upload/Files/{{ image }}" alt="Image" width="50px"></p-image>
           </ng-template>
         </p-fileUpload>
-
       </span>
-
     </div>
   </div>
   <div class="col-12" [formGroup]="form">
-    <h5 class="title">Mô tả </h5>
+    <h5 class="title">Mô tả</h5>
     <div class="p-field">
       <span class="p-float-label">
-        <p-editor formControlName="description" placeholder="Nhập mô tả" [style]="{'height':'300px'}"></p-editor>
+        <p-editor formControlName="description" placeholder="Nhập mô tả" [style]="{ height: '300px' }"></p-editor>
       </span>
     </div>
   </div>
 
   <div class="col-12" [formGroup]="form">
-    <h5 class="title">Mục tiêu khóa học </h5>
+    <h5 class="title">Mục tiêu khóa học</h5>
     <div class="p-field">
       <span class="p-float-label">
-        <p-editor formControlName="note" placeholder="Nhập mô tả" [style]="{'height':'300px'}"></p-editor>
+        <p-editor formControlName="note" placeholder="Nhập mô tả" [style]="{ height: '300px' }"></p-editor>
       </span>
     </div>
   </div>
@@ -161,6 +194,3 @@
   <button pButton *ngIf="screenType !== 2" (click)="save()" label="Lưu" icon="pi pi-check" class="mr-2"></button>
   <button pButton (click)="cancel()" label="Đóng" icon="pi pi-times" class="p-button-danger"></button>
 </div>
-
-
-
