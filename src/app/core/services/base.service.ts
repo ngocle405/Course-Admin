@@ -44,8 +44,8 @@ export class BaseService implements BaseData {
   create(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}`, data);
   }
-  updateStatus(href: string = '', id: string, data: any): Observable<string> {
-    return this.http.put<string>(`${this.baseUrl}/${href}/${id}`, data);
+  updateStatus( id: string, data: any): Observable<string> {
+    return this.http.put<string>(`${this.baseUrl}/'updateStatus'/${id}`, data);
   }
 
   updateAction(id: string, data: any): Observable<string> {

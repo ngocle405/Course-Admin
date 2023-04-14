@@ -1,5 +1,5 @@
 import { fromEvent, Subscription, of as observableOf } from 'rxjs';
-import { Injector, OnDestroy, ChangeDetectorRef, Component, ViewChildren, QueryList } from '@angular/core';
+import { Injector, OnDestroy, ChangeDetectorRef, Component, ViewChildren, QueryList,Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileModel } from 'src/app/core/models/user-profile.model';
@@ -24,6 +24,7 @@ export class BaseActionComponent implements OnDestroy {
   public objFunction: FunctionModel | undefined;
   public loadingService!: LoadingService;
   @ViewChildren(FileUpload) files: QueryList<FileUpload> | any;
+  @Input() uppercase: boolean = false;
   protected messageService: NotificationMessageService | undefined;
   protected router: Router | undefined;
   protected route: ActivatedRoute | undefined;
@@ -37,33 +38,20 @@ export class BaseActionComponent implements OnDestroy {
 
   subscription: Subscription | undefined;
   subscriptions: Subscription[] = [];
-  form = new FormGroup({});
+  //form = new FormGroup({}) ;
   title: string | undefined;
-  message = {
-    create: {
-      success: 'Thêm mới thành công',
-      error: 'Thêm mới không thành công',
-    },
-    update: {
-      success: 'Cập nhật thành công',
-      error: 'Cập nhật không thành công',
-    },
-  };
   data: any;
   state: any;
   screenType: ScreenType | undefined;
-  baseId: any; //id chung
   image: any;
 
   constructor(private injector: Injector, protected service: BaseService) {
     this.init();
-
     if (this.configDialog) {
       this.title = this.configDialog.header;
       this.data = this.configDialog.data?.model;
       this.screenType = this.configDialog?.data?.screenType;
       this.state = this.configDialog?.data?.state;
-      this.baseId = this.configDialog?.data?.baseId; //gán vào baseid
       this.image = this.configDialog?.data?.image;
     }
   }
@@ -83,41 +71,52 @@ export class BaseActionComponent implements OnDestroy {
   getValue(obj: any, path: string) {
     return _.get(obj, path);
   }
-
-  save() {
-    if (this.loadingService.loading) {
-      return;
-    }
-    const data = this.getDataForm();
-    if (this.form?.status === 'VALID') {
-      this.messageService?.confirm().subscribe((isConfirm) => {
-        if (isConfirm) {
-          if (this.screenType == ScreenType.Create) {
-            this.create(data);
-          } else {
-            this.update(data);
-          }
-        }
-      });
+  onInput(event: any) {
+    // if (this.onlyNumber) {
+    //   event.target.value = event?.target?.value?.replace(/\D+/g, '');
+    // } else if (this.uppercase) {
+    //   event.target.value = event?.target?.value.toUpperCase();
+    // } else if (this.noSpace){
+    //   event.target.value = event?.target?.value?.replace(/\s+/g, '');
+    // }
+    if (this.uppercase) {
+      event.target.value = event?.target?.value.toUpperCase();
     } else {
-      validateAllFormFields(this.form!);
+      event.target.value = event?.target?.value;
     }
+    // this.value = event?.target?.value;
+    // this.onChange(this.value);
   }
-
-  getDataForm() {
-    return cleanDataForm(this.form!);
-  }
+  // save() {
+  //   if (this.loadingService.loading) {
+  //     return;
+  //   }
+  //   const data = cleanDataForm(this.form);
+  //   if (this.form?.status === 'VALID') {
+  //     this.messageService?.confirm().subscribe((isConfirm) => {
+  //       if (isConfirm) {
+  //         if (this.screenType == ScreenType.Create) {
+  //           this.create(data);
+  //         } else {
+  //           this.update(data);
+  //         }
+  //       }
+  //     });
+  //   } else {
+  //     validateAllFormFields(this.form!);
+  //   }
+  // }
 
   create(data: any) {
     this.loadingService.start();
     this.service.create(data).subscribe({
       next: () => {
-        this.messageService!.success(this.message.create.success);
+        this.messageService!.success('Thêm mới thành công');
         this.refDialog.close(true);
         this.loadingService.complete();
       },
       error: (err) => {
-        this.messageService!.error(err.error.message);
+        this.messageService!.error('Có lỗi xảy ra');
         this.loadingService.complete();
       },
     });
@@ -126,14 +125,14 @@ export class BaseActionComponent implements OnDestroy {
   update(data: any) {
     this.loadingService.start();
 
-    this.service.updateAction(this.baseId, data).subscribe({
+    this.service.updateAction(this.data.id, data).subscribe({
       next: () => {
-        this.messageService!.success(this.message.update.success);
+        this.messageService!.success('Cập nhật thành công');
         this.refDialog.close(true);
         this.loadingService.complete();
       },
       error: (err) => {
-        this.messageService!.error(err.error.message);
+        this.messageService!.error('Có lỗi xảy ra');
         this.loadingService.complete();
       },
     });

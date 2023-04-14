@@ -5,6 +5,7 @@ import { BaseActionComponent } from '@shared/components';
 import { isEmpty } from 'lodash';
 import { FileUpload } from 'primeng/fileupload';
 import { TeacherService } from '../../services/teacher.service';
+import { cleanDataForm, validateAllFormFields } from '@cores/utils/common-functions';
 
 @Component({
   selector: 'app-teacher-action',
@@ -17,7 +18,7 @@ export class TeacherActionComponent extends BaseActionComponent implements OnIni
   constructor(inject: Injector, service: TeacherService) {
     super(inject, service);
   }
-  override form = this.fb!.group({
+   form = this.fb!.group({
     teacherName: ['', Validators.required],
     teacherCode: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -43,6 +44,25 @@ export class TeacherActionComponent extends BaseActionComponent implements OnIni
     if (this.data && this.screenType !== ScreenType.Create) {
       this.data.dateOfBirth = isEmpty(this.data.dateOfBirth) ? null : new Date(this.data.dateOfBirth);
       this.form.patchValue(this.data); //dùng cho sửa,detail
+    }
+  }
+  save() {
+    if (this.loadingService.loading) {
+      return;
+    }
+    const data = cleanDataForm(this.form);
+    if (this.form?.status === 'VALID') {
+      this.messageService?.confirm().subscribe((isConfirm) => {
+        if (isConfirm) {
+          if (this.screenType == ScreenType.Create) {
+            this.create(data);
+          } else {
+            this.update(data);
+          }
+        }
+      });
+    } else {
+      validateAllFormFields(this.form!);
     }
   }
   uploadHandler(event: FileUpload) {

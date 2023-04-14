@@ -2,6 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { BaseActionComponent } from '@shared/components';
 import { RegisterService } from '../../service/register.service';
+import { cleanDataForm } from '@cores/utils/common-functions';
 
 @Component({
   selector: 'app-change-status',
@@ -13,7 +14,7 @@ export class ChangeStatusComponent extends BaseActionComponent implements OnInit
   constructor(inject:Injector,service:RegisterService) {
     super(inject,service);
   }
-  override form = this.fb!.group({
+   form = this.fb!.group({
     studentName :['',[Validators.required]],
     status:[true,Validators.required]
   })
@@ -21,7 +22,7 @@ export class ChangeStatusComponent extends BaseActionComponent implements OnInit
     this.form.patchValue(this.data);
   }
   onChangeStatus(data:any){
-    this.service.updateStatus(`updateStatus`,this.baseId, data).subscribe({
+    this.service.updateStatus(this.data.id, data).subscribe({
       next: () => {
         this.refDialog.close(true);
         this.messageService!.success('Cập nhật trạng thái thành công');
@@ -32,8 +33,8 @@ export class ChangeStatusComponent extends BaseActionComponent implements OnInit
       },
     });
   }
-  override save() {
-    const data = this.getDataForm();
+  save() {
+    const data = cleanDataForm(this.form);
     if (this.form?.status === 'VALID') {
       this.messageService?.confirm().subscribe((isConfirm) => {
         if (isConfirm) {

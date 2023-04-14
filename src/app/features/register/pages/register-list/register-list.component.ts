@@ -46,7 +46,6 @@ export class RegisterListComponent extends BaseTableComponent<RegisterModel> imp
           width: this.configAction!.dialog?.width || '40%',
           data: {
             model: data,
-            baseId: id,
             state: this.propData,
           },
         });
@@ -89,13 +88,13 @@ export class RegisterListComponent extends BaseTableComponent<RegisterModel> imp
   }
   ngOnInit(): void {}
   onChangeStatus(id: string, data: any) {
-    this.service.updateStatus(`updateStatus`, id, { status: data }).subscribe({
+    this.service.updateStatus(id, { status: data }).subscribe({
       next: () => {
         this.messageService!.success('Cập nhật trạng thái thành công');
         this.search();
       },
       error: (err) => {
-        this.messageService!.error(err.error.message);
+        this.messageService!.error("Có lỗi xảy ra");
       },
     });
   }

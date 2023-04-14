@@ -11,7 +11,7 @@
   <div class="col-4" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
-        <input type="tex" class="p-inputtext-sm" pInputText formControlName="newCategoryCode" />
+        <input type="tex" class="p-inputtext-sm" pInputText uppercase formControlName="newCategoryCode" />
         <label for="inputtext">Mã loại tin tức mới*</label>
       </span>
       <f-errors [errors]="form.get('newCategoryCode')"></f-errors>

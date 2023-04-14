@@ -5,46 +5,62 @@ import { BaseActionComponent } from '@shared/components';
 import { isEmpty } from 'lodash';
 
 import { ClassService } from '../../services/class.service';
+import { cleanDataForm, validateAllFormFields } from '@cores/utils/common-functions';
 
 @Component({
   selector: 'app-class-action',
   templateUrl: './class-action.component.html',
-  styleUrls: ['./class-action.component.scss']
+  styleUrls: ['./class-action.component.scss'],
 })
 export class ClassActionComponent extends BaseActionComponent implements OnInit {
-
-  constructor(inject:Injector,service:ClassService) {
-    super(inject,service);
+  constructor(inject: Injector, service: ClassService) {
+    super(inject, service);
   }
-  maxDate= new Date();
-  checkEndDate=true;
-override form =this.fb!.group({
-  className: ['', Validators.required],
-  classCode: ['ML-', Validators.required],
-  startDate: ['', Validators.required],
-  endDate: [''],
-  teacherId: ['', Validators.required],
-  status:true
-})
-changStartDate($event:any){
-  this.maxDate.setDate(new Date($event).getDate());
-  if(this.maxDate !== null){
-   this.checkEndDate=false;
+  maxDate = new Date();
+  checkEndDate = true;
+  form = this.fb!.group({
+    className: ['', Validators.required],
+    classCode: ['ML-', Validators.required],
+    startDate: ['', Validators.required],
+    endDate: [''],
+    teacherId: ['', Validators.required],
+    status: true,
+  });
+  changStartDate($event: any) {
+    this.maxDate.setDate(new Date($event).getDate());
+    if (this.maxDate !== null) {
+      this.checkEndDate = false;
+    }
   }
-}
   ngOnInit(): void {
     if (this.screenType === ScreenType.Detail) {
       this.form.disable();
-    }
-    else if (this.screenType === ScreenType.Update) {
+    } else if (this.screenType === ScreenType.Update) {
       this.form?.get('classCode')!.disable();
-    
     }
     if (this.data && this.screenType !== ScreenType.Create) {
       this.data.startDate = isEmpty(this.data.startDate) ? null : new Date(this.data.startDate);
       this.data.endDate = isEmpty(this.data.endDate) ? null : new Date(this.data.endDate);
-      this.form.patchValue(this.data);//dùng cho sửa,detail
-
+      this.form.patchValue(this.data); //dùng cho sửa,detail
+    }
+  }
+  save() {
+    if (this.loadingService.loading) {
+      return;
+    }
+    const data = cleanDataForm(this.form);
+    if (this.form?.status === 'VALID') {
+      this.messageService?.confirm().subscribe((isConfirm) => {
+        if (isConfirm) {
+          if (this.screenType == ScreenType.Create) {
+            this.create(data);
+          } else {
+            this.update(data);
+          }
+        }
+      });
+    } else {
+      validateAllFormFields(this.form!);
     }
   }
 }

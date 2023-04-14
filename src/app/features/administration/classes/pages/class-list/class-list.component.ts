@@ -39,7 +39,6 @@ export class ClassListComponent extends BaseTableComponent<ClassModel> implement
     }
   };
   onReset(){
-    setTimeout(() => {
      this.params={
       className: '',
       teacherId: '',
@@ -47,7 +46,6 @@ export class ClassListComponent extends BaseTableComponent<ClassModel> implement
       searchName:''
      }
     this.search();
-    }, 0);
    }
 
 }

@@ -5,6 +5,7 @@ import { isEmpty } from 'lodash';
 
 import { BaseActionComponent } from 'src/app/shared/components/base-action.component';
 import { NewcategoryService } from '../../services/newcategory.service';
+import { cleanDataForm, validateAllFormFields } from '@cores/utils/common-functions';
 
 
 @Component({
@@ -18,13 +19,31 @@ export class NewcategoryActionComponent extends BaseActionComponent implements O
   constructor(injector:Injector,service:NewcategoryService) {
     super(injector,service);
   }
-  override form = this.fb!.group({
+   form = this.fb!.group({
     //newCategoryId:[''],
     newCategoryCode:['',Validators.required],
     newCategoryName:['',Validators.required],
     status:true
   });
-
+  save() {
+    if (this.loadingService.loading) {
+      return;
+    }
+    const data = cleanDataForm(this.form);
+    if (this.form?.status === 'VALID') {
+      this.messageService?.confirm().subscribe((isConfirm) => {
+        if (isConfirm) {
+          if (this.screenType == ScreenType.Create) {
+            this.create(data);
+          } else {
+            this.update(data);
+          }
+        }
+      });
+    } else {
+      validateAllFormFields(this.form!);
+    }
+  }
   ngOnInit(): void {
     if (this.screenType === ScreenType.Detail) {
       this.form.disable();

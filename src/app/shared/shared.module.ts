@@ -33,9 +33,9 @@ import {ImageModule} from 'primeng/image';
 import {EditorModule} from 'primeng/editor';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { TagModule } from 'primeng/tag';
+import { ToUpperCaseDirective } from './directives/directives';
 const COMPONENTS = [...components, ...layouts];
 const PIPES: never[] = [];
-const DIRECTIVES: never[] = [];
 
 const MODULES = [
   RouterModule,
@@ -72,7 +72,9 @@ EditorModule,
 OverlayPanelModule,
 TagModule
 ];
-
+const DIRECTIVES = [
+ ToUpperCaseDirective
+];
 @NgModule({
   imports: [CommonModule, ...MODULES],
   exports: [CommonModule, ...PIPES, ...COMPONENTS, ...DIRECTIVES, ...MODULES],

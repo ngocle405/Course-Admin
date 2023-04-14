@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { validateAllFormFields } from '@cores/utils/common-functions';
+import { cleanDataForm, validateAllFormFields } from '@cores/utils/common-functions';
 import { ScreenType } from '@cores/utils/enums';
 import { BaseActionComponent } from '@shared/components';
 import * as _ from 'lodash';
@@ -17,7 +17,7 @@ export class NewActionComponent extends BaseActionComponent implements OnInit {
     super(injector, serviceNew);
   }
 
-  override form = this.fb!.group({
+   form = this.fb!.group({
     title: ['', Validators.required],
     status: true,
     detail: ['', Validators.required],
@@ -52,9 +52,7 @@ export class NewActionComponent extends BaseActionComponent implements OnInit {
       },
     });
   }
-  override save() {
-    console.log(this.loadingService.loading);
-
+   save() {
     if (!this.loadingService.loading) {
       return;
     }
@@ -62,7 +60,7 @@ export class NewActionComponent extends BaseActionComponent implements OnInit {
       this.messageService?.info('Bạn chưa chọn ảnh đại diện');
       return;
     }
-    const data = this.getDataForm();
+    const data = cleanDataForm(this.form);
     if (this.form?.status === 'VALID') {
       this.messageService?.confirm().subscribe((isConfirm) => {
         if (isConfirm) {

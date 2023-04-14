@@ -4,6 +4,7 @@ import { ScreenType } from '@cores/utils/enums';
 import { BaseActionComponent } from '@shared/components';
 import { isEmpty } from 'lodash';
 import { ConfigSystemService } from '../../service/config-system.service';
+import { cleanDataForm, validateAllFormFields } from '@cores/utils/common-functions';
 
 @Component({
   selector: 'app-configsystem-action',
@@ -16,7 +17,7 @@ export class ConfigsystemActionComponent extends BaseActionComponent implements 
   constructor(inject:Injector,service:ConfigSystemService) {
     super(inject,service);
   }
-   override form = this.fb!.group({
+    form = this.fb!.group({
           address:['',Validators.required],
           phone:['',Validators.required],
           hotline1:['',Validators.required],
@@ -40,5 +41,23 @@ export class ConfigsystemActionComponent extends BaseActionComponent implements 
       
     }
   }
-
+  save() {
+    if (this.loadingService.loading) {
+      return;
+    }
+    const data = cleanDataForm(this.form);
+    if (this.form?.status === 'VALID') {
+      this.messageService?.confirm().subscribe((isConfirm) => {
+        if (isConfirm) {
+          if (this.screenType == ScreenType.Create) {
+            this.create(data);
+          } else {
+            this.update(data);
+          }
+        }
+      });
+    } else {
+      validateAllFormFields(this.form!);
+    }
+  }
 }

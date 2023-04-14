@@ -10,7 +10,7 @@
     <div class="col-4" [formGroup]="form">
         <div class="p-field">
           <span class="p-float-label">
-            <input p-dialog-body type="text" formControlName="classCode" class="p-inputtext-sm"  pInputText />
+            <input p-dialog-body type="text" formControlName="classCode" uppercase class="p-inputtext-sm"  pInputText />
             <label for="inputtext">Mã lớp *</label>
           </span>
           <f-errors [errors]="form.get('classCode')"></f-errors>

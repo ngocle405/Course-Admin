@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { convertToJson } from '@cores/utils/common-functions';
+import { cleanDataForm, convertToJson, validateAllFormFields } from '@cores/utils/common-functions';
 import { ScreenType } from '@cores/utils/enums';
 import { BaseActionComponent } from '@shared/components';
 import { isEmpty } from 'lodash';
@@ -20,7 +20,7 @@ export class CourseActionComponent extends BaseActionComponent implements OnInit
   constructor(inject: Injector, service: CourseService) {
     super(inject, service);
   }
-  override form = this.fb!.group({
+   form = this.fb!.group({
     courseCategoryId: ['', Validators.required],
     code: ['', Validators.required],
     courseName: ['', Validators.required],
@@ -59,6 +59,25 @@ export class CourseActionComponent extends BaseActionComponent implements OnInit
       this.form.patchValue(this.data); //dùng cho sửa,detail
     }
   }
+  save() {
+    if (this.loadingService.loading) {
+      return;
+    }
+    const data = cleanDataForm(this.form);
+    if (this.form?.status === 'VALID') {
+      this.messageService?.confirm().subscribe((isConfirm) => {
+        if (isConfirm) {
+          if (this.screenType == ScreenType.Create) {
+            this.create(data);
+          } else {
+            this.update(data);
+          }
+        }
+      });
+    } else {
+      validateAllFormFields(this.form!);
+    }
+  }
   uploadHandler(event: FileUpload) {
     //let obj = JSON.parse(event.files[0]);
     const formData: FormData = new FormData();
@@ -68,8 +87,6 @@ export class CourseActionComponent extends BaseActionComponent implements OnInit
         this.form.get('image')?.setValue(file);
       },
       error: (err) => {
-        console.log(err);
-
         this.messageService?.error('Có lỗi xảy ra');
       },
     });

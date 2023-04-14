@@ -13,7 +13,7 @@
   <div class="col-3" [formGroup]="form">
     <div class="p-field">
       <span class="p-float-label">
-        <input type="tex" class="p-inputtext-sm" pInputText formControlName="studentCode" />
+        <input type="tex" class="p-inputtext-sm" uppercase pInputText formControlName="studentCode" />
         <label for="inputtext">Mã học viên <span class="requirds">*</span></label>
       </span>
       <f-errors [errors]="form.get('studentCode')"></f-errors>
