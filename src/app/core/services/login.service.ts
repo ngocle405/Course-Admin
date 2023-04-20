@@ -1,13 +1,13 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BaseService } from '@cores/services/base.service';
+import { BaseService } from './base.service';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '@env';
-import { BehaviorSubject, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService  extends BaseService {
+export class LoginService  extends BaseService {
   private adminLogin = new BehaviorSubject({});
   public admin$ = this.adminLogin.asObservable();
   constructor(http:HttpClient) {
@@ -17,14 +17,13 @@ export class AuthService  extends BaseService {
     return this.http.post<any>(`${this.baseUrl}/login`, data).pipe(
       map((admin) => {
         //debugger;
-        localStorage.setItem('admin', JSON.stringify(admin));
-        this.adminLogin.next(admin);
+        sessionStorage.setItem('admin', JSON.stringify(admin));
         return admin;
       })
     );
   }
   logout() {
-    localStorage.removeItem('admin');
+    sessionStorage.removeItem('admin');
     this.adminLogin.next(null!);
   }
   

@@ -1,0 +1,55 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="">
+  <div class="grid overForm">
+    <div class="col-12 md:col-6">
+      <div class="login">
+        <div class="container">
+          <div class="text-center">
+            <!-- <img src="assets/images/MBAL_LOGO_colour%20RGB%206%20April%202.png" alt="mb ageas"> -->
+          </div>
+          <div class="wrapperForm">
+            <div class="hello">Chào mừng bạn</div>
+            <div class="welcomeTo">đã đến với Study Dashboard</div>
+            <form [formGroup]="form" class="formLogin">
+              <ng-container>
+                <div class="usernameInput">
+                  <div>
+                    <label class="titleInput">Tên đăng nhập</label>
+                  </div>
+                  <input maxlength="255" placeholder="Nhập tên đăng nhập của bạn" type="text" pInputText
+                    formControlName="userName" noSpace />
+                </div>
+                <f-errors [errors]="form.get('userName')"></f-errors>
+              </ng-container>
+              <ng-container>
+                <div class="p-field">
+                <div class="passwordInput ">
+                  <div>
+                    <label class="titleInput">Mật khẩu</label>
+                  </div>
+                  <input id="username" placeholder="Nhập mật khẩu của bạn" [type]="showPass ? 'password' : 'text'"
+                    pInputText formControlName="password" noSpace/>
+                  <span (click)="showPassword()" class="showPassword"><i style="font-size: 18px"
+                      [ngClass]="showPass? 'pi pi-eye' : 'pi pi-eye-slash'"></i></span>
+                  
+                </div>
+                <f-errors [errors]="form.get('password')"></f-errors>
+              </div>
+              </ng-container>
+              <div>
+                <button type="submit" class="btnLogin" [fxDebounceClick]="1000" (click)="onLogin()">Đăng nhập</button>
+              </div>
+              <div class="endText">
+                study version 1.0 - Copy right 2023 by  
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6">
+
+    </div>
+  </div>
+</div>
+<p-toast></p-toast> 

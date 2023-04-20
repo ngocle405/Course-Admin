@@ -21,6 +21,9 @@ export class ErrorComponent implements OnInit {
         }
         if ((isObject(value) && key === 'max') || key === 'min') {
           return replace(VALIDATORS_MESSAGE[key], '%d', value[key]);
+        }
+        if (key === 'pattern') {
+          return replace(VALIDATORS_MESSAGE[key], '%d', value[key]);
         } else {
           return VALIDATORS_MESSAGE[key];
         }

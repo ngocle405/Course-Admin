@@ -33,7 +33,7 @@ import {ImageModule} from 'primeng/image';
 import {EditorModule} from 'primeng/editor';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { TagModule } from 'primeng/tag';
-import { ToUpperCaseDirective } from './directives/directives';
+import { DebounceClickDirective, ToUpperCaseDirective } from './directives/directives';
 const COMPONENTS = [...components, ...layouts];
 const PIPES: never[] = [];
 
@@ -73,7 +73,8 @@ OverlayPanelModule,
 TagModule
 ];
 const DIRECTIVES = [
- ToUpperCaseDirective
+ ToUpperCaseDirective,
+ DebounceClickDirective
 ];
 @NgModule({
   imports: [CommonModule, ...MODULES],

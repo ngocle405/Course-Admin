@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '@cores/services/auth-login.service';
 import { GuardService } from './core/services/guard.service';
+import { LoginComponent } from '@shared/login/login.component';
+import { AuthGuard } from '@cores/services/auth-login.service';
 
 const routes: Routes = [
   {
@@ -11,10 +12,8 @@ const routes: Routes = [
     
   },
   {
-    path: 'mb-ageas/login',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-    canActivate: [GuardService],
-  
+    path: 'login',
+    component:LoginComponent
   },
   { path: '', redirectTo: 'mb-ageas', pathMatch: 'full' },
   { path: '**', redirectTo: 'mb-ageas' },

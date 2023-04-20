@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FeaturesComponent } from './features.component';
+import { AuthGuard } from '@cores/services/auth-login.service';
 
 const routes: Routes = [
   {
@@ -10,13 +11,14 @@ const routes: Routes = [
       {
         path: 'administration',
         loadChildren: () => import('./administration/administration.module').then((m) => m.AdministrationModule),
+       
+
       },
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+       
       },
-
-  
 
       {
         path: 'employee',
@@ -35,12 +37,12 @@ const routes: Routes = [
         path: 'payment',
         loadChildren: () => import('./payments/payments.module').then((m) => m.PaymentsModule),
       },
-      {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full',
-      },
-       { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+      // {
+      //   path: '',
+      //   redirectTo: 'dashboard',
+      //   pathMatch: 'full',
+      // },
+     //  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
 ];

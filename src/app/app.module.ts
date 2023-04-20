@@ -11,7 +11,6 @@ import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-   // KeycloakAngularModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -19,14 +18,7 @@ import { SharedModule } from './shared/shared.module';
     CoreModule.forRoot(),
     SharedModule.forRoot(),
   ],
-  // providers: [
-  //   {
-  //     provide: APP_INITIALIZER,
-  //     useFactory: initializer,
-  //     deps: [KeycloakService],
-  //     multi: true,
-  //   },
-  // ],
+ 
   bootstrap: [AppComponent],
 })
 export class AppModule {}

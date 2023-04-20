@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionService } from '@cores/services/session.service';
-import { SessionKey } from '@cores/utils/enums';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { LoginService } from '@cores/services/login.service';
 
 @Component({
   selector: 'app-topbar',
@@ -10,8 +8,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 })
 export class AppTopBarComponent implements OnInit {
   fullName: string = '';
-  constructor(private sessionService: SessionService, private service: AuthService,private router: Router) { }
-  admin: any = [];
+  constructor(private router: Router,private loginService:LoginService) { }
   hovaten: any;
   ngOnInit() {
     // const interval = setInterval(() => {
@@ -21,19 +18,17 @@ export class AppTopBarComponent implements OnInit {
     //     clearInterval(interval);
     //   }
     // });
-    this.admin = JSON.parse(localStorage.getItem('admin') || '{}');
-    this.hovaten = this.admin.fullName;
-    if (this.admin != null) {
-      this.admin = parseInt(this.admin);
-    }
+    const admin = JSON.parse(sessionStorage.getItem('admin') || '{}');
+    this.hovaten = admin.fullName;
+    // if (admin !== null) {
+    //   admin = parseInt(admin);
+    // }
+    console.log(
+      admin);
+    
   }
   logout() {//chế thêm
-    if (this.admin!= 0) {
-      this.service.logout();
-    
-      setTimeout(() => {
-        this.router.navigateByUrl('/mb-ageas/login');
-      }, 0);
-    }
+    this.loginService.logout();
+    this.router.navigateByUrl('/login');
   }
 }

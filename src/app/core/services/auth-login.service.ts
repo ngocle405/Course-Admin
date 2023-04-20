@@ -7,11 +7,13 @@ export class AuthGuard implements CanActivate {
       route: ActivatedRouteSnapshot,
       state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
   
-      var userId = JSON.parse(localStorage.getItem('admin') || '{}');
-      if (userId.id != null) {
+      var userId = JSON.parse(sessionStorage.getItem('admin') || '{}');
+      console.log(userId);
+      
+      if (userId.id !== null) {
         return true;
       }
-      this.router.navigate(['/mb-ageas/login']);
+      this.router.navigate(['/login']);
       return false;
     }
   }
