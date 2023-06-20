@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit,OnDestroy {
             this.notifyService?.error('Tài khoản hoặc mật khẩu chưa chính xác');
             this.loading = false;
           } else {
-            this.router.navigate(['/mb-ageas/dashboard']).then(() => (this.loading = false));
+            this.router.navigate(['/admin/dashboard']).then(() => (this.loading = false));
           }
         },
         error: () => {

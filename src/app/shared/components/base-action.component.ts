@@ -44,6 +44,7 @@ export class BaseActionComponent implements OnDestroy {
   state: any;
   screenType: ScreenType | undefined;
   image: any;
+  baseId:string ='';
 
   constructor(private injector: Injector, protected service: BaseService) {
     this.init();
@@ -53,6 +54,7 @@ export class BaseActionComponent implements OnDestroy {
       this.screenType = this.configDialog?.data?.screenType;
       this.state = this.configDialog?.data?.state;
       this.image = this.configDialog?.data?.image;
+      this.baseId=this.configDialog.data.baseId;
     }
   }
 
@@ -125,13 +127,13 @@ export class BaseActionComponent implements OnDestroy {
   update(data: any) {
     this.loadingService.start();
 
-    this.service.updateAction(this.data.id, data).subscribe({
+    this.service.updateAction(this.baseId, data).subscribe({
       next: () => {
         this.messageService!.success('Cập nhật thành công');
         this.refDialog.close(true);
         this.loadingService.complete();
       },
-      error: (err) => {
+      error: () => {
         this.messageService!.error('Có lỗi xảy ra');
         this.loadingService.complete();
       },

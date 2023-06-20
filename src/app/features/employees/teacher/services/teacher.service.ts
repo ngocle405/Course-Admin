@@ -25,4 +25,10 @@ export class TeacherService extends BaseService{
       }; 
     return of(this.state);
   }
+   getTeacher():Observable<any> {
+    return this.http.get(`${environment.endpoint_url}/Homes/teacher-list`);
+  }
+  override findById(id: string | number): Observable<any> {
+    return this.http.get<any>(`${environment.endpoint_url}/Homes/finbyTeacher/${id}`);
+  }
 }

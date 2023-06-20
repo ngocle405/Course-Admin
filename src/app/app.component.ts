@@ -7,8 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   template: `
-    <app-loading *ngIf="!loaded"></app-loading>
-    <router-outlet *ngIf="loaded"></router-outlet>
+    <router-outlet></router-outlet>
   `,
 })
 export class AppComponent implements OnInit {
@@ -27,6 +26,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.primeNGConfig.ripple = true;
     this.checkRouting();
+    
   }
   checkRouting() {
     if (this.router.url === '/login') {

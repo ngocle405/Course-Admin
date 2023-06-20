@@ -30,6 +30,8 @@ export class CourseCategoryActionComponent extends BaseActionComponent implement
     if (this.data && this.screenType !== ScreenType.Create) {
       this.data.createDate = isEmpty(this.data.createDate) ? null : new Date(this.data.createDate);
       this.form.patchValue(this.data); //dùng cho sửa,detail
+      console.log(this.data);
+      
     }
   }
   save() {
