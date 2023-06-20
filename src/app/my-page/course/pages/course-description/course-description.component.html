@@ -1,0 +1,179 @@
+<section class="w3l-about-breadcrum">
+  <div class="breadcrum-bg py-sm-5 py-4">
+    <div class="container py-lg-3">
+      <h2>About Us</h2>
+      <p><a>Home</a> &nbsp; / &nbsp; About</p>
+    </div>
+  </div>
+</section>
+<!-- content-with-photo4 block -->
+<section class="w3l-content-with-photo-4 card">
+  <div id="content-with-photo4-block" class="pt-5">
+    <div class="container py-md-5">
+      <div class="cwp4-two row">
+        <div class="cwp4-text col-lg-6">
+          <h4 class="uppercase">Chi tiết khóa học : {{ model.courseName }}</h4>
+          <p>
+            {{model.title}}
+          </p>
+
+          <ul class="cont-4">
+            <li><span class="fa fa-check"></span>Ngày khai giảng: {{ model.startDate | date: 'dd/MM/yyyy' }}</li>
+            <li><span class="fa fa-check"></span>Ngày Kết thúc: {{ model.endDate | date: 'dd/MM/yyyy' }}</li>
+            <li><span class="fa fa-check"></span>Số buổi học: {{ model.countLesson }}</li>
+            <li><span class="fa fa-check"></span>Học phí: {{ model.price | currency: 'VND' }}</li>
+            <li><span class="fa fa-check"></span>Danh mục : {{ model.courseCategoryName }}</li>
+            <li><span class="fa fa-check"></span>Giáo viện phụ trách : {{ model.teacherName }}</li>
+          </ul>
+        </div>
+        <div class="cwp4-image col-lg-6 pl-lg-5 mt-lg-0 mt-5">
+          <img src="http://localhost:53421/Upload/Files/{{ model.image }}" class="img-fluid" alt="" />
+        </div>
+      </div>
+      <div class="cwp4-two row">
+        <div class="cwp4-text col-lg-6">
+          <button pButton type="button" data-toggle="modal" data-target="#exampleModal">Đăng ký tư
+            vấn</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="highlighted">
+  <div class="region region-highlighted">
+    <section id="block-block-10" class="block block-block loi_ich clearfix card">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h5 class="title">module bài học</h5>
+          </div>
+          <div class="col-12 ml-5">
+            <p [innerHTML]="model.description"></p>
+
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h5 class="title mt-5">
+              mục tiêu khóa học <span>{{ model.courseName }} ({{ model.englishName }})</span>
+            </h5>
+          </div>
+          <div class="col-12 ml-2" [innerHTML]="model.note"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<section class="w3l-feature-2">
+  <div class="grid top-bottom py-5">
+    <div class="container py-md-5">
+      <div class="heading text-center mx-auto">
+        <h3 class="head">Tại sao nên chọn NgocLe Tech</h3>
+        <p class="my-3 head">
+          Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla mollis dapibus
+          nunc, ut rhoncus turpis sodales quis. Integer sit amet mattis quam.
+        </p>
+      </div>
+      <div class="middle-section row mt-5 pt-3">
+        <div class="three-grids-columns col-lg-3 col-sm-6 text-center">
+          <div class="icon"><span class="fa fa-graduation-cap" aria-hidden="true"></span></div>
+          <h4>Chú trọng thực hành</h4>
+          <p>hương trình học chú trọng thực hành sinh viên luôn được tiếp cận với dự án thực tế.</p>
+        </div>
+        <div class="three-grids-columns col-lg-3 col-sm-6 mt-sm-0 mt-5 text-center">
+          <div class="icon"><span class="fa fa-user" aria-hidden="true"></span></div>
+          <h4>Đội ngũ giảng viên</h4>
+          <p>Giảng viên là những chuyên gia hàng đầu Việt Nam</p>
+        </div>
+        <div class="three-grids-columns col-lg-3 col-sm-6 mt-lg-0 mt-5 text-center">
+          <div class="icon"><span class="fa fa-book" aria-hidden="true"></span></div>
+          <h4>Cơ sở vật chất</h4>
+          <p>Cơ sở vật chất hiện đại theo tiêu chuẩn quốc tế</p>
+        </div>
+        <div class="three-grids-columns col-lg-3 col-sm-6 mt-lg-0 mt-5 text-center">
+          <div class="icon"><span class="fa fa-bed" aria-hidden="true"></span></div>
+          <h4>Tài liệu và sách</h4>
+          <p>Tài liệu học đa dạng phong phú giúp nâng cao trí tuệ cho học viên.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="modal fade"  #modal id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Đăng ký tư vấn</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form #form="ngForm" (submit)="save()">
+
+        <div class="modal-body">
+
+          <div class="mt-2 p-dialog-body grid p-fluid">
+
+            <div class="col-6">
+              <div class="p-field">
+                <span class="p-float-label">
+                  <input type="tex" class="p-inputtext-sm" pInputText [(ngModel)]="modelRegister.studentName"
+                    name="studentName" />
+                  <label for="inputtext">Họ và tên*</label>
+                </span>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <div class="p-field">
+                <span class="p-float-label">
+                  <input p-dialog-body type="text" [(ngModel)]="modelRegister.phone" name="phone" class="p-inputtext-sm"
+                    pInputText />
+                  <label for="inputtext">Điện thoại*</label>
+                </span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-field">
+                <span class="p-float-label">
+                  <input p-dialog-body type="text" [(ngModel)]="modelRegister.email" class="p-inputtext-sm" name="email"
+                    pInputText />
+                  <label for="inputtext">Địa chỉ email *</label>
+                </span>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-field">
+                <span class="p-float-label">
+                  <p-dropdown [options]="stateData!.listLevel" class="p-inputtext-sm" formControlName="level"
+                    optionLabel="name" optionValue="value" [(ngModel)]="modelRegister.level" name="level"
+                    appendTo="body">
+                  </p-dropdown>
+
+                  <label for="inputtext">Level *</label>
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="p-dialog-footer p-p-0 p-mt-3">
+            <button pButton label="Lưu" type="submit" icon="pi pi-check" class="mr-2"></button>
+            <button pButton label="Đóng" type="reset" icon="pi pi-times" class="p-button-danger"></button>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

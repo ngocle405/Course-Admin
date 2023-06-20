@@ -44,4 +44,7 @@ export class NewService extends BaseService {
   getNewCategories() {
     return this.http.get<NewModel[]>(`${environment.endpoint_url}/newcategories`).pipe(map((data) => data));
   }
+  getNew(){
+      return this.http.get(`${environment.endpoint_url}/homes/new-list`);
+  }
 }

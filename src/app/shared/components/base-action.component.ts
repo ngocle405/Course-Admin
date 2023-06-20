@@ -54,7 +54,7 @@ export class BaseActionComponent implements OnDestroy {
       this.screenType = this.configDialog?.data?.screenType;
       this.state = this.configDialog?.data?.state;
       this.image = this.configDialog?.data?.image;
-      this.baseId=this.configDialog.data.baseId;
+      this.baseId=this.configDialog?.data?.baseId;
     }
   }
 
