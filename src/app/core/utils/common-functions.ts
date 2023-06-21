@@ -139,3 +139,14 @@ export function updateValidity(control: AbstractControl | null, validators: Vali
   control?.setValidators(validators);
   control?.updateValueAndValidity();
 }
+
+export function getFromSesionStorage(key: string): string | null {
+  return JSON.parse(sessionStorage.getItem(key)!);
+}
+export function removeSesionStorage(key: string){
+  return sessionStorage.removeItem(key);
+}
+export function setSesionStorage(key: string,value:string):string {
+  return sessionStorage.setItem(key,JSON.stringify(value))!;
+}
+

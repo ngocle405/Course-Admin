@@ -1,0 +1,32 @@
+<section class="w3l-service-breadcrum">
+  <div class="breadcrum-bg py-sm-5 py-4">
+    <div class="container py-lg-3">
+      <h2>Tin tức</h2>
+      <p>Home &nbsp; / &nbsp; Tin tức</p>
+    </div>
+  </div>
+</section>
+<section class="w3l-features-8">
+  <!-- /features -->
+  <div class="features py-5" id="services">
+    <div class="container py-md-3">
+      <div class="fea-gd-vv text-center row">
+        <ng-container *ngFor="let item of stateData">
+          <div class="float-top col-lg-4 col-md-6 mt-5">
+            <a routerLink="/mb-ageas/course/description/{{ item.newId }}"
+              ><img src="http://localhost:53421/upload/files/{{ item.image }}" class="img-responsive"
+            /></a>
+            <div class="float-lt feature-gd">
+              <h3>
+                <a routerLink="/mb-ageas/course/description/{{ item.newId }}">{{ item.title }}</a>
+              </h3>
+              <p>Ngày tạo : {{ item.createDate | date: 'longDate' }}</p>
+            </div>
+            <div class="mt-5"></div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <!-- //features -->
+</section>

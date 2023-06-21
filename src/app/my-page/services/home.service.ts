@@ -20,6 +20,12 @@ export class HomeService {
   getNew() {
     return this.http.get<any>(this.homeUrl + 'new-list');
   }
+  getCourseCategory() {
+    return this.http.get<any>(this.homeUrl + 'listCourseCategory');
+  }
+  findByNew(id:string) {
+    return this.http.get<any>(this.homeUrl + 'find-by-new'+ id);
+  }
   getByCourseId(id:string) {
     return this.http.get<any>(this.homeUrl + 'findByCourse/'+ id);
   }
@@ -27,6 +33,6 @@ export class HomeService {
     return this.http.get<any>(this.homeUrl + 'finbyTeacher/'+id);
   }
   create(data: any){
-    return this.http.post(`${this.homeUrl}/Register`, data);
+    return this.http.post(`${this.homeUrl}Register`, data);
   }
 }

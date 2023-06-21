@@ -3,6 +3,7 @@ import { BaseService } from './base.service';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env';
+import { removeSesionStorage, setSesionStorage } from '@cores/utils/common-functions';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +18,13 @@ export class LoginService  extends BaseService {
     return this.http.post<any>(`${this.baseUrl}/login`, data).pipe(
       map((admin) => {
         //debugger;
-        sessionStorage.setItem('admin', JSON.stringify(admin));
+        setSesionStorage('admin',admin)
         return admin;
       })
     );
   }
   logout() {
-    sessionStorage.removeItem('admin');
+    removeSesionStorage('admin');
     this.adminLogin.next(null!);
   }
   

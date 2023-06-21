@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MyPageComponent } from './my-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
+import { IntroduceComponent } from './introduce-list/introduce.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,14 @@ const routes: Routes = [
       {
         path: 'course',
         loadChildren: () => import('./course/course.module').then((m) => m.CourseModule),
+      },
+      {
+        path: 'introduce',
+        component:IntroduceComponent
+      },
+      {
+        path: 'new',
+        loadChildren: () => import('./new/new.module').then((m) => m.NewModule),
       },
     ],
   },

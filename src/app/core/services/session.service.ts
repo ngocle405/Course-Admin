@@ -29,4 +29,5 @@ export class SessionService {
   public clearSession(): void {
     this.sessionVariables.clear();
   }
+  
 }

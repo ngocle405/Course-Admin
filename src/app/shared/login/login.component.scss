@@ -1,154 +1,159 @@
 ::-ms-reveal {
-    display: none
-  }
-  .overForm {
-    font-family: Roboto, serif;
-    overflow: hidden;
-    background-image: url("/assets/images/bg_login.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    height: 100vh;
-    min-height: 650px;
-    width: 100%;
-  
-    .login {
-      width: 50%;
-      position: absolute;
-      height: 100%;
-      padding-top: 9%;
-      background-color: rgba(255, 255, 255, 0.9);
-      @media screen and (max-width: 1100px) {
-        padding-top: 0;
-      }
-      @media screen and (max-width: 1400px) {
-        padding-top: 5%;
-      }
-    }
-  
-    .wrapperForm {
+  display: none
+}
+
+:host {
+  ::ng-deep {
+    .overForm {
+      font-family: Roboto, serif;
+      overflow: hidden;
+      background-image: url("/assets/images/bg_login.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      height: 100vh;
+      min-height: 650px;
       width: 100%;
-      padding: 0 26%;
-      .invalidLogin{
-        color: red;
-        font-weight: 700;
-        font-size: 16px;
-        transition-delay: 1s;
+    
+      .login {
+        width: 100%;
+        position: absolute;
+        height: 100%;
+        padding-top: 9%;
+        background-color: rgba(255, 255, 255, 0.9);
+        @media screen and (max-width: 1100px) {
+          padding-top: 0;
+        }
+        @media screen and (max-width: 1400px) {
+          padding-top: 5%;
+        }
       }
-      .hello {
-        padding: 30px 0 10px 0;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 20px;
-      }
-  
-      .welcomeTo {
-        padding-bottom: 30px;
-        font-weight: 500;
-        font-size: 28px;
-        line-height: 30px;
-      }
-  
-      .usernameInput {
-        border-bottom: #F0F0F3 solid 1px;
-        position: relative;
-      }
-  
-      .passwordInput {
-        position: relative;
-        border-bottom: #F0F0F3 solid 1px;
-        padding: 10px 0 0 0;
-        .showPassword{
-          cursor: pointer;
-          position: absolute;
-          right: 10px;
-          margin-top: 14px;
+    
+      .wrapperForm {
+        width: 100%;
+        padding: 0 26%;
+        .invalidLogin{
+          color: red;
+          font-weight: 700;
+          font-size: 16px;
+          transition-delay: 1s;
+        }
+        .hello {
+          padding: 30px 0 10px 0;
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 20px;
+        }
+    
+        .welcomeTo {
+          padding-bottom: 30px;
+          font-weight: 500;
+          font-size: 28px;
+          line-height: 30px;
+        }
+    
+        .usernameInput {
+          border-bottom: #F0F0F3 solid 1px;
+          position: relative;
+        }
+    
+        .passwordInput {
+          position: relative;
+          border-bottom: #F0F0F3 solid 1px;
+          padding: 10px 0 0 0;
+          .showPassword{
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            margin-top: 14px;
+            border: unset;
+            background-color: unset;
+          }
+        }
+    
+        .titleInput {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 16px;
+          color: #2B2D2F;
+        }
+    
+        .input {
+          font-size: 16px;
+          width: 100%;
           border: unset;
           background-color: unset;
+          padding-right: 70px;
+          line-height: 16px;
+    
+          &::placeholder {
+            color: #ADB5BD;
+            font-size: 12px;
+          }
         }
-      }
-  
-      .titleInput {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 16px;
-        color: #2B2D2F;
-      }
-  
-      .input {
-        font-size: 16px;
-        width: 100%;
-        border: unset;
-        background-color: unset;
-        padding-right: 70px;
-        line-height: 16px;
-  
-        &::placeholder {
-          color: #ADB5BD;
+    
+        .inputValid {
+          font-size: 16px;
+          width: 100%;
+          background-color: unset;
+          padding-right: 70px;
+          line-height: 16px;
+    
+          &::placeholder {
+            color: #ADB5BD;
+            font-size: 12px;
+          }
+        }
+    
+        .icon {
+          position: absolute;
+          right: 15px;
+          bottom: 16px;
+        }
+    
+        .btnLogin {
+          cursor: pointer;
+          margin-top: 50px;
+          justify-content: center;
+          width: 100%;
+          border: unset;
+          color: white;
+          border-radius: 8px;
+          font-weight: 700;
+          font-size: 18px;
+          line-height: 20px;
+          height: 48px;
+          background-color: #0D6EFD;
+    
+          &:hover {
+            background-color: blue;
+          }
+        }
+    
+        a {
+          padding: 20px 0 36px 0;
+          text-decoration: unset;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 20px;
+          color: #0D6EFD;
+    
+          &:hover {
+            color: blue;
+          }
+        }
+    
+        .endText {
+          padding-top: 40px;
+          text-align: center;
+          font-weight: 300;
           font-size: 12px;
+          line-height: 16px;
+          color: #82888E;
         }
-      }
-  
-      .inputValid {
-        font-size: 16px;
-        width: 100%;
-        background-color: unset;
-        padding-right: 70px;
-        line-height: 16px;
-  
-        &::placeholder {
-          color: #ADB5BD;
-          font-size: 12px;
-        }
-      }
-  
-      .icon {
-        position: absolute;
-        right: 15px;
-        bottom: 16px;
-      }
-  
-      .btnLogin {
-        cursor: pointer;
-        margin-top: 50px;
-        justify-content: center;
-        width: 100%;
-        border: unset;
-        color: white;
-        border-radius: 8px;
-        font-weight: 700;
-        font-size: 18px;
-        line-height: 20px;
-        height: 48px;
-        background-color: #0D6EFD;
-  
-        &:hover {
-          background-color: blue;
-        }
-      }
-  
-      a {
-        padding: 20px 0 36px 0;
-        text-decoration: unset;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 20px;
-        color: #0D6EFD;
-  
-        &:hover {
-          color: blue;
-        }
-      }
-  
-      .endText {
-        padding-top: 40px;
-        text-align: center;
-        font-weight: 300;
-        font-size: 12px;
-        line-height: 16px;
-        color: #82888E;
       }
     }
-  }
-  
+
+  }}
+
