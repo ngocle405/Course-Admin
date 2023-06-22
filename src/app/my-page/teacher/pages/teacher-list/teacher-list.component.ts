@@ -6,13 +6,14 @@ import { cloneDeep } from 'lodash';
 import { MenuItem } from 'primeng/api';
 import { TeacherModel } from '../../models/teacher.model';
 import { TeacherService } from 'src/app/features/employees/teacher/services/teacher.service';
+import { HomeService } from 'src/app/my-page/services/home.service';
 @Component({
   selector: 'app-teacher-list',
   templateUrl: './teacher-list.component.html',
   styleUrls: ['./teacher-list.component.scss'],
 })
 export class TeacherListComponent extends BaseComponent implements OnInit   {
-  constructor(injector:Injector,private service:TeacherService) {
+  constructor(injector:Injector,private service:HomeService) {
     super(injector)
    
   }

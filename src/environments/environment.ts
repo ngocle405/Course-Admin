@@ -4,12 +4,6 @@
 
 export const environment = {
   production: false,
-  keycloak: {
-    issuer: 'https://keycloak.lptech.vn/auth/',
-    realm: 'hris',
-    client: 'frontend',
-    realmManagement: 'realm-management',
-  },
   endpoint_url: 'http://localhost:53421/api',
 };
 
