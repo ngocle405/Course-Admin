@@ -24,14 +24,3 @@ export class GuardService implements CanActivate {
     });
   }
 }
-export class CheckLoadPageService implements CanActivate {
-  constructor(private streamData: StreamDataService, private router: Router) {}
-  canActivate(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<boolean>  {
-    return new Observable<boolean>((_observable) => {
-      setTimeout(() => {
-        this.streamData.passData(APP_LOADING, true);
-        return _observable.next(true);
-      }, 1000);
-    });
-  }
-}

@@ -16,8 +16,8 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   model = {
     searchName: '',
     courseCategoryId: '',
-    pageSize:999,
-    pageIndex:1
+    pageSize: 999,
+    pageIndex: 1,
   };
   listCourseCategory: any = [];
   listCourse: any = [];
@@ -46,10 +46,17 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     this.getCourseCategory();
   }
   search() {
-    this.service.search(this.model).subscribe({
-      next: (value) => {
-        this.listCourse = value?.content;
-      },
-    });
+    this.loadingService.start();
+    if (this.model.searchName === '' && this.model.courseCategoryId === '') {
+      this.listCourse = [];
+      this.loadingService.complete();
+    } else {
+      this.service.search(this.model).subscribe({
+        next: (value) => {
+          this.listCourse = value?.content;
+          this.loadingService.complete();
+        },
+      });
+    }
   }
 }

@@ -14,7 +14,7 @@ export class NotificationMessageService implements OnDestroy {
     summary: 'Thông báo',
     life: 10000,
   };
-  constructor(private http1: HttpClient) {}
+  constructor() {}
 
   success(message: string, isDialog?: boolean) {
     if (!isDialog) {

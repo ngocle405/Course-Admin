@@ -1,5 +1,4 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { CommonCategoryService } from '@cores/services/common-category.service';
 import { ScreenType } from '@cores/utils/enums';
 import { BaseComponent, BaseTableComponent } from '@shared/components';
 import { MenuItem } from 'primeng/api';

@@ -82,7 +82,7 @@ export class CourseActionComponent extends BaseActionComponent implements OnInit
     //let obj = JSON.parse(event.files[0]);
     const formData: FormData = new FormData();
     formData.append('uploadFiles', event.files[0]);
-    this.service.UploadFileFormData(JSON.stringify(formData)).subscribe({
+    this.service.UploadFileFormData(formData).subscribe({
       next: (file) => {
         this.form.get('image')?.setValue(file);
       },

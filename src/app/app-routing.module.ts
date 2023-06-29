@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CheckLoadPageService, GuardService } from './core/services/guard.service';
+import {GuardService } from './core/services/guard.service';
 import { LoginComponent } from '@shared/login/login.component';
 
 const routes: Routes = [
@@ -17,8 +17,8 @@ const routes: Routes = [
     path: 'login',
     component:LoginComponent
   },
-  { path: '', redirectTo: 'page', pathMatch: 'full' },
-  { path: '**', redirectTo: 'page' },
+  { path: '', redirectTo: 'page/dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: 'page/dashboard' },
 ];
 
 @NgModule({

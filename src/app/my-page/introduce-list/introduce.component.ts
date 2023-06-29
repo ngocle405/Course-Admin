@@ -1,5 +1,4 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { CommonCategoryService } from '@cores/services/common-category.service';
 import { BaseComponent } from '@shared/components';
 import { HomeService } from '../services/home.service';
 

@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileModel } from 'src/app/core/models/user-profile.model';
-import { CommonCategoryService } from 'src/app/core/services/common-category.service';
 import { SessionService } from 'src/app/core/services/session.service';
 import { StreamDataService } from 'src/app/core/services/stream-data.service';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -35,7 +34,6 @@ export class BaseTableComponent<M> implements OnDestroy {
   protected streamDataService: StreamDataService | undefined;
   protected sessionService: SessionService | undefined;
   protected ref: ChangeDetectorRef | undefined;
-  protected commonService: CommonCategoryService | undefined;
   protected fb: FormBuilder | undefined;
 
   stateData: any;
@@ -72,7 +70,6 @@ export class BaseTableComponent<M> implements OnDestroy {
     this.streamDataService = this.injector.get(StreamDataService);
     this.sessionService = this.injector.get(SessionService);
     this.ref = this.injector.get(ChangeDetectorRef);
-    this.commonService = this.injector.get(CommonCategoryService);
     this.loadingService = this.injector.get(LoadingService);
   }
 

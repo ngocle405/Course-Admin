@@ -1,5 +1,4 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { CommonCategoryService } from '@cores/services/common-category.service';
 import { BaseComponent, BaseTableComponent } from '@shared/components';
 import { cloneDeep } from 'lodash';
 import { CourseService } from 'src/app/features/administration/course/service/course.service';

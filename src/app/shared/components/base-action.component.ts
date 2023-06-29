@@ -2,19 +2,15 @@ import { fromEvent, Subscription, of as observableOf } from 'rxjs';
 import { Injector, OnDestroy, ChangeDetectorRef, Component, ViewChildren, QueryList,Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserProfileModel } from 'src/app/core/models/user-profile.model';
-import { CommonCategoryService } from 'src/app/core/services/common-category.service';
-import { SessionService } from 'src/app/core/services/session.service';
 import { StreamDataService } from 'src/app/core/services/stream-data.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NotificationMessageService } from 'src/app/core/services/message.service';
-import { ScreenType, SessionKey } from 'src/app/core/utils/enums';
+import { ScreenType } from 'src/app/core/utils/enums';
 import { FunctionModel } from 'src/app/core/models/function.model';
-import { cleanDataForm, validateAllFormFields } from 'src/app/core/utils/common-functions';
 import * as _ from 'lodash';
 import { BaseService } from 'src/app/core/services/base.service';
 import { FileUpload } from 'primeng/fileupload';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { LoadingService } from '@cores/services/loading.service';
 
 @Component({
@@ -31,7 +27,6 @@ export class BaseActionComponent implements OnDestroy {
   protected location: Location | undefined;
   protected streamDataService: StreamDataService | undefined;
   protected ref: ChangeDetectorRef | undefined;
-  protected commonService: CommonCategoryService | undefined;
   protected fb: FormBuilder | undefined;
   protected refDialog!: DynamicDialogRef;
   protected configDialog!: DynamicDialogConfig;

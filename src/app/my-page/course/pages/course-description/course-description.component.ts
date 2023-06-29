@@ -1,5 +1,4 @@
 import { Component, Injector, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { CommonCategoryService } from '@cores/services/common-category.service';
 import { BaseComponent, BaseTableComponent } from '@shared/components';
 import { MenuItem } from 'primeng/api';
 import { CourseModel } from '../../models/course.model';
