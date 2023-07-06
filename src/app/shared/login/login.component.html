@@ -10,7 +10,7 @@
           <div class="wrapperForm">
             <div class="hello">Chào mừng bạn</div>
             <div class="welcomeTo">đã đến với NL Tech</div>
-            <form [formGroup]="form" class="formLogin">
+            <form [formGroup]="form" class="formLogin" (submit)="onLogin()">
               <ng-container>
                 <div class="usernameInput">
                   <div>
@@ -27,7 +27,7 @@
                   <div>
                     <label class="titleInput">Mật khẩu</label>
                   </div>
-                  <input id="username" (keyup.enter)="onLogin()" name="password" placeholder="Nhập mật khẩu của bạn" [type]="showPass ? 'password' : 'text'"
+                  <input id="username"  name="password" placeholder="Nhập mật khẩu của bạn" [type]="showPass ? 'password' : 'text'"
                     pInputText formControlName="password" noSpace  />
                   <span (click)="showPassword()" class="showPassword"><i style="font-size: 18px"
                       [ngClass]="showPass? 'pi pi-eye' : 'pi pi-eye-slash'"></i></span>
@@ -37,7 +37,7 @@
               </div>
               </ng-container>
               <div>
-                <button type="button" class="btnLogin" [fxDebounceClick]="1000" (click)="onLogin()">Đăng nhập</button>
+                <button type="submit" class="btnLogin" [fxDebounceClick]="1000" >Đăng nhập</button>
               </div>
               <div class="endText">
                 NL Tech version 1.0 - Copy right 2023 by  
