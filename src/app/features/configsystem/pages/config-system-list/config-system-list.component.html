@@ -30,12 +30,14 @@
       </div>
     </div>
     <div class="p-toolbar-group-right">
+      <button pButton (click)="deleteRange()" label="Delete " icon="pi pi-trash" class="mr-2"></button>
       <button pButton (click)="viewCreate()" label="New" icon="pi pi-plus" class="mr-2"></button>
     </div>
   </p-toolbar>
-  <p-table [value]="dataTable.content" responsiveLayout="scroll">
+  <p-table [value]="dataTable.content" responsiveLayout="scroll" [(selection)]="selectedItem">
     <ng-template pTemplate="header">
       <tr>
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         <th>STT</th>
         <th>Logo</th>
         <th>Đia chỉ</th>
@@ -50,6 +52,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
       <tr>
+        <p-tableCheckbox [value]="item.systemId"></p-tableCheckbox>
         <td>{{ i + 1 }}</td>
         <td>
           <p-image src="http://localhost:53421/Upload/Files/{{ item.image }}" alt="Image" width="50px"></p-image>

@@ -10,13 +10,14 @@ import { ConfigSystemService } from '../../service/config-system.service';
   styleUrls: ['./config-system-list.component.scss'],
 })
 export class ConfigSystemListComponent extends BaseTableComponent<ConfigSystemModel> implements OnInit {
-  constructor(inject: Injector, service: ConfigSystemService) {
-    super(inject, service);
+  constructor(inject: Injector,public services: ConfigSystemService) {
+    super(inject, services);
   }
   override params: ConfigSystemModel = {
     status: '',
     searchAddress: '',
   };
+  selectedItem=[];
   ngOnInit(): void {}
   onReset() {}
   override initConfigAction(): void {
@@ -24,5 +25,15 @@ export class ConfigSystemListComponent extends BaseTableComponent<ConfigSystemMo
       title: 'Quản trị hệ thống',
       component: ConfigsystemActionComponent,
     };
+  }
+  deleteRange() {
+    console.log(this.selectedItem);
+    
+    this.services.deleteSelected(this.selectedItem ).subscribe({
+      next: (value) => {
+        this.messageService?.success('Success');
+        this.search();
+      },
+    });
   }
 }
