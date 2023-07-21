@@ -2,20 +2,15 @@
   <div class="grid">
     <div class="col-3">
       <span class="p-float-label">
-        <input inputId="name" type="text" class="p-inputtext-sm" uppercase [(ngModel)]="params.searchAddress" pInputText />
+        <input inputId="name" type="text" class="p-inputtext-sm" uppercase [(ngModel)]="params.searchAddress"
+          pInputText />
         <label for="name">Mã học viên</label>
       </span>
     </div>
     <div class="col-3">
       <span class="p-float-label">
-        <p-dropdown
-          [options]="stateData!.listStatus"
-          class="p-inputtext-sm"
-          [(ngModel)]="params.status"
-          optionLabel="name"
-          optionValue="value"
-          [autoDisplayFirst]="false"
-        >
+        <p-dropdown [options]="stateData!.listStatus" class="p-inputtext-sm" [(ngModel)]="params.status"
+          optionLabel="name" optionValue="value" [autoDisplayFirst]="false">
         </p-dropdown>
         <label for="icon">Trạng thái</label>
       </span>
@@ -37,7 +32,10 @@
   <p-table [value]="dataTable.content" responsiveLayout="scroll" [(selection)]="selectedItem">
     <ng-template pTemplate="header">
       <tr>
-        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+
+        <th>
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
         <th>STT</th>
         <th>Logo</th>
         <th>Đia chỉ</th>
@@ -52,7 +50,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex">
       <tr>
-        <p-tableCheckbox [value]="item.systemId"></p-tableCheckbox>
+        <td>
+          <p-tableCheckbox [value]="item.systemId"></p-tableCheckbox>
+        </td>
         <td>{{ i + 1 }}</td>
         <td>
           <p-image src="http://localhost:53421/Upload/Files/{{ item.image }}" alt="Image" width="50px"></p-image>
@@ -82,11 +82,6 @@
     </ng-template>
   </p-table>
 
-  <p-paginator
-    [showCurrentPageReport]="true"
-    [rows]="dataTable!.size"
-    [totalRecords]="dataTable!.totalElements"
-    [rowsPerPageOptions]="[10, 20, 30]"
-    (onPageChange)="pageChange($event)"
-  ></p-paginator>
+  <p-paginator [showCurrentPageReport]="true" [rows]="dataTable!.size" [totalRecords]="dataTable!.totalElements"
+    [rowsPerPageOptions]="[10, 20, 30]" (onPageChange)="pageChange($event)"></p-paginator>
 </div>

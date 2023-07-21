@@ -25,6 +25,6 @@ export class ConfigSystemService extends BaseService {
     return of(this.state);
   }
   deleteSelected(data:any){
-    return this.http.post<any[]>(`${this.baseUrl}/range`, data);
+    return this.http.delete<any[]>(`${this.baseUrl}/range`, data);
   }
 }
