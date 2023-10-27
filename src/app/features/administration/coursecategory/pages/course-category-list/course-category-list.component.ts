@@ -4,6 +4,7 @@ import { BaseTableComponent } from '@shared/components';
 import { CourseCategoryActionComponent } from '../../components';
 import { CourseCategoryModel, StateCourseCategory } from '../../models/course-category.model';
 import { CourseCategoryService } from '../../services/course-category.service';
+import { Subject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-course-category-list',
@@ -21,8 +22,7 @@ export class CourseCategoryListComponent extends BaseTableComponent<CourseCatego
       component:CourseCategoryActionComponent
     }
   };
-  ngOnInit(): void {
-  }
+
   override stateData:StateCourseCategory | undefined;
   override params: CourseCategoryModel ={
       searchCode:'',
@@ -36,6 +36,12 @@ export class CourseCategoryListComponent extends BaseTableComponent<CourseCatego
       status: ''
     }
     this.search();
+  }
+
+
+
+  ngOnInit(): void {
+  
   }
 
 }

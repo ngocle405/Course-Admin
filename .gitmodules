@@ -1,3 +1,4 @@
 [submodule "src/environments/shopping"]
 	path = src/environments/shopping
 	url = https://github.com/ngoclethanh/shopping.git
+	branch = main

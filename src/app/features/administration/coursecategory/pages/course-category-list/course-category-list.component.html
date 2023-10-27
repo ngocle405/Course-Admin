@@ -2,7 +2,7 @@
   <div class="grid">
     <div class="col-4">
       <span class="p-float-label">
-        <input inputId="name" type="text" class="p-inputtext-sm" [(ngModel)]="params.searchCode" pInputText />
+        <input inputId="name" type="text" class="p-inputtext-sm" [(ngModel)]="params.searchCode" pInputText (keyup.enter)="search()"/>
         <label for="name">Mã loại </label>
       </span>
     </div>
