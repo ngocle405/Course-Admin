@@ -31,4 +31,7 @@ export class ClassService extends BaseService{
   getTeacher() {
     return this.http.get<TeacherModel[]>(`${environment.endpoint_url}/Teachers`);
   }
+  getSwitchMap( name: string) {
+    return this.http.get(this.baseURL + `/Paging?pageIndex=1&pageSize=100&className=&teacherId=&status=&searchName=${name}`);
+  }
 }

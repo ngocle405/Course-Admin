@@ -93,3 +93,9 @@
     (onPageChange)="pageChange($event)"
   ></p-paginator>
 </div>
+<br>
+<h1>Search Example with switchMap</h1>
+<input type="text" [formControl]="searchInput" placeholder="Enter a search term" />
+<ul>
+  <li *ngFor="let result of searchResults">{{ result.className }}</li>
+</ul>
