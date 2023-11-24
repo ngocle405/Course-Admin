@@ -2,6 +2,7 @@ import { Component, OnInit,Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '@cores/services/login.service';
 import { NotificationMessageService } from '@cores/services/message.service';
+import { getFromLocalStorage } from '@cores/utils/common-functions';
 
 @Component({
   selector: 'app-topbar',
@@ -19,10 +20,8 @@ export class AppTopBarComponent implements OnInit {
     //     clearInterval(interval);
     //   }
     // });
-    const admin = JSON.parse(sessionStorage.getItem('user') || '{}');
+    const admin:any = getFromLocalStorage('user');
     this.hovaten = admin.user;   
-    console.log(this.hovaten,admin.user);
-    
     
   }
   logout() {//chế thêm

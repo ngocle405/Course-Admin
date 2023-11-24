@@ -12,7 +12,7 @@ import { getFromLocalStorage } from '@cores/utils/common-functions';
 export class GuardService implements CanActivate {
   constructor(private streamData: StreamDataService, private router: Router) {}
   canActivate(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<boolean>  {
-    const user = JSON.parse(sessionStorage.getItem('user')!);
+    const user = JSON.parse(getFromLocalStorage('user')!);
 
     return new Observable<boolean>((_observable) => {
       if (!user) {
