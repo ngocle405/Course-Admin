@@ -1,9 +1,10 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, inject } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { DataTable } from '../models/data-table.model';
 import { FieldType } from './enums';
+import { CanMatchFn, Router } from '@angular/router';
 
 export function cleanDataForm(formGroup: FormGroup) {
   const form = formGroup;
@@ -140,13 +141,26 @@ export function updateValidity(control: AbstractControl | null, validators: Vali
   control?.updateValueAndValidity();
 }
 
-export function getFromSesionStorage(key: string): string | null {
-  return JSON.parse(sessionStorage.getItem(key)!);
+
+export function getFromLocalStorage(key: string): string  {
+  return JSON.parse(localStorage.getItem(key)!);
 }
-export function removeSesionStorage(key: string){
-  return sessionStorage.removeItem(key);
+export function removeLocalStorage(key: string){
+  return localStorage.removeItem(key);
 }
-export function setSesionStorage(key: string,value:string):string {
-  return sessionStorage.setItem(key,JSON.stringify(value))!;
+export function setLocalStorage(key: string,value:string):string {
+  return localStorage.setItem(key,JSON.stringify(value))!;
 }
+export const AuthGuard: CanMatchFn = (route, state) =>  {
+  const token = getFromLocalStorage('access_token');
+  const router = inject(Router);
+  if (token) {
+    return true;
+  }
+  else
+  void router.navigateByUrl('/login');
+  getFromLocalStorage('user');
+  return false;
+};
+
 

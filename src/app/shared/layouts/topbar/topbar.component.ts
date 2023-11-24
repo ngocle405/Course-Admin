@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '@cores/services/login.service';
+import { NotificationMessageService } from '@cores/services/message.service';
 
 @Component({
   selector: 'app-topbar',
@@ -9,7 +10,7 @@ import { LoginService } from '@cores/services/login.service';
 export class AppTopBarComponent implements OnInit {
   fullName: string = '';
   constructor(private router: Router,private loginService:LoginService) { }
-  hovaten: any;
+  hovaten: string ='';
   ngOnInit() {
     // const interval = setInterval(() => {
     //   const user = this.sessionService.getSessionData(SessionKey.UserProfile);
@@ -18,17 +19,13 @@ export class AppTopBarComponent implements OnInit {
     //     clearInterval(interval);
     //   }
     // });
-    const admin = JSON.parse(sessionStorage.getItem('admin') || '{}');
-    this.hovaten = admin.fullName;
-    // if (admin !== null) {
-    //   admin = parseInt(admin);
-    // }
-    console.log(
-      admin);
+    const admin = JSON.parse(sessionStorage.getItem('user') || '{}');
+    this.hovaten = admin.user;   
+    console.log(this.hovaten,admin.user);
+    
     
   }
   logout() {//chế thêm
     this.loginService.logout();
-    this.router.navigateByUrl('/login');
   }
 }

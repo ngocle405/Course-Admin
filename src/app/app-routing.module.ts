@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {GuardService } from './core/services/guard.service';
 import { LoginComponent } from '@shared/login/login.component';
+import { AuthGuard } from '@cores/utils/common-functions';
 
 const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./features/features.module').then((m) => m.FeaturesModule),
-    canActivate: [GuardService],
+    canMatch: [AuthGuard],
   },
   {
     path: 'page',
