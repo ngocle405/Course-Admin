@@ -12,7 +12,7 @@ export class Interceptor implements HttpInterceptor {
 
     if (token) {
       const payload = this.authService.parseJwt(token); // decode JWT payload part.
-      if (Date.now() >= payload.exp * 1000) { // Check token exp.
+      if (payload.exp * 1000 <= Date.now()) { // Check token exp phải > giờ hiện tại mới đúng,còn không logout
         // redirect user to login page or auto refresh user's token and then replace the expired one and continue the process.
         void this.authService.logout();
       }

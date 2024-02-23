@@ -84,7 +84,13 @@
     <div class="layout-topbar-right fadeInDown">
       <ul class="layout-topbar-actions">
         <li class="topbar-item">
-          <a href="#" (click)="$event.preventDefault()"><i class="topbar-icon pi pi-bell"></i></a>
+          <a href="#" (click)="$event.preventDefault();opNotify.toggle($event)"><i class="topbar-icon pi pi-bell"></i>
+          
+            <em
+              *ngIf="countNotifications;"
+              [value]="countNotifications < 100 ? countNotifications!.toString() : '+99'" class="topbar-icon pi pi-bell"
+              pBadge severity="danger"></em>
+          </a>
           <!-- <ul class="fadeInDown">
             <li class="layout-submenu-header"><h1>Deals</h1></li>
             <li class="deals">
@@ -255,3 +261,27 @@
     </div>
   </div>
 </div>
+<p-overlayPanel #opNotify 
+                id="op-notify" styleClass="op-notify" (onShow)="onShowNotify()">
+  <!-- <div class="mb-2 text-xl font-medium">{{ 'MESSAGE.NOTIFICATION' | translate }}</div>
+  <div (scrolled)="onScrollDown($event)"
+       [infiniteScrollDistance]="scrollDistance"
+       [infiniteScrollThrottle]="throttle"
+       [infiniteScrollUpDistance]="scrollUpDistance"
+       [scrollWindow]="false"
+       class="section-notify"
+       infinite-scroll>
+    <div *ngFor="let item of virtualNotifications" [class.no-read]="!item.isRead"
+         class="flex align-items-center item-notify">
+      <div class="pr-3">
+        <em [class]="getIconNotify(item)"></em>
+      </div>
+      <div>
+        <a (click)="$event.preventDefault(); doDetailRequest(item, opNotify)" class="mb-2 block"
+           href="#">{{ getTitleNotification(item) }}</a>
+        <span>{{ getTime(item) }}</span>
+      </div>
+    </div>
+  </div> -->
+  <div>test</div>
+</p-overlayPanel>

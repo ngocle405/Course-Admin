@@ -2,16 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseService } from '@cores/services/base.service';
 import { environment } from '@env';
-import { catchError, forkJoin, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, forkJoin, interval, map, Observable, of, Subject } from 'rxjs';
 import { TeacherModel } from '../models/class.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class ClassService extends BaseService{
-
-  constructor(http:HttpClient) {
-    super(http,`${environment.endpoint_url}/classes`);
+export class ClassService extends BaseService {
+  constructor(http: HttpClient) {
+    super(http, `${environment.endpoint_url}/classes`);
   }
   override getState(): Observable<any> {
     this.state = {
@@ -21,17 +20,33 @@ export class ClassService extends BaseService{
       ],
     };
     return forkJoin({
-
-      listTeacher: this.getTeacher()
-        .pipe(catchError(() => of([]))),
-    }).pipe(map((data: any) => (this.state = {
-      ...this.state, ...data
-    })));
+      listTeacher: this.getTeacher().pipe(catchError(() => of([]))),
+    }).pipe(
+      map(
+        (data: any) =>
+          (this.state = {
+            ...this.state,
+            ...data,
+          })
+      )
+    );
   }
   getTeacher() {
     return this.http.get<TeacherModel[]>(`${environment.endpoint_url}/Teachers`);
   }
-  getSwitchMap( name: string) {
-    return this.http.get(this.baseURL + `/Paging?pageIndex=1&pageSize=100&className=&teacherId=&status=&searchName=${name}`);
+  getSwitchMap(name: string) {
+    return this.http.get(
+      this.baseURL + `/Paging?pageIndex=1&pageSize=100&className=&teacherId=&status=&searchName=${name}`
+    );
+  }
+
+  getNotification() {
+    return new Observable((obs) => {
+        this.http.get(this.baseURL).subscribe({
+          next: (res) => {
+            obs.next(res);
+          },
+        });
+    });
   }
 }

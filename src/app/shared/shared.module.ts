@@ -34,6 +34,7 @@ import {EditorModule} from 'primeng/editor';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { TagModule } from 'primeng/tag';
 import { DebounceClickDirective, ToUpperCaseDirective } from './directives/directives';
+import { BadgeModule } from 'primeng/badge';
 const COMPONENTS = [...components, ...layouts];
 const PIPES: never[] = [];
 
@@ -68,6 +69,7 @@ const MODULES = [
   InputSwitchModule,
   OrganizationChartModule,
   ImageModule,
+  BadgeModule,
 EditorModule,
 OverlayPanelModule,
 TagModule

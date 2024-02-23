@@ -40,5 +40,17 @@
         </div>
       </div>
     </div>
+
+
+   <div class="flex p-3">
+    <button (click)="getObs()" pButton>Click Obs</button>
+    <button (click)="getSub()" pButton>Click Subject</button>
+   </div>
+
+    <div class="flex " style="justify-content: center;">
+     obs: {{obsData +'\t| \t'+ obsData2}}
+
+     subject: {{subData +'\t| \t'+ subData2}}
+    </div>
   </div>
 </div>
