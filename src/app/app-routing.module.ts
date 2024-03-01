@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {GuardService } from './core/services/guard.service';
-import { LoginComponent } from '@shared/login/login.component';
 import { AuthGuard } from '@cores/utils/common-functions';
 
 const routes: Routes = [
@@ -15,8 +13,8 @@ const routes: Routes = [
     loadChildren: () => import('./my-page/my-page.module').then((m) => m.MyPageModule),
   },
   {
-    path: 'login',
-    component:LoginComponent
+    path:'auth',
+    loadChildren:()=>import('./shared/auth/auth.module').then((m)=>m.AuthModule)
   },
   { path: '', redirectTo: 'page/dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'page/dashboard' },

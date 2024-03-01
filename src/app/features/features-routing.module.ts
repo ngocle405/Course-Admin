@@ -36,6 +36,7 @@ const routes: Routes = [
         path: 'payment',
         loadChildren: () => import('./payments/payments.module').then((m) => m.PaymentsModule),
       },
+     
       // {
       //   path: '',
       //   redirectTo: 'dashboard',

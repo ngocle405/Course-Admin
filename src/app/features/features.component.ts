@@ -10,13 +10,13 @@ import { ConfirmDialogComponent } from '../shared/components';
   selector: 'app-main',
   template: `<div [class]="classNameLayout">
       <app-menu (staticMenu)="onStaticMenu($event)"></app-menu>
-      <div [ngClass]="{ 'layout-main': true, 'layout-overflow-hidden': loading }">
+      <div [ngClass]="{ 'layout-main': true, 'layout-overflow-hidden': loading.loading }">
         <app-topbar></app-topbar>
         <!-- <app-rightpanel></app-rightpanel> -->
         <app-breadcrumb></app-breadcrumb>
         <!-- <div class="layout-mask" [ngClass]="{'layout-mask-active': menuActive}" (click)="onMaskClick()"></div> -->
         <div class="layout-content">
-          <app-loading *ngIf="loading"></app-loading>
+          <app-loading *ngIf="loading.loading"></app-loading>
           <router-outlet></router-outlet>
         </div>
         <!-- <app-footer></app-footer> -->
@@ -31,7 +31,7 @@ export class FeaturesComponent implements OnDestroy {
     private service: NotificationMessageService,
     private messageService: MessageService,
     public dialogService: DialogService,
-    private loadingService: LoadingService,
+    public loading: LoadingService,
     private ref: ChangeDetectorRef
   ) {
     this.subscription.push(
@@ -45,7 +45,6 @@ export class FeaturesComponent implements OnDestroy {
       })
     );
   }
-  loading = false;
   subscription: Subscription[] = [];
   classNameLayout = 'layout-wrapper layout-menu-light';
 
@@ -76,8 +75,7 @@ export class FeaturesComponent implements OnDestroy {
   }
   //mới
   ngAfterContentChecked() {
-    this.loadingService.showLoading.subscribe((res: boolean) => {
-      this.loading = res;
+    this.loading.showLoading.subscribe((res: boolean) => {
     });
     this.ref.detectChanges();
   }

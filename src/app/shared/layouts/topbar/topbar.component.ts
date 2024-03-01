@@ -34,11 +34,11 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     //       },
     //     });
     //   }, 12000);
-    this.interval= setInterval(()=>{
-      this.notifyService.getNotification().subscribe((data: any) => {
-        this.notifications.push(data); // Giả sử thông báo được trả về từ máy chủ là một đối tượng có thuộc tính message
-      });
-    },10000)
+    // this.interval= setInterval(()=>{
+    //   this.notifyService.getNotification().subscribe((data: any) => {
+    //     this.notifications.push(data); // Giả sử thông báo được trả về từ máy chủ là một đối tượng có thuộc tính message
+    //   });
+    // },10000)
      
   }
   logout() {

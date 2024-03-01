@@ -52,5 +52,7 @@
 
      subject: {{subData +'\t| \t'+ subData2}}
     </div>
+    <input [(ngModel)]="value">
   </div>
+  <app-sub-dashboard [inputValue]="value" (dataOut)="onData($event)"></app-sub-dashboard>
 </div>

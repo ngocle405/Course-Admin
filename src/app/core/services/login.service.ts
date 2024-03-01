@@ -28,7 +28,7 @@ export class LoginService  extends BaseService {
   logout() {
     removeLocalStorage('user');
     removeLocalStorage('access_token');
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/auth/login');
     this.adminLogin.next(null!);
   }
   getToken(): string | null {

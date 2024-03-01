@@ -29,12 +29,10 @@ export class Interceptor implements HttpInterceptor {
         let data = {};
         if (error instanceof HttpErrorResponse) {
           if (error.status === 401) {
-            console.log(401);
             
             // redirect user to the logout page
           }
         }
-        console.log(error, 'hết hạn');
         return throwError(() => error);
       })
     );

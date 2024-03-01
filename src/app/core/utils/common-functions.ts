@@ -141,26 +141,21 @@ export function updateValidity(control: AbstractControl | null, validators: Vali
   control?.updateValueAndValidity();
 }
 
-
-export function getFromLocalStorage(key: string): string  {
+export function getFromLocalStorage(key: string): string {
   return JSON.parse(localStorage.getItem(key)!);
 }
-export function removeLocalStorage(key: string){
+export function removeLocalStorage(key: string) {
   return localStorage.removeItem(key);
 }
-export function setLocalStorage(key: string,value:string):string {
-  return localStorage.setItem(key,JSON.stringify(value))!;
+export function setLocalStorage(key: string, value: string): string {
+  return localStorage.setItem(key, JSON.stringify(value))!;
 }
-export const AuthGuard: CanMatchFn = (route, state) =>  {
+export const AuthGuard: CanMatchFn = (route, state) => {
   const token = getFromLocalStorage('access_token');
   const router = inject(Router);
   if (token) {
     return true;
-  }
-  else
-  void router.navigateByUrl('/login');
+  } else void router.navigateByUrl('/auth/login');
   getFromLocalStorage('user');
   return false;
 };
-
-

@@ -16,7 +16,7 @@ export class GuardService implements CanActivate {
 
     return new Observable<boolean>((_observable) => {
       if (!user) {
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/auth/login');
       }
       setTimeout(() => {
         this.streamData.passData(APP_LOADING, true);

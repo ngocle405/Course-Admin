@@ -4,7 +4,6 @@ import { BaseTableComponent } from './base-table.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ConfirmDialogComponent } from './confirm/confirm.component';
 import { ErrorComponent } from './f-errors/f-errors.component';
-import { LoginComponent } from '@shared/login/login.component';
 
 export const components: any[] = [
   BaseComponent,
@@ -21,4 +20,3 @@ export * from './confirm/confirm.component';
 export * from './base-table.component';
 export * from './base-action.component';
 export * from './f-errors/f-errors.component';
-export * from '../login/login.component';

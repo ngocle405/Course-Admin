@@ -1,0 +1,8 @@
+<p>sub-dashboard works!</p>
+<input type="text" [(ngModel)]="progress">
+{{progress1}}
+    <div *ngIf="validationError" style="color: red;">{{ validationError }}</div>
+
+
+<input type="text" #inpit>
+    <button type="button" (click)="checkDashboard(inpit.value)">click home</button>

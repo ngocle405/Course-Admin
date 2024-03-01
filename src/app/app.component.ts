@@ -18,19 +18,10 @@ export class AppComponent implements OnInit {
         this.loaded = true;
       }
     });
-    this.router.events.subscribe(() => {
-      this.checkRouting();
-    });
   }
 
   ngOnInit() {
     this.primeNGConfig.ripple = true;
-    this.checkRouting();
-    
   }
-  checkRouting() {
-    if (this.router.url === '/login') {
-      this.loaded = true;
-    }
-  }
+ 
 }
